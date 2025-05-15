@@ -196,12 +196,13 @@
   let isFirstRecord = true;
   let recordTimeout;
 
-  // อัดเสียงสูงสุด 3 นาที (180000 ms)
-  const MAX_RECORD_TIME_MS = 180000;
+  // อัดเสียงสูงสุด 4 นาที (240000 ms)
+  const MAX_RECORD_TIME_MS = 240000;
 
   // ใส่ไฟล์เสียงทักทาย (เปลี่ยนลิงก์เป็นไฟล์ของคุณ)
   const greetingAudio = new Audio('https://cdn.pixabay.com/download/audio/2021/09/26/audio_91cdb6b2ce.mp3?filename=happy-christmas-12694.mp3');
 
+  // ฟังก์ชันเล่นเสียงทักทายก่อนอัด
   async function playGreeting() {
     try {
       if (audioContext && audioContext.state === 'suspended') {
@@ -323,7 +324,7 @@
     recordTimeout = setTimeout(() => {
       if (mediaRecorder && mediaRecorder.state === 'recording') {
         stopRecording();
-        alert('หมดเวลาบันทึกเสียง 3 นาที');
+        alert('หมดเวลาบันทึกเสียง 4 นาที');
       }
     }, MAX_RECORD_TIME_MS);
   }
