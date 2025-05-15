@@ -26,7 +26,7 @@
     justify-content: center;
   }
   header img {
-    max-height: 150px;
+    max-height: 80px;
     object-fit: contain;
   }
   h1 {
@@ -137,7 +137,7 @@
 </head>
 <body>
 <header>
-  <img src="https://i.imgur.com/n0DtfkQ.jpg" alt="โลโก้งานแต่ง" width="150" />
+  <img src="https://via.placeholder.com/150x80?text=โลโก้งาน" alt="โลโก้งานแต่ง" />
 </header>
 
 <div class="container">
@@ -196,18 +196,24 @@
   let isFirstRecord = true;
   let recordTimeout;
 
-  // อัดเสียงสูงสุด 4 นาที (240000 ms)
-  const MAX_RECORD_TIME_MS = 240000;
+  // อัดเสียงสูงสุด 3 นาที (180000 ms)
+  const MAX_RECORD_TIME_MS = 180000;
 
   // ใส่ไฟล์เสียงทักทาย (เปลี่ยนลิงก์เป็นไฟล์ของคุณ)
-  const greetingAudio = new Audio('https://natiphol.github.io/33/Test.mp3');
+  const greetingAudio = new Audio('https://cdn.pixabay.com/download/audio/2021/09/26/audio_91cdb6b2ce.mp3?filename=happy-christmas-12694.mp3');
 
-  // ฟังก์ชันเล่นเสียงทักทายก่อนอัด
-  function playGreeting() {
-    return new Promise(resolve => {
-      greetingAudio.play();
-      greetingAudio.onended = resolve;
-    });
+  async function playGreeting() {
+    try {
+      if (audioContext && audioContext.state === 'suspended') {
+        await audioContext.resume();
+      }
+      await greetingAudio.play();
+      await new Promise(resolve => {
+        greetingAudio.addEventListener('ended', resolve, { once: true });
+      });
+    } catch (err) {
+      console.log('ไม่สามารถเล่นเสียงทักทายได้:', err);
+    }
   }
 
   function drawVisualizer() {
@@ -293,15 +299,15 @@
       if (!ready) return;
     }
 
+    startBtn.disabled = true;
+
     if (isFirstRecord) {
-      startBtn.disabled = true;
       greetingText.textContent = 'เจ้าบ่าวเจ้าสาวกำลังทักทาย...';
       await playGreeting();
       greetingText.textContent = 'กำลังบันทึกเสียง กรุณาพูดได้เลย';
       isFirstRecord = false;
     } else {
       greetingText.textContent = 'กำลังบันทึกเสียง กรุณาพูดได้เลย';
-      startBtn.disabled = true;
     }
 
     audioChunks = [];
@@ -314,11 +320,10 @@
 
     drawVisualizer();
 
-    // หยุดอัตโนมัติ 4 นาที
     recordTimeout = setTimeout(() => {
       if (mediaRecorder && mediaRecorder.state === 'recording') {
         stopRecording();
-        alert('หมดเวลาบันทึกเสียง 4 นาที');
+        alert('หมดเวลาบันทึกเสียง 3 นาที');
       }
     }, MAX_RECORD_TIME_MS);
   }
@@ -345,13 +350,11 @@
     }
   }
 
-  // ปุ่มอัปโหลดยังไม่เชื่อมระบบ คลิกแล้วแจ้งเตือนเท่านั้น
   function uploadAudio() {
     if (!audioBlob) return;
     alert('ฟีเจอร์อัปโหลดยังไม่พร้อมในเวอร์ชันนี้');
   }
 
-  // ปรับ canvas ขนาดให้เหมาะกับหน้าจอทุกครั้ง
   function resizeCanvas() {
     canvas.width = canvas.clientWidth * window.devicePixelRatio;
     canvas.height = canvas.clientHeight * window.devicePixelRatio;
@@ -362,7 +365,6 @@
     resizeCanvas();
   });
 
-  // Event listeners
   startBtn.addEventListener('click', startRecording);
   stopBtn.addEventListener('click', stopRecording);
   retryBtn.addEventListener('click', retryRecording);
