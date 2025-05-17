@@ -241,6 +241,31 @@
   </div>
   
 <script>
+  const weddingDate = new Date("2025-06-08T15:30:00+07:00"); // เวลาเริ่มงาน
+const countdownEl = document.getElementById("countdown");
+
+function updateCountdown() {
+  const now = new Date();
+  const diff = weddingDate - now;
+  if (diff <= 0) {
+    countdownEl.innerHTML = "<div>ถึงวันสำคัญแล้ว!</div>";
+    return;
+  }
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hrs = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const mins = Math.floor((diff / (1000 * 60)) % 60);
+  const secs = Math.floor((diff / 1000) % 60);
+
+  countdownEl.innerHTML = `
+    <div>${days} วัน</div>
+    <div>${hrs} ชม.</div>
+    <div>${mins} นาที</div>
+    <div>${secs} วินาที</div>
+  `;
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
+  
   // Lightbox functionality
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
