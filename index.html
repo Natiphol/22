@@ -165,6 +165,21 @@
       color: white;
       cursor: pointer;
     }
+ }
+
+ images.forEach((img, index) => {
+   img.addEventListener('click', () => showImage(index));
+ });
+
+ closeBtn.addEventListener('click', () => {
+   lightbox.style.display = 'none';
+ });
+
+ lightbox.addEventListener('click', (e) => {
+   if (e.target === lightbox) {
+     lightbox.style.display = 'none';
+   }
+ });
   </style>
 </head>
 <body>
