@@ -252,75 +252,44 @@
     <span class="close">&times;</span>
     <img class="lightbox-content" id="lightbox-img">
   </div>
-  <script>
-    const countdown = document.getElementById('countdown');
-    const weddingDate = new Date('2025-06-08T00:00:00').getTime();
-    setInterval(() => {
-      const now = new Date().getTime();
-      const gap = weddingDate - now;
-      const d = Math.floor(gap / (1000 * 60 * 60 * 24));
-      const h = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const m = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
-      const s = Math.floor((gap % (1000 * 60)) / 1000);
-      countdown.innerHTML = `<div>${d} วัน</div><div>${h} ชม.</div><div>${m} นาที</div><div>${s} วินาที</div>`;
-    }, 1000);
+ <script>
+  const countdown = document.getElementById('countdown');
+  const weddingDate = new Date('2025-06-08T00:00:00').getTime();
+  setInterval(() => {
+    const now = new Date().getTime();
+    const gap = weddingDate - now;
+    const d = Math.floor(gap / (1000 * 60 * 60 * 24));
+    const h = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((gap % (1000 * 60)) / 1000);
+    countdown.innerHTML = `<div>${d} วัน</div><div>${h} ชม.</div><div>${m} นาที</div><div>${s} วินาที</div>`;
+  }, 1000);
 
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    const closeBtn = document.querySelector('#lightbox .close');
-    const images = Array.from(document.querySelectorAll('.gallery img, .photo-pairs img'));
-    let currentIndex = 0;
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const closeBtn = document.querySelector('#lightbox .close');
+  const images = Array.from(document.querySelectorAll('.gallery img, .photo-pairs img'));
 
-    function showImage(index) {
-      if (index >= 0 && index < images.length) {
-        currentIndex = index;
-        lightboxImg.src = images[currentIndex].src;
-        lightboxImg.alt = images[currentIndex].alt;
-        lightbox.style.display = 'flex';
-      }
-    }
+  function showImage(index) {
+    lightbox.style.display = 'flex';
+    lightboxImg.src = images[index].src;
+    lightboxImg.alt = images[index].alt;
+  }
 
-    images.forEach((img, index) => {
-      img.addEventListener('click', () => showImage(index));
-    });
+  images.forEach((img, index) => {
+    img.addEventListener('click', () => showImage(index));
+  });
 
-    closeBtn.addEventListener('click', () => {
+  closeBtn.addEventListener('click', () => {
+    lightbox.style.display = 'none';
+  });
+
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
       lightbox.style.display = 'none';
-      lightboxImg.src = '';
-    });
+    }
+  });
+</script>
 
-    lightbox.addEventListener('click', e => {
-      if (e.target === lightbox) {
-        lightbox.style.display = 'none';
-        lightboxImg.src = '';
-      }
-    });
-
-    document.addEventListener('keydown', e => {
-      if (lightbox.style.display === 'flex') {
-        if (e.key === 'ArrowRight') {
-          showImage((currentIndex + 1) % images.length);
-        } else if (e.key === 'ArrowLeft') {
-          showImage((currentIndex - 1 + images.length) % images.length);
-        } else if (e.key === 'Escape') {
-          lightbox.style.display = 'none';
-          lightboxImg.src = '';
-        }
-      }
-    });
-
-    let touchStartX = 0;
-    lightboxImg.addEventListener('touchstart', e => {
-      touchStartX = e.touches[0].clientX;
-    });
-    lightboxImg.addEventListener('touchend', e => {
-      let touchEndX = e.changedTouches[0].clientX;
-      if (touchEndX - touchStartX > 50) {
-        showImage((currentIndex - 1 + images.length) % images.length);
-      } else if (touchStartX - touchEndX > 50) {
-        showImage((currentIndex + 1) % images.length);
-      }
-    });
-  </script>
 </body>
 </html>
