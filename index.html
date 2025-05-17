@@ -26,7 +26,6 @@
     .audio-player {
       background-color: #f0f0f0;
       padding: 1rem;
-      position: relative;
     }
     .audio-player p {
       margin-top: 0.5rem;
@@ -42,6 +41,7 @@
       background: #e6f2ff;
       padding: 1rem;
       border-radius: 10px;
+      flex-wrap: wrap;
     }
     .countdown div {
       background: #fff;
@@ -66,9 +66,6 @@
     }
     .family-section, .couple-name, .schedule, .color-theme, .map, .photo-pairs, .final-photo {
       margin: 2rem 0;
-    }
-    .family-section p, .schedule p {
-      font-size: 1.1rem;
     }
     .couple-name h1 {
       font-size: 2rem;
@@ -103,6 +100,7 @@
     .photo-pairs img {
       width: 45%;
       border-radius: 10px;
+      cursor: pointer;
     }
     .final-photo img {
       width: 90%;
@@ -119,6 +117,7 @@
       display: flex;
       justify-content: space-around;
       padding: 0.5rem 0;
+      z-index: 999;
     }
     .bottom-nav a {
       color: #0a3d62;
@@ -149,15 +148,32 @@
       width: 50px;
       height: 50px;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+
+    /* Lightbox styles */
+    .lightbox {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.2);
     }
   </style>
 </head>
 <body>
+
+  <!-- 1. รูปหน้าปก -->
   <div class="hero-img"></div>
 
+  <!-- 2. เพลง -->
   <section class="audio-player">
     <audio controls id="weddingAudio" preload="auto">
       <source src="https://natiphol.github.io/mp3/No.mp3" type="audio/mp3" />
@@ -166,19 +182,23 @@
     <p>กดเล่นเพลงแล้วเลื่อนลงไปดูเรื่อยๆ นะคะ</p>
   </section>
 
+  <!-- 3. Countdown -->
   <section class="countdown" id="countdown"></section>
 
+  <!-- 4. ข้อความเชิญ -->
   <section>
     <h2>ถึงแขกผู้มีเกียรติ</h2>
     <p>เราสองคนรู้สึกเป็นเกียรติอย่างยิ่งที่ได้เชิญทุกท่านมาร่วมเป็นส่วนหนึ่งในวันสำคัญของเรา ขอขอบคุณจากใจจริงค่ะ</p>
   </section>
 
+  <!-- 5. แกลเลอรี -->
   <section class="gallery">
     <img src="https://i.postimg.cc/SsTCWWJw/DSC-7529-19944.jpg" alt="gallery1">
     <img src="https://i.postimg.cc/02vVmwcN/DSC-0160.jpg" alt="gallery2">
     <img src="https://i.postimg.cc/cCRT2x4Z/DSC-7266-19681.jpg" alt="gallery3">
   </section>
 
+  <!-- 6. ครอบครัว -->
   <section class="family-section">
     <h2>ครอบครัว</h2>
     <p>นายสีศักดิ์ ศรีโกศล และ นางสาวหนูพิน เจนวิถี</p>
@@ -186,31 +206,22 @@
     <p>ขอเรียนเชิญร่วมเป็นเกียรติในพิธีมงคลสมรส</p>
   </section>
 
+  <!-- 7. บ่าวสาว -->
   <section class="couple-name">
     <h1>นางสาวพัณณิตา ศรีโกศล (ตั๊ก)</h1>
     <h1>❤</h1>
     <h1>นายเนติพล ชาญชนะโรจน์ (ตาล)</h1>
   </section>
 
+  <!-- 8. กำหนดการ -->
   <section class="ceremony">
-    <div class="ceremony-item">
-      <img src="https://cdn-icons-png.flaticon.com/512/4213/4213251.png" alt="ขันหมาก">
-      <span>15.30 น. พิธีแห่ขันหมาก</span>
-    </div>
-    <div class="ceremony-item">
-      <img src="https://cdn-icons-png.flaticon.com/512/3461/3461813.png" alt="หมั้น">
-      <span>16.09 น. พิธีหมั้น</span>
-    </div>
-    <div class="ceremony-item">
-      <img src="https://cdn-icons-png.flaticon.com/512/2460/2460530.png" alt="รดน้ำ">
-      <span>17.29 น. พิธีรดน้ำสังข์</span>
-    </div>
-    <div class="ceremony-item">
-      <img src="https://cdn-icons-png.flaticon.com/512/2917/2917242.png" alt="เลี้ยงฉลอง">
-      <span>18.30 น. งานเลี้ยงฉลองมงคลสมรส</span>
-    </div>
+    <div class="ceremony-item"><img src="https://cdn-icons-png.flaticon.com/512/4213/4213251.png" alt="ขันหมาก"><span>15.30 น. พิธีแห่ขันหมาก</span></div>
+    <div class="ceremony-item"><img src="https://cdn-icons-png.flaticon.com/512/3461/3461813.png" alt="หมั้น"><span>16.09 น. พิธีหมั้น</span></div>
+    <div class="ceremony-item"><img src="https://cdn-icons-png.flaticon.com/512/2460/2460530.png" alt="รดน้ำ"><span>17.29 น. พิธีรดน้ำสังข์</span></div>
+    <div class="ceremony-item"><img src="https://cdn-icons-png.flaticon.com/512/2917/2917242.png" alt="เลี้ยงฉลอง"><span>18.30 น. งานเลี้ยงฉลองมงคลสมรส</span></div>
   </section>
 
+  <!-- 9. ธีมสี -->
   <section class="color-theme">
     <h2>ธีมสีงาน</h2>
     <div class="color-boxes">
@@ -220,12 +231,14 @@
     </div>
   </section>
 
-  <section id="map">
+  <!-- 10. แผนที่ -->
+  <section class="map">
     <h2>แผนที่สถานที่จัดงาน</h2>
-    <iframe src="https://www.google.com/maps/embed?pb=..." allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    <p>👉 <a href="https://www.google.com/maps/dir//163,+2+ถนนมาเจริญ..." target="_blank">คลิกที่แผนที่เพื่อเปิด Google Maps</a></p>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18...ฯลฯ" allowfullscreen="" loading="lazy"></iframe>
+    <p><a href="https://www.google.com/maps/dir//163,+2+ถนนมาเจริญ..." target="_blank">คลิกที่แผนที่เพื่อเปิด Google Maps</a></p>
   </section>
 
+  <!-- 11. ภาพคู่ -->
   <section class="photo-pairs">
     <img src="https://i.postimg.cc/2yR20bY2/DSC08741-1.jpg" alt="คู่1">
     <img src="https://i.postimg.cc/ZRywPPGW/DSC08770.jpg" alt="คู่2">
@@ -233,43 +246,51 @@
     <img src="https://i.postimg.cc/SRn8VJ9j/DSC-7681-20095.jpg" alt="คู่4">
   </section>
 
+  <!-- 12. ภาพปิด -->
   <section class="final-photo">
     <img src="https://i.postimg.cc/L6wpHXvV/2.jpg" alt="ภาพปิดท้าย">
   </section>
 
+  <!-- 13. เมนูล่าง -->
   <div class="bottom-nav">
     <a href="#"><i class="fas fa-heart"></i><span>การ์ดงานแต่ง</span></a>
-    <a href="#countdown"><i class="fas fa-clock"></i><span>นับถอยหลัง</span></a>
-    <a href="#map"><i class="fas fa-map-marker-alt"></i><span>แผนที่</span></a>
+    <a href="#"><i class="fas fa-image"></i><span>รูปพรีเวดดิ้ง</span></a>
+    <a href="#"><i class="fas fa-microphone"></i><span>ส่งเสียงอวยพร</span></a>
+    <a href="#"><i class="fas fa-pen"></i><span>เขียนคำอวยพร</span></a>
   </div>
 
+  <!-- Countdown Script -->
   <script>
-    const weddingDate = new Date("2025-06-08T00:00:00").getTime();
-    const countdownEl = document.getElementById("countdown");
-
-    function updateCountdown() {
+    const countdown = document.getElementById('countdown');
+    const weddingDate = new Date('2025-06-08T00:00:00').getTime();
+    setInterval(() => {
       const now = new Date().getTime();
-      const diff = weddingDate - now;
-
-      if (diff <= 0) {
-        countdownEl.innerHTML = '<div>ถึงวันแต่งงานแล้ว!</div>';
-        return;
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-      countdownEl.innerHTML = `
-        <div>${days} วัน</div>
-        <div>${hours} ชม.</div>
-        <div>${minutes} นาที</div>
-        <div>${seconds} วินาที</div>
-      `;
-    }
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
+      const gap = weddingDate - now;
+      const d = Math.floor(gap / (1000 * 60 * 60 * 24));
+      const h = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((gap % (1000 * 60)) / 1000);
+      countdown.innerHTML = `<div>${d} วัน</div><div>${h} ชม.</div><div>${m} นาที</div><div>${s} วินาที</div>`;
+    }, 1000);
   </script>
+
+  <!-- Lightbox Script -->
+  <div class="lightbox" id="lightbox">
+    <img src="" alt="preview">
+  </div>
+  <script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    document.querySelectorAll('img').forEach(img => {
+      img.addEventListener('click', () => {
+        lightbox.style.display = 'flex';
+        lightboxImg.src = img.src;
+      });
+    });
+    lightbox.addEventListener('click', () => {
+      lightbox.style.display = 'none';
+    });
+  </script>
+
 </body>
 </html>
