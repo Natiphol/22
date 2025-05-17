@@ -270,23 +270,58 @@
     }, 1000);
   </script>
 
-  <!-- Lightbox Script -->
-  <div class="lightbox" id="lightbox">
-    <img src="" alt="preview">
-  </div>
-  <script>
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = lightbox.querySelector('img');
-    document.querySelectorAll('img').forEach(img => {
-      img.addEventListener('click', () => {
-        lightbox.style.display = 'flex';
-        lightboxImg.src = img.src;
-      });
+ // คลิกเปิด lightbox
+  images.forEach((img, index) => {
+    img.addEventListener('click', () => {
+      lightbox.style.display = 'flex';
+      showImage(index);
     });
-    lightbox.addEventListener('click', () => {
+  });
+
+  // ปิด lightbox
+  closeBtn.addEventListener('click', () => {
+    lightbox.style.display = 'none';
+    lightboxImg.src = '';
+  });
+
+  // คลิกพื้นหลังเพื่อปิด
+  lightbox.addEventListener('click', e => {
+    if (e.target === lightbox) {
       lightbox.style.display = 'none';
-    });
-  </script>
+      lightboxImg.src = '';
+    }
+  });
+
+  // กดปุ่มซ้าย/ขวาเพื่อเลื่อนภาพ
+  document.addEventListener('keydown', e => {
+    if (lightbox.style.display === 'flex') {
+      if (e.key === 'ArrowRight') {
+        showImage((currentIndex + 1) % images.length);
+      } else if (e.key === 'ArrowLeft') {
+        showImage((currentIndex - 1 + images.length) % images.length);
+      } else if (e.key === 'Escape') {
+        lightbox.style.display = 'none';
+        lightboxImg.src = '';
+      }
+    }
+  });
+
+  // เพิ่ม gesture สำหรับมือถือ (ปัดซ้าย/ขวา)
+  let touchStartX = 0;
+
+  lightboxImg.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+  });
+
+  lightboxImg.addEventListener('touchend', e => {
+    let touchEndX = e.changedTouches[0].clientX;
+    if (touchEndX - touchStartX > 50) {
+      showImage((currentIndex - 1 + images.length) % images.length);
+    } else if (touchStartX - touchEndX > 50) {
+      showImage((currentIndex + 1) % images.length);
+    }
+  });
+</script>
 
 </body>
 </html>
