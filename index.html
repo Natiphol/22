@@ -253,38 +253,23 @@
     <img class="lightbox-content" id="lightbox-img">
   </div>
   
- <script>
-  const countdown = document.getElementById('countdown');
-  const weddingDate = new Date('2025-06-08T00:00:00').getTime();
-
-  setInterval(() => {
-    const now = new Date().getTime();
-    const gap = weddingDate - now;
-
-    if (gap < 0) {
-      countdown.innerHTML = `<div>ถึงวันสำคัญแล้ว!</div>`;
-      return;
-    }
-
-    const d = Math.floor(gap / (1000 * 60 * 60 * 24));
-    const h = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const m = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
-    const s = Math.floor((gap % (1000 * 60)) / 1000);
-    countdown.innerHTML = `<div>${d} วัน</div><div>${h} ชม.</div><div>${m} นาที</div><div>${s} วินาที</div>`;
-  }, 1000);
-
-  // Lightbox Functionality
+<script>
+  // Lightbox functionality
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
   const closeBtn = document.querySelector('#lightbox .close');
+
+  // รวมภาพทั้งหมดที่สามารถคลิกได้
   const images = document.querySelectorAll('.gallery img, .photo-pairs img');
 
-  images.forEach((img) => {
-    img.addEventListener('click', () => {
-      lightbox.style.display = 'flex';
-      lightboxImg.src = img.src;
-      lightboxImg.alt = img.alt;
-    });
+  function showImage(index) {
+    const img = images[index];
+    lightboxImg.src = img.src;
+    lightbox.style.display = 'flex';
+  }
+
+  images.forEach((img, index) => {
+    img.addEventListener('click', () => showImage(index));
   });
 
   closeBtn.addEventListener('click', () => {
@@ -297,8 +282,6 @@
     }
   });
 </script>
-
-
 
 </body>
 </html>
