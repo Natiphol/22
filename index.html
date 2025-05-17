@@ -1,48 +1,43 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>การ์ดงานแต่งออนไลน์</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;600&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>การ์ดเชิญงานแต่ง</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
   <style>
     body {
       margin: 0;
-      font-family: 'Sarabun', sans-serif;
-      background-color: #fff;
+      font-family: 'Kanit', sans-serif;
+      background: #fff;
       color: #333;
-      scroll-behavior: smooth;
     }
-    header, section {
-      padding: 1.5rem;
+    img.fullscreen {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .section {
+      padding: 2rem 1rem;
       text-align: center;
     }
-    .audio-player {
-      background-color: #f0f0f0;
-      padding: 1rem;
-    }
-    .audio-player p {
-      margin-top: 0.5rem;
-      font-weight: bold;
-      color: #0077b6;
+    .audio-section {
+      background: #f0f8ff;
+      padding: 2rem 1rem;
     }
     .countdown {
+      font-size: 2rem;
+      font-weight: bold;
       display: flex;
       justify-content: center;
       gap: 1rem;
-      font-size: 1.5rem;
-      font-weight: bold;
-      background: #e6f2ff;
-      padding: 1rem;
-      border-radius: 10px;
-      flex-wrap: wrap;
     }
-    .countdown div {
+    .count-box {
       background: #fff;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      border-radius: 1rem;
+      padding: 1rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     .gallery {
       display: flex;
@@ -51,22 +46,41 @@
       padding: 1rem;
     }
     .gallery img {
-      height: 200px;
-      border-radius: 10px;
+      height: 120px;
+      border-radius: 1rem;
       cursor: pointer;
-      transition: transform 0.3s ease;
     }
-    .gallery img:hover {
-      transform: scale(1.05);
+    .family-section {
+      background: linear-gradient(135deg, #e0f7fa, #fff8e1);
+      padding: 2rem 1rem;
+      text-align: center;
     }
-    .family-section, .couple-name, .schedule, .color-theme, .map, .photo-pairs, .final-photo {
-      margin: 2rem 0;
+    .family-section h3 {
+      font-size: 1.5rem;
+      color: #2c3e50;
     }
-    .couple-name h1 {
-      font-size: 2rem;
-      color: #0a3d62;
+    .timeline {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      padding: 1rem;
+      background: #f9f9f9;
     }
-    .color-boxes {
+    .timeline-item {
+      background: #fff;
+      border-radius: 1rem;
+      padding: 1rem;
+      box-shadow: 0 0 5px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .theme-section {
+      padding: 2rem 1rem;
+      text-align: center;
+      position: relative;
+    }
+    .theme-boxes {
       display: flex;
       justify-content: center;
       gap: 1rem;
@@ -78,233 +92,155 @@
       border-radius: 50%;
       box-shadow: 0 0 5px rgba(0,0,0,0.1);
     }
-    .color-blue { background: #3b82f6; }
-    .color-cream { background: #fff0d6; }
-    .color-green { background: #b2f0e8; }
-    .map iframe {
-      width: 100%;
-      height: 300px;
-      border: none;
-    }
-    .photo-pairs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
-    }
-    .photo-pairs img {
-      width: 45%;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-    .final-photo img {
-      width: 90%;
-      border-radius: 20px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    .blue { background: #a8d0f0; }
+    .cream { background: #fdf5e6; }
+    .green { background: #bde0d6; }
+    .map {
+      text-align: center;
+      margin: 2rem 0;
     }
     .bottom-nav {
       position: fixed;
       bottom: 0;
-      left: 0;
       width: 100%;
-      background: #ffffff;
-      border-top: 1px solid #ccc;
       display: flex;
       justify-content: space-around;
+      background: #fff;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
       padding: 0.5rem 0;
-      z-index: 999;
     }
     .bottom-nav a {
-      color: #0a3d62;
+      color: #333;
       text-decoration: none;
       font-size: 0.9rem;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-    .bottom-nav i {
-      font-size: 1.2rem;
+    .couple-name {
+      font-size: 1.5rem;
+      color: #1e3a8a;
+      margin-bottom: 0.5rem;
     }
-    .ceremony {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      background: #f3f7f4;
-      padding: 2rem;
-      border-radius: 1rem;
-    }
-    .ceremony-item {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-    .ceremony-item img {
-      width: 50px;
-      height: 50px;
-    }
-  #lightbox {
-  position: fixed;
-  z-index: 9999;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-color: rgba(0,0,0,0.9);
-  display: none;
-  justify-content: center;
-  align-items: center;
-}
-#lightbox-img {
-  max-width: 90%;
-  max-height: 80%;
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(255,255,255,0.3);
-}
-#lightbox .close {
-  position: absolute;
-  top: 30px;
-  right: 30px;
-  font-size: 2rem;
-  color: white;
-  cursor: pointer;
-}
-
   </style>
 </head>
 <body>
-  <header>
-    <img src="https://i.postimg.cc/6QGx2SKg/DSC087422-1.jpg" alt="ภาพปกงานแต่ง" style="width: 100%; height: auto; display: block;">
-  </header>
-  <section class="audio-player">
-    <audio controls id="weddingAudio" preload="auto">
-      <source src="https://natiphol.github.io/mp3/No.mp3" type="audio/mp3" />
-      เบราว์เซอร์ของคุณไม่รองรับการเล่นเสียง
-    </audio>
-    <p>กดเล่นเพลงแล้วเลื่อนลงไปดูเรื่อยๆ นะคะ</p>
-  </section>
-  <section class="countdown" id="countdown"></section>
-  <section>
-    <h2>ถึงแขกผู้มีเกียรติ</h2>
-    <p>เราสองคนรู้สึกเป็นเกียรติอย่างยิ่งที่ได้เชิญทุกท่านมาร่วมเป็นส่วนหนึ่งในวันสำคัญของเรา ขอขอบคุณจากใจจริงค่ะ</p>
-  </section>
-  <section class="gallery">
-    <img src="https://i.postimg.cc/SsTCWWJw/DSC-7529-19944.jpg" alt="gallery1">
-    <img src="https://i.postimg.cc/02vVmwcN/DSC-0160.jpg" alt="gallery2">
-    <img src="https://i.postimg.cc/cCRT2x4Z/DSC-7266-19681.jpg" alt="gallery3">
-  </section>
-  <section class="family-section">
-    <h2>ครอบครัว</h2>
-    <p>นายสีศักดิ์ ศรีโกศล และ นางสาวหนูพิน เจนวิถี</p>
-    <p>นายวรพันธุ์ ชาญชนะโรจน์ และ นางกานต์สินี ชาญชนะโรจน์</p>
-    <p>ขอเรียนเชิญร่วมเป็นเกียรติในพิธีมงคลสมรส</p>
-  </section>
-  <section class="couple-name">
-    <h1>นางสาวพัณณิตา ศรีโกศล (ตั๊ก)</h1>
-    <h1>❤</h1>
-    <h1>นายเนติพล ชาญชนะโรจน์ (ตาล)</h1>
-  </section>
-  <section class="ceremony">
-    <div class="ceremony-item"><img src="https://cdn-icons-png.flaticon.com/512/4213/4213251.png" alt="ขันหมาก"><span>15.30 น. พิธีแห่ขันหมาก</span></div>
-    <div class="ceremony-item"><img src="https://cdn-icons-png.flaticon.com/512/3461/3461813.png" alt="หมั้น"><span>16.09 น. พิธีหมั้น</span></div>
-    <div class="ceremony-item"><img src="https://cdn-icons-png.flaticon.com/512/2460/2460530.png" alt="รดน้ำ"><span>17.29 น. พิธีรดน้ำสังข์</span></div>
-    <div class="ceremony-item"><img src="https://cdn-icons-png.flaticon.com/512/2917/2917242.png" alt="เลี้ยงฉลอง"><span>18.30 น. งานเลี้ยงฉลองมงคลสมรส</span></div>
-  </section>
-  <section class="color-theme">
-    <h2>ธีมสีงาน</h2>
-    <div class="color-boxes">
-      <div class="color-box color-blue" title="Blue"></div>
-      <div class="color-box color-cream" title="Cream"></div>
-      <div class="color-box color-green" title="Greenish"></div>
-    </div>
-  </section>
- <section class="map bg-white/80 rounded-2xl shadow-lg p-4 my-6 mx-4">
-  <h2 class="text-xl font-semibold text-center text-navy mb-4">แผนที่สถานที่จัดงาน</h2>
-  <div class="rounded-xl overflow-hidden shadow-md">
-    <iframe
-      src="https://www.google.com/maps/place/%E0%B9%80%E0%B8%A5%E0%B8%B4%E0%B8%9F%E0%B8%AA%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B8%B5%E0%B9%88+(%E0%B9%80%E0%B8%9E%E0%B8%8A%E0%B8%A3%E0%B9%80%E0%B8%81%E0%B8%A9%E0%B8%A1+81)+%E0%B8%AA%E0%B8%96%E0%B8%B2%E0%B8%99%E0%B8%97%E0%B8%B5%E0%B9%88%E2%80%8B%E0%B8%88%E0%B8%B1%E0%B8%94%E0%B8%87%E0%B8%B2%E0%B8%99/@13.6959647,100.3413,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2bf7336aff221:0x24eb06e501fdb781!8m2!3d13.6959647!4d100.3413!16s%2Fg%2F11js9xb64b?entry=ttu"
-      width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-      class="w-full h-[300px] md:h-[400px]">
-    </iframe>
-  </div>
-  <p class="text-center mt-4">
-    <a href="https://www.google.com/maps/place/%E0%B9%80%E0%B8%A5%E0%B8%B4%E0%B8%9F%E0%B8%AA%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B8%B5%E0%B9%88+(%E0%B9%80%E0%B8%9E%E0%B8%8A%E0%B8%A3%E0%B9%80%E0%B8%81%E0%B8%A9%E0%B8%A1+81)+%E0%B8%AA%E0%B8%96%E0%B8%B2%E0%B8%99%E0%B8%97%E0%B8%B5%E0%B9%88%E2%80%8B%E0%B8%88%E0%B8%B1%E0%B8%94%E0%B8%87%E0%B8%B2%E0%B8%99/@13.6959647,100.3413,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2bf7336aff221:0x24eb06e501fdb781!8m2!3d13.6959647!4d100.3413!16s%2Fg%2F11js9xb64b?entry=ttu"
-      class="text-blue-700 underline hover:text-blue-900 transition duration-300" target="_blank">
-      คลิกที่แผนที่เพื่อเปิด Google Maps
-    </a>
-  </p>
-</section>
 
-  <section class="photo-pairs">
-    <img src="https://i.postimg.cc/2yR20bY2/DSC08741-1.jpg" alt="คู่1">
-    <img src="https://i.postimg.cc/ZRywPPGW/DSC08770.jpg" alt="คู่2">
-    <img src="https://i.postimg.cc/wvTDyWTX/DSC-7222-19637.jpg" alt="คู่3">
-    <img src="https://i.postimg.cc/SRn8VJ9j/DSC-7681-20095.jpg" alt="คู่4">
-  </section>
-  <section class="final-photo">
-    <img src="https://i.postimg.cc/L6wpHXvV/2.jpg" alt="ภาพปิดท้าย">
-  </section>
-  <div class="bottom-nav">
-    <a href="#"><i class="fas fa-heart"></i><span>การ์ดงานแต่ง</span></a>
-    <a href="#"><i class="fas fa-image"></i><span>รูปพรีเวดดิ้ง</span></a>
-    <a href="#"><i class="fas fa-microphone"></i><span>ส่งเสียงอวยพร</span></a>
-    <a href="#"><i class="fas fa-pen"></i><span>เขียนคำอวยพร</span></a>
+<!-- 1. ภาพเปิดเต็มจอ -->
+<img src="https://i.postimg.cc/6QGx2SKg/DSC087422-1.jpg" alt="wedding" class="fullscreen">
+
+<!-- 2. เล่นเพลงพร้อมคำแนะนำ -->
+<div class="audio-section">
+  <p>🎶 กดเล่นเพลง แล้วเลื่อนลงไปดูเรื่อย ๆ นะคะ 🎶</p>
+  <audio controls autoplay playsinline>
+    <source src="https://natiphol.github.io/mp3/No.mp3" type="audio/mpeg">
+    เบราว์เซอร์ของคุณไม่รองรับการเล่นเสียง
+  </audio>
+</div>
+
+<!-- 3. Countdown -->
+<div class="section">
+  <h2>นับถอยหลังสู่วันสำคัญ</h2>
+  <div class="countdown" id="countdown"></div>
+</div>
+
+<!-- 4. ความรู้สึกของบ่าวสาว -->
+<div class="section">
+  <h3>เราตื่นเต้นและมีความสุขมากที่จะได้เชิญทุกคนมาร่วมเป็นส่วนหนึ่งในวันพิเศษของเรา</h3>
+</div>
+
+<!-- 5. แกลลอรี่สไลด์แนวนอน -->
+<div class="section">
+  <h3>บรรยากาศพรีเวดดิ้ง</h3>
+  <div class="gallery">
+    <a href="https://i.postimg.cc/SsTCWWJw/DSC-7529-19944.jpg" class="glightbox"><img src="https://i.postimg.cc/SsTCWWJw/DSC-7529-19944.jpg"></a>
+    <a href="https://i.postimg.cc/02vVmwcN/DSC-0160.jpg" class="glightbox"><img src="https://i.postimg.cc/02vVmwcN/DSC-0160.jpg"></a>
+    <a href="https://i.postimg.cc/cCRT2x4Z/DSC-7266-19681.jpg" class="glightbox"><img src="https://i.postimg.cc/cCRT2x4Z/DSC-7266-19681.jpg"></a>
+    <!-- เพิ่มรูปอื่น ๆ ได้ -->
   </div>
-  <div id="lightbox">
-    <span class="close">&times;</span>
-    <img class="lightbox-content" id="lightbox-img">
+</div>
+
+<!-- 6. ครอบครัว -->
+<div class="family-section">
+  <h3>จากครอบครัวของเรา</h3>
+  <p>นายสีศักดิ์ ศรีโกศล และ นางสาวหนูพิน เจนวิถี</p>
+  <p>นายวรพันธุ์ ชาญชนะโรจน์ และ นางกานต์สินี ชาญชนะโรจน์</p>
+  <p>ขอเรียนเชิญร่วมเป็นเกียรติในพิธีมงคลสมรสของเรา</p>
+</div>
+
+<!-- 7. ชื่อบ่าวสาว -->
+<div class="section">
+  <div class="couple-name">นางสาวพัณณิตา ศรีโกศล (ตั๊ก)</div>
+  <div class="couple-name">❤</div>
+  <div class="couple-name">นายเนติพล ชาญชนะโรจน์ (ตาล)</div>
+</div>
+
+<!-- 8. กำหนดพิธี -->
+<div class="timeline">
+  <div class="timeline-item"><img src="https://cdn-icons-png.flaticon.com/128/924/924915.png" width="24"> 15.30 น. แห่ขันหมาก</div>
+  <div class="timeline-item"><img src="https://cdn-icons-png.flaticon.com/128/1995/1995503.png" width="24"> 16.09 น. พิธีหมั้น</div>
+  <div class="timeline-item"><img src="https://cdn-icons-png.flaticon.com/128/891/891462.png" width="24"> 17.29 น. รดน้ำสังข์</div>
+  <div class="timeline-item"><img src="https://cdn-icons-png.flaticon.com/128/747/747376.png" width="24"> 18.30 น. เลี้ยงฉลอง</div>
+</div>
+
+<!-- 9. ธีมสี -->
+<div class="theme-section">
+  <h3>ธีมสีงานแต่ง</h3>
+  <div class="theme-boxes">
+    <div class="color-box blue"></div>
+    <div class="color-box cream"></div>
+    <div class="color-box green"></div>
   </div>
-  
+</div>
+
+<!-- 10. แผนที่ -->
+<div class="map">
+  <iframe src="https://www.google.com/maps/embed?..." width="100%" height="300" style="border:0;" allowfullscreen loading="lazy"></iframe>
+  <p><a href="https://www.google.com/maps/dir//163,+2+ถนนมาเจริญ+แขวงหนองค้างพลู+เขตหนองแขม+กรุงเทพมหานคร+10160" target="_blank">คลิกที่แผนที่เพื่อเปิด Google Maps</a></p>
+</div>
+
+<!-- 11. แกลลอรี่แนวตั้งแบบสองรูปต่อแถว -->
+<div class="section">
+  <h3>รวมภาพความทรงจำ</h3>
+  <div class="gallery">
+    <a href="https://i.postimg.cc/2yR20bY2/DSC08741-1.jpg" class="glightbox"><img src="https://i.postimg.cc/2yR20bY2/DSC08741-1.jpg"></a>
+    <a href="https://i.postimg.cc/ZRywPPGW/DSC08770.jpg" class="glightbox"><img src="https://i.postimg.cc/ZRywPPGW/DSC08770.jpg"></a>
+    <!-- เพิ่มอีกได้ตามต้องการ -->
+  </div>
+</div>
+
+<!-- 12. รูปใหญ่ปิดท้าย -->
+<img src="https://i.postimg.cc/L6wpHXvV/2.jpg" class="fullscreen">
+
+<!-- 13. แถบเมนูด้านล่าง -->
+<div class="bottom-nav">
+  <a href="https://natiphol.github.io/2/"><i class="fas fa-envelope"></i> การ์ด</a>
+  <a href="#"><i class="fas fa-image"></i> พรีเวดดิ้ง</a>
+  <a href="https://natiphol.github.io/2/"><i class="fas fa-microphone"></i> ฝากเสียง</a>
+  <a href="#"><i class="fas fa-heart"></i> คำอวยพร</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
 <script>
-  const weddingDate = new Date("2025-06-08T15:30:00+07:00"); // เวลาเริ่มงาน
-const countdownEl = document.getElementById("countdown");
+  // Countdown Script
+  const countdownEl = document.getElementById("countdown");
+  const targetDate = new Date("2025-06-08T00:00:00").getTime();
+  setInterval(() => {
+    const now = new Date().getTime();
+    const diff = targetDate - now;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+    countdownEl.innerHTML = `
+      <div class='count-box'>${days} วัน</div>
+      <div class='count-box'>${hours} ชม.</div>
+      <div class='count-box'>${minutes} นาที</div>
+      <div class='count-box'>${seconds} วิ</div>`;
+  }, 1000);
 
-function updateCountdown() {
-  const now = new Date();
-  const diff = weddingDate - now;
-  if (diff <= 0) {
-    countdownEl.innerHTML = "<div>ถึงวันสำคัญแล้ว!</div>";
-    return;
-  }
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hrs = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const mins = Math.floor((diff / (1000 * 60)) % 60);
-  const secs = Math.floor((diff / 1000) % 60);
-
-  countdownEl.innerHTML = `
-    <div>${days} วัน</div>
-    <div>${hrs} ชม.</div>
-    <div>${mins} นาที</div>
-    <div>${secs} วินาที</div>
-  `;
-}
-setInterval(updateCountdown, 1000);
-updateCountdown();
-  
-  // Lightbox functionality
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = document.getElementById('lightbox-img');
-  const closeBtn = document.querySelector('#lightbox .close');
-
-  // รวมภาพทั้งหมดที่สามารถคลิกได้
-  const images = document.querySelectorAll('.gallery img, .photo-pairs img');
-
-  function showImage(index) {
-    const img = images[index];
-    lightboxImg.src = img.src;
-    lightbox.style.display = 'flex';
-  }
-
-  images.forEach((img, index) => {
-    img.addEventListener('click', () => showImage(index));
-  });
-
-  closeBtn.addEventListener('click', () => {
-    lightbox.style.display = 'none';
-  });
-
-  lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) {
-      lightbox.style.display = 'none';
-    }
-  });
+  // Lightbox Init
+  const lightbox = GLightbox({ touchNavigation: true });
 </script>
-
 </body>
 </html>
