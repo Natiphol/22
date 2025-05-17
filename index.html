@@ -270,9 +270,32 @@
       const s = Math.floor((gap % (1000 * 60)) / 1000);
       countdown.innerHTML = `<div>${d} วัน</div><div>${h} ชม.</div><div>${m} นาที</div><div>${s} วินาที</div>`;
     }, 1000);
-  </script>
+  <!-- Lightbox สำหรับดูภาพเต็ม -->
 
- // คลิกเปิด lightbox
+  <div id="lightbox" style="display: none;">
+    <span class="close">&times;</span>
+    <img class="lightbox-content" id="lightbox-img">
+  </div>
+
+  <script>
+  // เตรียมอ้างอิง DOM
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const closeBtn = document.querySelector('#lightbox .close');
+  const images = Array.from(document.querySelectorAll('.gallery img, .gallery-bw img'));
+
+  let currentIndex = 0;
+
+  // ฟังก์ชันเปิดภาพที่ index ที่กำหนด
+  function showImage(index) {
+    if (index >= 0 && index < images.length) {
+      currentIndex = index;
+      lightboxImg.src = images[currentIndex].src;
+      lightboxImg.alt = images[currentIndex].alt;
+    }
+  }
+
+  // คลิกเปิด lightbox
   images.forEach((img, index) => {
     img.addEventListener('click', () => {
       lightbox.style.display = 'flex';
