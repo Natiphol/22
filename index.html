@@ -264,6 +264,10 @@
     const s = Math.floor((gap % (1000 * 60)) / 1000);
     countdown.innerHTML = `<div>${d} วัน</div><div>${h} ชม.</div><div>${m} นาที</div><div>${s} วินาที</div>`;
   }, 1000);
+if (gap < 0) {
+  countdown.innerHTML = `<div>ถึงวันสำคัญแล้ว!</div>`;
+  return;
+}
 
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
@@ -289,6 +293,11 @@
       lightbox.style.display = 'none';
     }
   });
+   document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    lightbox.style.display = 'none';
+  }
+});
 </script>
 
 </body>
