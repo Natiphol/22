@@ -145,7 +145,7 @@
       height: 50px;
     }
 
-   #lightbox {
+     #lightbox {
       position: fixed;
       z-index: 9999;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -197,9 +197,21 @@ color: white;
 cursor: pointer;
 }
 
-  <!-- 1. รูปหน้าปก -->
+.gallery-bw img {
+cursor: pointer;
+transition: transform 0.3s;
+}
+
+.gallery-bw img\:hover {
+transform: scale(1.03);
+} </style>
+
+</head>
+<body>
+  <!-- ส่วน Header รูปภาพหลัก -->
+  <!-- ใส่ลิงก์ Google Fonts ที่ <head> -->
 <header>
-  <img src="https://i.postimg.cc/6QGx2SKg/DSC087422-1.jpg" alt="ภาพปกงานแต่ง" style="width: auto; height: auto; display: block;">
+  <img src="https://i.postimg.cc/6QGx2SKg/DSC087422-1.jpg" alt="ภาพปกงานแต่ง" style="width: 100%; height: auto; display: block;">
 </header>
 
   <!-- 2. เพลง -->
