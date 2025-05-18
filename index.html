@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Wedding Invitation – Gallery & Countdown & Invitation</title>
+  <title>Wedding Invitation</title>
   <!-- Google Fonts -->
   <link
     href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap"
@@ -15,23 +16,23 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"/>
   <style>
     :root {
-      --blue: #89CFF0;
       --cream: #FFF5E1;
       --teal: #A1D6E2;
-      --gold: #D4AF37;
+      --blue: #89CFF0;
       --dark-blue: #2A6F97;
+      --gold: #D4AF37;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
       display:flex; flex-direction:column; align-items:center;
-      background:linear-gradient(135deg,var(--cream),var(--teal),var(--blue));
-      font-family:'IBM Plex Sans Thai',sans-serif;
-      color:var(--dark-blue);
-      padding:24px 0;
+      background: linear-gradient(135deg, var(--cream), var(--teal), var(--blue));
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      color: var(--dark-blue);
+      padding: 24px 0;
     }
     img { display:block; max-width:100%; }
 
-    /* reveal on scroll */
+    /* reveal-on-scroll helper */
     .reveal {
       opacity:0; transform:translateY(20px);
       transition:opacity 1s ease-out, transform 1s ease-out;
@@ -43,8 +44,7 @@
     /* Hero Image */
     #heroImage {
       width:90%; max-width:600px; border-radius:8px;
-      box-shadow:0 4px 12px rgba(0,0,0,0.1);
-      margin-bottom:24px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.1); margin-bottom:24px;
     }
 
     /* Prompt */
@@ -55,120 +55,122 @@
 
     /* Audio Player */
     .audio-player {
-      background:rgba(255,245,225,0.9); border-radius:16px;
+      background: rgba(255,245,225,0.9); border-radius:16px;
       box-shadow:0 4px 20px rgba(0,0,0,0.05);
       width:90%; max-width:400px; padding:24px;
       text-align:center; margin-bottom:24px;
     }
     .play-btn {
-      width:64px;height:64px;border:none;border-radius:50%;
-      background:linear-gradient(135deg,var(--teal),var(--blue));
-      display:inline-flex;align-items:center;justify-content:center;
-      cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.1);
+      width:64px; height:64px; border:none; border-radius:50%;
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+      display:inline-flex; align-items:center; justify-content:center;
+      cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,0.1);
       transition:transform .2s;
     }
     .play-btn:active { transform:scale(.95); }
-    .play-btn svg { width:30px;height:30px;fill:#fff; }
+    .play-btn svg { width:30px; height:30px; fill:#fff; }
     .progress-container {
-      width:100%;height:6px;background:#eee;border-radius:3px;
-      margin:20px 0 8px;overflow:hidden;cursor:pointer;
+      width:100%; height:6px; background:#eee; border-radius:3px;
+      margin:20px 0 8px; overflow:hidden; cursor:pointer;
     }
-    .progress { width:0%;height:100%;background:var(--teal);transition:width .1s linear; }
-    .time { font-size:14px; color:var(--dark-blue); }
+    .progress {
+      width:0%; height:100%; background:var(--teal); transition:width .1s linear;
+    }
+    .time { font-size:14px; }
 
-    /* Message */
+    /* Welcome Message */
     .message {
       max-width:90%; font-weight:300; font-size:16px;
       text-align:center; margin-bottom:40px;
     }
 
-    /* Countdown */
-    #countdownSection {
-      width:90%; max-width:600px; text-align:center;
-      margin-bottom:16px;
-    }
+    /* Countdown Title */
     .countdown-title {
-      font-family:'Playfair Display',serif;
-      font-weight:700; font-size:2.5rem;
+      font-family:'Playfair Display', serif;
+      font-size:2.5rem; font-weight:700;
       margin-bottom:1rem; color:var(--dark-blue);
-      opacity:0; animation:fadeInDown 1.2s ease-out both;
+      opacity:0; animation:fadeInDown 1s ease-out forwards;
     }
     @keyframes fadeInDown {
-      from { opacity:0; transform:translateY(-20px); }
-      to   { opacity:1; transform:translateY(0); }
+      from { opacity:0; transform:translateY(-20px);}
+      to   { opacity:1; transform:translateY(0);}
     }
+
+    /* Countdown Units */
     .countdown {
-      display:flex; gap:1.5rem; justify-content:center; flex-wrap:wrap;
+      display:flex; gap:1rem; justify-content:center;
+      flex-wrap:nowrap; overflow-x:auto; padding:0 8px;
+      -ms-overflow-style:none; scrollbar-width:none;
     }
+    .countdown::-webkit-scrollbar { display:none; }
     .unit {
-      opacity:0; animation:fadeInUp .8s both;
+      text-align:center;
+      opacity:0; animation:fadeInUp .8s ease-out forwards;
     }
+    .unit:nth-child(1) { animation-delay:.3s; }
+    .unit:nth-child(2) { animation-delay:.5s; }
+    .unit:nth-child(3) { animation-delay:.7s; }
+    .unit:nth-child(4) { animation-delay:.9s; }
     @keyframes fadeInUp {
-      from { opacity:0; transform:translateY(10px); }
-      to   { opacity:1; transform:translateY(0); }
+      from { opacity:0; transform:translateY(10px);}
+      to   { opacity:1; transform:translateY(0);}
     }
     .box {
       background:var(--cream); border:1px solid var(--gold);
-      padding:1.5rem; min-width:100px; border-radius:8px;
+      padding:1.2rem .8rem; min-width:70px; border-radius:8px;
       box-shadow:0 4px 12px rgba(0,0,0,0.05);
     }
-    .number {
-      font-weight:700; font-size:3rem; color:var(--dark-blue);
-    }
-    .label {
-      margin-top:.75rem; font-weight:500; font-size:1.2rem;
-      color:var(--dark-blue);
+    .number { font-size:2.5rem; font-weight:700; }
+    .label  { margin-top:.5rem; font-size:1rem; font-weight:500; }
+
+    @media(max-width:480px) {
+      .box { min-width:60px; padding:1rem; }
+      .number { font-size:2rem; }
+      .label  { font-size:.9rem; }
+      .countdown-title { font-size:2rem; }
     }
 
-    /* Tagline separate */
+    /* Tagline */
     #taglineSection {
       width:90%; max-width:600px; text-align:center;
       margin:24px 0 60px;
-      opacity:0; transform:scale(0.8) translateY(20px);
+      opacity:0; transform:scale(.8) translateY(20px);
       animation:subtitlePop 1s ease-out forwards;
       animation-delay:1.5s;
     }
     .tagline {
       font-family:'Playfair Display',serif;
-      font-weight:400; font-size:3.5rem; color:var(--dark-blue);
-      display:inline-block; border-bottom:2px solid var(--blue);
-      padding-bottom:8px;
+      font-size:3.5rem; color:var(--dark-blue);
+      border-bottom:2px solid var(--dark-blue);
+      padding-bottom:8px; display:inline-block;
     }
     @keyframes subtitlePop {
-      0% { opacity:0; transform:scale(0.8) translateY(20px); }
-      60% { opacity:1; transform:scale(1.1) translateY(0); }
-      100% { opacity:1; transform:scale(1) translateY(0); }
+      0% { opacity:0; transform:scale(.8) translateY(20px);}
+      60%{ opacity:1; transform:scale(1.1) translateY(0);}
+      100%{opacity:1; transform:scale(1) translateY(0);}
     }
 
-    /* Photo Slider */
+    /* Gallery */
     .photo-slider {
       width:90%; max-width:800px; margin-bottom:60px;
       opacity:0; transform:translateY(20px);
-      transition:opacity 1.5s ease-out,transform 1.5s ease-out;
+      transition:opacity 1.5s ease-out, transform 1.5s ease-out;
     }
     .photo-slider.visible { opacity:1; transform:translateY(0); }
     .swiper-slide img {
       border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1);
     }
-    .swiper-pagination-bullet { background:var(--dark-blue); opacity:.4; }
-    .swiper-pagination-bullet-active { opacity:1; }
-    .swiper-button-next, .swiper-button-prev { color:var(--dark-blue); }
-
-    /* Invitation Divider */
-    .divider {
-      width:80%; max-width:600px;
-      border:none; border-top:1px solid var(--gold);
-      margin:32px 0;
-    }
 
     /* Invitation */
+    .divider {
+      width:80%; border-top:1px solid var(--gold); margin:32px 0;
+    }
     .invitation-section {
       background:#fffdfa; border:1px solid var(--gold);
       border-radius:12px; padding:24px;
-      width:90%; max-width:600px; margin-top:0;
-      margin-bottom:60px;
+      width:90%; max-width:600px; margin-bottom:60px;
       opacity:0; transform:translateY(20px);
-      transition:opacity 1s ease-out,transform 1s ease-out;
+      transition:opacity 1s ease-out, transform 1s ease-out;
     }
     .invitation-section.visible {
       opacity:1; transform:translateY(0);
@@ -179,9 +181,8 @@
       background:#fff;
     }
     .decor-icon {
-      width:40px; height:auto;
-      position:absolute; top:-20px; left:50%;
-      transform:translateX(-50%);
+      width:32px; height:32px; position:absolute;
+      top:-16px; left:50%; transform:translateX(-50%);
       fill:var(--teal);
     }
     .invitation-details p {
@@ -189,17 +190,6 @@
     }
     .invitation-text {
       font-weight:700; font-size:1.2rem; text-align:center;
-    }
-
-    @media (max-width:480px) {
-      .play-btn { width:56px; height:56px; }
-      .play-btn svg { width:24px; height:24px; }
-      .box { min-width:80px; padding:1rem; }
-      .number { font-size:2.2rem; }
-      .label { font-size:1rem; }
-      .countdown-title { font-size:2rem; }
-      .tagline { font-size:2rem; }
-      .swiper-button-next, .swiper-button-prev { display:none; }
     }
   </style>
 </head>
@@ -223,7 +213,7 @@
     <div class="time"><span id="currentTime">00:00</span> / <span id="duration">00:00</span></div>
   </div>
 
-  <!-- Message -->
+  <!-- Welcome Message -->
   <div class="message">
     เราสองคนกำลังจะเริ่มต้นบทใหม่ของชีวิต และอยากให้คุณเป็นส่วนหนึ่งในความทรงจำที่สวยงามครั้งนี้
   </div>
@@ -232,25 +222,25 @@
   <div id="countdownSection" class="reveal">
     <div class="countdown-title">Countdown to Wedding</div>
     <div class="countdown">
-      <div class="unit"><div class="box"><span id="days" class="number">0</span></div><div class="label">วัน</div></div>
+      <div class="unit"><div class="box"><span id="days" class="number">00</span></div><div class="label">วัน</div></div>
       <div class="unit"><div class="box"><span id="hours" class="number">00</span></div><div class="label">ชั่วโมง</div></div>
       <div class="unit"><div class="box"><span id="minutes" class="number">00</span></div><div class="label">นาที</div></div>
       <div class="unit"><div class="box"><span id="seconds" class="number">00</span></div><div class="label">วินาที</div></div>
     </div>
   </div>
 
-  <!-- Tagline separate -->
+  <!-- Tagline -->
   <div id="taglineSection">
     <div class="tagline">From This Moment, Always</div>
   </div>
 
-  <!-- Photo Slider -->
-  <section id="gallery" class="photo-slider reveal">
+  <!-- Gallery Slider -->
+  <section class="photo-slider reveal">
     <div class="swiper-container">
       <div class="swiper-wrapper">
-        <div class="swiper-slide"><a href="https://i.postimg.cc/SsTCWWJw/DSC-7529-19944.jpg" class="glightbox"><img src="https://i.postimg.cc/SsTCWWJw/DSC-7529-19944.jpg"/></a></div>
-        <div class="swiper-slide"><a href="https://i.postimg.cc/02vVmwcN/DSC-0160.jpg" class="glightbox"><img src="https://i.postimg.cc/02vVmwcN/DSC-0160.jpg"/></a></div>
-        <div class="swiper-slide"><a href="https://i.postimg.cc/cCRT2x4Z/DSC-7266-19681.jpg" class="glightbox"><img src="https://i.postimg.cc/cCRT2x4Z/DSC-7266-19681.jpg"/></a></div>
+        <div class="swiper-slide"><a href="https://i.postimg.cc/SsTCWWJw/DSC-7529-19944.jpg" class="glightbox"><img src="https://i.postimg.cc/SsTCWWJw/DSC-7529-19944.jpg" alt=""/></a></div>
+        <div class="swiper-slide"><a href="https://i.postimg.cc/02vVmwcN/DSC-0160.jpg" class="glightbox"><img src="https://i.postimg.cc/02vVmwcN/DSC-0160.jpg" alt=""/></a></div>
+        <div class="swiper-slide"><a href="https://i.postimg.cc/cCRT2x4Z/DSC-7266-19681.jpg" class="glightbox"><img src="https://i.postimg.cc/cCRT2x4Z/DSC-7266-19681.jpg" alt=""/></a></div>
       </div>
       <div class="swiper-pagination"></div>
       <div class="swiper-button-prev"></div>
@@ -261,10 +251,9 @@
   <!-- Divider -->
   <hr class="divider"/>
 
-  <!-- Invitation (under slider) -->
+  <!-- Invitation Section -->
   <div class="invitation-section reveal">
     <div class="invitation-details">
-      <!-- Inline SVG heart icon -->
       <svg class="decor-icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
       <p>นายสีศักดิ์ ศรีโกศล (พ่อ) และ นางสาวหนูพิน เจนวิถี (แม่)</p>
       <p>นายวรพันธุ์ ชาญชนะโรจน์ (พี่ชาย) และ นางกานต์สินี ชาญชนะโรจน์ (แม่)</p>
@@ -276,61 +265,81 @@
   <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded',()=>{
-      document.querySelectorAll('.reveal').forEach(el=>{
-        new IntersectionObserver(entries=>{
-          entries.forEach(e=>{
-            if(e.isIntersecting){ e.target.classList.add('visible'); e.target.classList.remove('reveal'); }
+    document.addEventListener('DOMContentLoaded', () => {
+      // reveal on scroll
+      document.querySelectorAll('.reveal').forEach(el => {
+        new IntersectionObserver(entries => {
+          entries.forEach(e => {
+            if(e.isIntersecting){
+              e.target.classList.add('visible');
+              e.target.classList.remove('reveal');
+            }
           });
         },{threshold:0.1}).observe(el);
       });
-      new Swiper('.swiper-container',{slidesPerView:1,spaceBetween:20,loop:true,
-        pagination:{el:'.swiper-pagination',clickable:true},
-        navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
-      GLightbox({selector:'.glightbox',loop:true});
 
-      const audio=document.getElementById('audio'),
-            playBtn=document.getElementById('playBtn'),
-            progress=document.getElementById('progress'),
-            progressContainer=document.getElementById('progressContainer'),
-            currentTimeEl=document.getElementById('currentTime'),
-            durationEl=document.getElementById('duration');
-      playBtn.addEventListener('click',()=>{
-        if(audio.paused){ audio.play(); playBtn.innerHTML=`<svg viewBox="0 0 64 64"><rect x="16" y="8" width="12" height="48"/><rect x="36" y="8" width="12" height="48"/></svg>`; }
-        else{ audio.pause(); playBtn.innerHTML=`<svg viewBox="0 0 64 64"><polygon points="16,8 56,32 16,56"/></svg>`; }
+      // init Swiper & GLightbox
+      new Swiper('.swiper-container', {
+        slidesPerView:1, spaceBetween:20, loop:true,
+        pagination:{ el:'.swiper-pagination', clickable:true },
+        navigation:{ nextEl:'.swiper-button-next', prevEl:'.swiper-button-prev' },
       });
-      audio.addEventListener('loadedmetadata',()=>durationEl.textContent=formatTime(audio.duration));
-      audio.addEventListener('timeupdate',()=>{
-        currentTimeEl.textContent=formatTime(audio.currentTime);
-        progress.style.width=(audio.currentTime/audio.duration)*100+'%';
-      });
-      progressContainer.addEventListener('click',e=>{
-        const rect=progressContainer.getBoundingClientRect();
-        audio.currentTime=((e.clientX-rect.left)/rect.width)*audio.duration;
-      });
-      function formatTime(t){const m=Math.floor(t/60),s=Math.floor(t%60);return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');}
+      GLightbox({ selector:'.glightbox', loop:true });
 
-      const target=new Date(2025,5,8,0,0,0).getTime(), els={
-        days:document.getElementById('days'),
-        hours:document.getElementById('hours'),
-        minutes:document.getElementById('minutes'),
-        seconds:document.getElementById('seconds')
+      // audio player
+      const audio = document.getElementById('audio'),
+            playBtn = document.getElementById('playBtn'),
+            progress = document.getElementById('progress'),
+            progressContainer = document.getElementById('progressContainer'),
+            currentTimeEl = document.getElementById('currentTime'),
+            durationEl = document.getElementById('duration');
+      playBtn.addEventListener('click', () => {
+        if(audio.paused){
+          audio.play();
+          playBtn.innerHTML = `<svg viewBox="0 0 64 64"><rect x="16" y="8" width="12" height="48"/><rect x="36" y="8" width="12" height="48"/></svg>`;
+        } else {
+          audio.pause();
+          playBtn.innerHTML = `<svg viewBox="0 0 64 64"><polygon points="16,8 56,32 16,56"/></svg>`;
+        }
+      });
+      audio.addEventListener('loadedmetadata', () => durationEl.textContent = formatTime(audio.duration));
+      audio.addEventListener('timeupdate', () => {
+        currentTimeEl.textContent = formatTime(audio.currentTime);
+        progress.style.width = (audio.currentTime / audio.duration) * 100 + '%';
+      });
+      progressContainer.addEventListener('click', e => {
+        const rect = progressContainer.getBoundingClientRect();
+        audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
+      });
+      function formatTime(t){
+        const m = Math.floor(t/60), s = Math.floor(t%60);
+        return String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+      }
+
+      // countdown
+      const target = new Date(2025,5,8,0,0,0).getTime();
+      const els = {
+        days: document.getElementById('days'),
+        hours: document.getElementById('hours'),
+        minutes: document.getElementById('minutes'),
+        seconds: document.getElementById('seconds'),
       };
       function updateCountdown(){
-        let diff=target-Date.now(); if(diff<0) diff=0;
-        const d=Math.floor(diff/86400000); diff-=d*86400000;
-        const h=Math.floor(diff/3600000); diff-=h*3600000;
-        const m=Math.floor(diff/60000); diff-=m*60000;
-        const s=Math.floor(diff/1000);
-        setValue('days',d); setValue('hours',String(h).padStart(2,'0'));
-        setValue('minutes',String(m).padStart(2,'0')); setValue('seconds',String(s).padStart(2,'0'));
+        let diff = target - Date.now();
+        if(diff < 0) diff = 0;
+        const d = Math.floor(diff / 86400000); diff -= d*86400000;
+        const h = Math.floor(diff / 3600000); diff -= h*3600000;
+        const m = Math.floor(diff / 60000); diff -= m*60000;
+        const s = Math.floor(diff / 1000);
+        els.days.textContent    = String(d).padStart(2,'0');
+        els.hours.textContent   = String(h).padStart(2,'0');
+        els.minutes.textContent = String(m).padStart(2,'0');
+        els.seconds.textContent = String(s).padStart(2,'0');
       }
-      function setValue(id,val){
-        const el=els[id];
-        if(el.textContent!==val){ el.textContent=val; el.classList.remove('animate'); void el.offsetWidth; el.classList.add('animate'); }
-      }
-      updateCountdown(); setInterval(updateCountdown,1000);
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
     });
   </script>
 </body>
 </html>
+
