@@ -1,67 +1,199 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Animated Scroll Image</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wedding Invitation – Audio & Scroll Image</title>
+  <!-- Google Font Kanit -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&display=swap"
+    rel="stylesheet"
+  />
   <style>
-    body {
+    /* Reset & Base */
+    * {
       margin: 0;
-      font-family: sans-serif;
-      background-color: #AEDFF7; /* ฟ้าพาสเทล ตามเดิม */
-      min-height: 200vh; /* เพื่อให้มีพื้นที่สกอลล์ */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Kanit', sans-serif;
+      background-color: #AEDFF7; /* ฟ้าพาสเทล */
+      color: #333;
     }
 
+    /*=== Scroll-Animation Image (now on top) ===*/
     .scroll-image {
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-      max-width: 90%;
-      width: 600px;
-      margin: 100vh 0; /* เริ่มให้รูปอยู่ข้างล่างสุดของหน้าก่อนสกอลล์ */
+      display: block;
+      width: 90%;
+      max-width: 600px;
+      margin: 24px auto; /* รูปอยู่บนสุด มีช่องว่างรอบๆ */
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-
     .scroll-image.visible {
       opacity: 1;
       transform: translateY(0);
+    }
+
+    /*=== Audio Player ===*/
+    .audio-player {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+      margin: 24px auto;
+      padding: 24px;
+      text-align: center;
+    }
+    .play-btn {
+      width: 64px;
+      height: 64px;
+      border: none;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #D0EFFF, #AEDFF7);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    .play-btn:active {
+      transform: scale(0.95);
+    }
+    .play-btn svg {
+      width: 30px;
+      height: 30px;
+      fill: #fff;
+    }
+    .progress-container {
+      width: 100%;
+      height: 6px;
+      background: #eee;
+      border-radius: 3px;
+      margin: 20px 0 8px;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .progress {
+      width: 0%;
+      height: 100%;
+      background: #AEDFF7;
+      transition: width 0.1s linear;
+    }
+    .time {
+      font-size: 14px;
+      color: #555;
+    }
+    .info {
+      margin-top: 12px;
+      font-size: 14px;
+      color: #333;
+    }
+    @media (max-width: 360px) {
+      .play-btn {
+        width: 56px;
+        height: 56px;
+      }
+      .play-btn svg {
+        width: 24px;
+        height: 24px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- รูปที่จะให้แสดงพร้อมอนิเมชั่น -->
+  <!-- 1. รูปอยู่บนสุด พร้อมอนิเมชัน -->
   <img
+    id="animatedImage"
+    class="scroll-image"
     src="https://i.postimg.cc/6QGx2SKg/DSC087422-1.jpg"
     alt="Wedding Image"
-    class="scroll-image"
-    id="animatedImage"
   >
 
+  <!-- 2. Audio Player -->
+  <div class="audio-player">
+    <audio id="audio" src="https://natiphol.github.io/mp3/No.mp3"></audio>
+    <button id="playBtn" class="play-btn" aria-label="Play">
+      <svg viewBox="0 0 64 64">
+        <polygon points="16,8 56,32 16,56"></polygon>
+      </svg>
+    </button>
+    <div id="progressContainer" class="progress-container">
+      <div id="progress" class="progress"></div>
+    </div>
+    <div class="time">
+      <span id="currentTime">00:00</span> / <span id="duration">00:00</span>
+    </div>
+    <p class="info">กรุณากดเล่นเพลงก่อน แล้วเลื่อนลงดูรายละเอียด</p>
+  </div>
+
   <script>
-    // ใช้ IntersectionObserver เช็คว่า element เข้ามาใน viewport หรือยัง
     document.addEventListener('DOMContentLoaded', () => {
+      // — Scroll Animation Logic —
       const img = document.getElementById('animatedImage');
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              img.classList.add('visible');
-            } else {
-              img.classList.remove('visible');
-            }
-          });
-        },
-        {
-          threshold: 0.1
-        }
-      );
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          entry.isIntersecting
+            ? img.classList.add('visible')
+            : img.classList.remove('visible');
+        });
+      }, { threshold: 0.1 });
       observer.observe(img);
+
+      // — Audio Player Logic —
+      const audio = document.getElementById('audio');
+      const playBtn = document.getElementById('playBtn');
+      const progress = document.getElementById('progress');
+      const progressContainer = document.getElementById('progressContainer');
+      const currentTimeEl = document.getElementById('currentTime');
+      const durationEl = document.getElementById('duration');
+
+      playBtn.addEventListener('click', () => {
+        if (audio.paused) {
+          audio.play();
+          playBtn.innerHTML = `
+            <svg viewBox="0 0 64 64">
+              <rect x="16" y="8" width="12" height="48"></rect>
+              <rect x="36" y="8" width="12" height="48"></rect>
+            </svg>`;
+          playBtn.setAttribute('aria-label', 'Pause');
+        } else {
+          audio.pause();
+          playBtn.innerHTML = `
+            <svg viewBox="0 0 64 64">
+              <polygon points="16,8 56,32 16,56"></polygon>
+            </svg>`;
+          playBtn.setAttribute('aria-label', 'Play');
+        }
+      });
+
+      audio.addEventListener('loadedmetadata', () => {
+        durationEl.textContent = formatTime(audio.duration);
+      });
+
+      audio.addEventListener('timeupdate', () => {
+        currentTimeEl.textContent = formatTime(audio.currentTime);
+        progress.style.width = (audio.currentTime / audio.duration) * 100 + '%';
+      });
+
+      progressContainer.addEventListener('click', e => {
+        const rect = progressContainer.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        audio.currentTime = (clickX / rect.width) * audio.duration;
+      });
+
+      function formatTime(time) {
+        const m = Math.floor(time / 60) || 0;
+        const s = Math.floor(time % 60) || 0;
+        return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+      }
     });
   </script>
 
