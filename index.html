@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wedding Invitation – Audio & Sliding Prompt</title>
-  <!-- Google Fonts: elegant wedding theme -->
+  <!-- Google Font: IBM Plex Sans Thai -->
   <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&display=swap"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;700&display=swap"
     rel="stylesheet"
   />
   <style>
@@ -17,16 +17,16 @@
       box-sizing: border-box;
     }
     body {
-      font-family: 'Playfair Display', serif;
+      font-family: 'IBM Plex Sans Thai', sans-serif;
       background-color: #AEDFF7;
       color: #333;
     }
 
-    /*=== Scroll-Animation Image (อยู่บนสุด) ===*/
+    /* Scroll-Animation Image */
     .scroll-image {
       opacity: 0;
       transform: translateY(20px);
-      transition: opacity 1s ease-out, transform 1s ease-out;
+      transition: opacity 2s ease-out, transform 2s ease-out;
       display: block;
       width: 90%;
       max-width: 600px;
@@ -39,13 +39,13 @@
       transform: translateY(0);
     }
 
-    /*=== Sliding Prompt (เลื่อนจากนอกจอเข้ามา) ===*/
+    /* Sliding Prompt */
     .scroll-indicator {
       text-align: center;
       margin: 16px auto 40px;
       opacity: 0;
       transform: translateX(-100vw);
-      transition: opacity 1s ease-out, transform 1s ease-out;
+      transition: opacity 2s ease-out, transform 2s ease-out;
       max-width: 90%;
     }
     .scroll-indicator.visible {
@@ -53,25 +53,26 @@
       transform: translateX(0);
     }
     .scroll-indicator .info {
-      font-family: 'Great Vibes', cursive;
-      font-size: 24px;
+      font-size: 18px;
+      font-weight: 500;
       color: #fff;
       text-shadow: 0 2px 4px rgba(0,0,0,0.3);
     }
 
-    /*=== Audio Player (สไลด์มาพร้อมกันจากขวา) ===*/
+    /* Audio Player */
     .audio-player {
       background: rgba(255, 255, 255, 0.9);
       border-radius: 16px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
       width: 100%;
       max-width: 400px;
-      margin: 0 auto 40px;
+      margin: 0 auto;
       padding: 24px;
       text-align: center;
       opacity: 0;
       transform: translateX(100vw);
-      transition: opacity 1s ease-out, transform 1s ease-out;
+      transition: opacity 2s ease-out, transform 2s ease-out;
+      font-family: 'IBM Plex Sans Thai', sans-serif;
     }
     .audio-player.visible {
       opacity: 1;
@@ -115,9 +116,19 @@
     }
     .time {
       margin-top: 8px;
-      font-family: 'Playfair Display', serif;
       font-size: 14px;
       color: #555;
+    }
+
+    /* Message under player */
+    .message {
+      max-width: 90%;
+      margin: 24px auto;
+      font-size: 16px;
+      line-height: 1.5;
+      color: #333;
+      text-align: center;
+      padding: 0 16px;
     }
 
     @media (max-width: 360px) {
@@ -147,7 +158,7 @@
     <span class="info">กรุณากดเล่นเพลงก่อน แล้วเลื่อนลงดูรายละเอียด</span>
   </div>
 
-  <!-- 3. Audio Player (สไลด์จากขวาพร้อมกัน) -->
+  <!-- 3. Audio Player -->
   <div class="audio-player">
     <audio id="audio" src="https://natiphol.github.io/mp3/No.mp3"></audio>
     <button id="playBtn" class="play-btn" aria-label="Play">
@@ -163,9 +174,17 @@
     </div>
   </div>
 
+  <!-- 4. ข้อความเพิ่มเติมใต้เครื่องเล่นเพลง -->
+  <div class="message">
+    <p>เราสองคนกำลังจะเริ่มต้นบทใหม่ของชีวิต<br>
+    และอยากให้คุณเป็นส่วนหนึ่งในความทรงจำที่สวยงามครั้งนี้</p>
+    <p>Our journey begins with love, and it becomes more meaningful with your support.<br>
+    Please join us as we celebrate the beginning of our forever.</p>
+  </div>
+
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // — Animation for Image, Prompt & Audio Player —
+      // Animation for Image, Prompt & Audio Player
       const img = document.getElementById('animatedImage');
       const indicator = document.getElementById('indicator');
       const audioPlayer = document.querySelector('.audio-player');
@@ -181,7 +200,7 @@
       }, { threshold: 0.1 });
       observer.observe(img);
 
-      // — Audio Player Logic —
+      // Audio Player Logic
       const audio = document.getElementById('audio');
       const playBtn = document.getElementById('playBtn');
       const progress = document.getElementById('progress');
