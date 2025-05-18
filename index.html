@@ -112,18 +112,12 @@
       color: var(--dark-blue);
     }
 
-    /* Elegant Countdown */
+    /* Countdown: outer frame removed */
     .countdown-container {
-      background: var(--cream);
-      border: 2px solid var(--teal);
-      padding: 2rem 1.5rem;
-      border-radius: 16px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.05);
-      text-align: center;
-      font-family: 'Playfair Display', serif;
-      width: calc(100% - 48px);
-      max-width: 600px;
       margin-bottom: 60px;
+      /* removed background, border, box-shadow */
+      padding: 0;
+      width: auto;
     }
     .countdown {
       display: flex;
@@ -207,7 +201,7 @@
     Please join us as we celebrate the beginning of our forever.</p>
   </div>
 
-  <!-- 5. Elegant Countdown -->
+  <!-- 5. Countdown with no outer frame -->
   <div class="countdown-container">
     <div class="countdown">
       <div class="unit">
@@ -254,7 +248,6 @@
       const progressContainer = document.getElementById('progressContainer');
       const currentTimeEl = document.getElementById('currentTime');
       const durationEl = document.getElementById('duration');
-
       playBtn.addEventListener('click', () => {
         if (audio.paused) {
           audio.play();
@@ -273,21 +266,17 @@
           playBtn.setAttribute('aria-label', 'Play');
         }
       });
-
       audio.addEventListener('loadedmetadata', () => {
         durationEl.textContent = formatTime(audio.duration);
       });
-
       audio.addEventListener('timeupdate', () => {
         currentTimeEl.textContent = formatTime(audio.currentTime);
         progress.style.width = (audio.currentTime / audio.duration) * 100 + '%';
       });
-
       progressContainer.addEventListener('click', e => {
         const rect = progressContainer.getBoundingClientRect();
         audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
       });
-
       function formatTime(t) {
         const m = Math.floor(t/60), s = Math.floor(t%60);
         return String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
@@ -301,7 +290,6 @@
         minutes: document.getElementById('minutes'),
         seconds: document.getElementById('seconds'),
       };
-
       function updateCountdown() {
         let diff = target - Date.now();
         if (diff < 0) diff = 0;
@@ -312,13 +300,11 @@
         const m = Math.floor(diff / (1000*60));
         diff -= m * (1000*60);
         const s = Math.floor(diff / 1000);
-
         setValue('days', d);
         setValue('hours', String(h).padStart(2,'0'));
         setValue('minutes', String(m).padStart(2,'0'));
         setValue('seconds', String(s).padStart(2,'0'));
       }
-
       function setValue(id, val) {
         const el = els[id];
         if (el.textContent !== String(val)) {
@@ -328,7 +314,6 @@
           el.classList.add('animate');
         }
       }
-
       updateCountdown();
       setInterval(updateCountdown, 1000);
     });
