@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mobile-First Background</title>
+  <title>Mobile-First Background with Cover</title>
   <style>
     /* รีเซ็ตขอบ/ระยะขอบ และให้ความสูงเต็มจอ */
     html, body {
@@ -12,6 +12,7 @@
       height: 100%;
     }
 
+    /* 2. แบ็กกราวน์ของ body */
     body {
       background-image: url('https://i.postimg.cc/mD5QZMRC/background.png');
       background-repeat: no-repeat;
@@ -30,6 +31,12 @@
   </style>
 </head>
 <body>
+
+   <header>
+    <img src="https://i.postimg.cc/6QGx2SKg/DSC087422-1.jpg" alt="ภาพปกงานแต่ง">
+  </header>
+
+  <!-- สคริปต์ swipe เปลี่ยนพื้นหลังบนมือถือ -->
   <script>
     // ตรวจจับว่าเป็นมือถือหรือไม่
     const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
@@ -49,4 +56,16 @@
 
       document.body.addEventListener('touchend', e => {
         const endX = e.changedTouches[0].screenX;
-        if (endX < st
+        if (endX < startX - 50) {          // ปาดซ้าย → รูปถัดไป
+          current = (current + 1) % backgrounds.length;
+        } else if (endX > startX + 50) {   // ปาดขวา → รูปก่อนหน้า
+          current = (current - 1 + backgrounds.length) % backgrounds.length;
+        } else {
+          return; // ไม่ใช่การปาดจริงจัง
+        }
+        document.body.style.backgroundImage = `url('${backgrounds[current]}')`;
+      }, {passive: true});
+    }
+  </script>
+</body>
+</html>
