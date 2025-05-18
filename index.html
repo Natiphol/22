@@ -42,13 +42,13 @@
       margin-bottom: var(--section-gap);
       text-align: center;
     }
+
     /* Scroll-Animation Image */
     #animatedImage {
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 2s ease-out, transform 2s ease-out;
       width: 100%;
-      height: auto;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
@@ -153,36 +153,79 @@
       margin-top: 0.5rem; font-size: 1rem;
     }
 
-    /* Moment Always Slider */
-    .moment-section { margin-top: 70px; }
+    /* ===== Moment Always – Luxe UI ===== */
+    .moment-section {
+      margin-top: 70px;
+      padding: 24px;
+      background: rgba(255, 245, 225, 0.8);
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
     .moment-title {
       font-family: 'Playfair Display', serif;
-      font-size: 3rem;
-      margin-bottom: 24px;
+      font-size: 3.5rem;
+      margin-bottom: 32px;
       color: var(--dark-blue);
+      position: relative;
+    }
+    .moment-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: var(--teal);
+      margin: 12px auto 0;
+      border-radius: 2px;
     }
     .moment-gallery {
       position: relative;
       overflow: hidden;
+      background: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(209,234,238,0.6));
+      border-radius: 12px;
+      padding: 16px;
     }
     .slides { display: flex; transition: transform 0.5s ease; }
-    .slide { flex: 0 0 100%; }
-    .slide img { width: 100%; border-radius: 8px; cursor: pointer; }
-
+    .slide {
+      flex: 0 0 100%;
+      padding: 8px;
+    }
+    .slide img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .slide img:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
     .prev, .next {
       position: absolute; top: 50%; transform: translateY(-50%);
-      background: rgba(255,255,255,0.8); border: none;
-      font-size: 24px; width: 40px; height: 40px; border-radius: 50%;
-      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      background: rgba(255, 215, 0, 0.8); /* ทองอ่อน */
+      border: none; font-size: 24px; width: 48px; height: 48px;
+      border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: background 0.2s, transform 0.2s;
     }
-    .prev { left: 10px; } .next { right: 10px; }
-    .dot-container { text-align: center; margin-top: 12px; }
+    .prev:hover, .next:hover {
+      background: rgba(255, 215, 0, 1);
+      transform: translateY(-50%) scale(1.1);
+    }
+    .prev { left: 12px; } .next { right: 12px; }
+    .dot-container {
+      text-align: center;
+      margin-top: 16px;
+    }
     .dot {
-      display: inline-block; width: 12px; height: 12px;
-      margin: 0 4px; background: var(--teal); border-radius: 50%;
-      cursor: pointer; opacity: 0.5; transition: opacity 0.3s;
+      display: inline-block; width: 14px; height: 14px;
+      margin: 0 6px; background: var(--teal);
+      border-radius: 50%; cursor: pointer;
+      opacity: 0.6; transition: opacity 0.3s, box-shadow 0.3s;
     }
-    .dot.active { opacity: 1; background: var(--dark-blue); }
+    .dot:hover, .dot.active {
+      opacity: 1; box-shadow: 0 0 8px var(--teal);
+    }
 
     @media (max-width: 480px) {
       .moment-title { font-size: 2rem; }
@@ -196,7 +239,6 @@
   <div class="container">
     <img
       id="animatedImage"
-      class="scroll-image"
       src="https://i.postimg.cc/6QGx2SKg/DSC087422-1.jpg"
       alt="Wedding Image"
     />
@@ -259,7 +301,7 @@
   <section id="momentAlways" class="container moment-section">
     <div class="moment-title">Moment Always</div>
     <div class="moment-gallery">
-      <button class="prev" aria-label="Previous">&larr;</button>
+      <button class="prev" aria-label="Previous">&lsaquo;</button>
       <div class="slides">
         <div class="slide">
           <a href="https://i.postimg.cc/SsTCWWJw/DSC-7529-19944.jpg" class="moment-slide">
@@ -277,7 +319,7 @@
           </a>
         </div>
       </div>
-      <button class="next" aria-label="Next">&rarr;</button>
+      <button class="next" aria-label="Next">&rsaquo;</button>
     </div>
     <div class="dot-container">
       <span class="dot"></span><span class="dot"></span><span class="dot"></span>
@@ -288,7 +330,7 @@
   <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Intersection Observer for image, prompt, player & countdown
+      // Intersection Observer
       const img = document.getElementById('animatedImage');
       const indicator = document.getElementById('indicator');
       const audioPlayer = document.querySelector('.audio-player');
@@ -310,7 +352,7 @@
       io.observe(img);
       io.observe(countdownSection);
 
-      // Audio Player Logic
+      // Audio Player
       const audio = document.getElementById('audio');
       const playBtn = document.getElementById('playBtn');
       const progress = document.getElementById('progress');
@@ -351,7 +393,7 @@
         return String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
       }
 
-      // Countdown Logic
+      // Countdown
       const target = new Date(2025,5,8,0,0,0).getTime();
       const els = {
         days:    document.getElementById('days'),
@@ -386,7 +428,7 @@
       updateCountdown();
       setInterval(updateCountdown, 1000);
 
-      // Moment Always Slider & Lightbox
+      // Moment Always Slider
       const slidesContainer = document.querySelector('.slides');
       const slides = document.querySelectorAll('.slide');
       const dots = document.querySelectorAll('.dot');
@@ -403,12 +445,9 @@
       prevBtn.addEventListener('click', () => showSlides(--slideIndex));
       nextBtn.addEventListener('click', () => showSlides(++slideIndex));
       dots.forEach((dot, idx) => {
-        dot.addEventListener('click', () => {
-          slideIndex = idx + 1;
-          showSlides(slideIndex);
-        });
+        dot.addEventListener('click', () => { slideIndex = idx + 1; showSlides(slideIndex); });
       });
-      // Swipe Support
+      // Swipe
       let startX = 0;
       const gallery = document.querySelector('.moment-gallery');
       gallery.addEventListener('touchstart', e => startX = e.changedTouches[0].clientX);
