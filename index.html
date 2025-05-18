@@ -2,70 +2,68 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mobile-First Background with Cover</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Animated Scroll Image</title>
   <style>
-    /* รีเซ็ตขอบ/ระยะขอบ และให้ความสูงเต็มจอ */
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-    }
-
-    /* 2. แบ็กกราวน์ของ body */
     body {
-      background-image: url('https://i.postimg.cc/mD5QZMRC/background.png');
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: cover;
-      background-attachment: fixed;  /* ล็อคภาพพื้นหลัง */
-      transition: background-image 0.5s ease;
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #AEDFF7; /* ฟ้าพาสเทล ตามเดิม */
+      min-height: 200vh; /* เพื่อให้มีพื้นที่สกอลล์ */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
     }
 
-    /* บางเบราว์เซอร์มือถือไม่รองรับ fixed, ให้ fallback เป็น scroll */
-    @media (hover: none) and (pointer: coarse) {
-      body {
-        background-attachment: scroll;
-      }
+    .scroll-image {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      max-width: 90%;
+      width: 600px;
+      margin: 100vh 0; /* เริ่มให้รูปอยู่ข้างล่างสุดของหน้าก่อนสกอลล์ */
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .scroll-image.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
 <body>
 
-   <header>
-    <img src="https://i.postimg.cc/6QGx2SKg/DSC087422-1.jpg" alt="ภาพปกงานแต่ง">
-  </header>
+  <!-- รูปที่จะให้แสดงพร้อมอนิเมชั่น -->
+  <img
+    src="https://i.postimg.cc/6QGx2SKg/DSC087422-1.jpg"
+    alt="Wedding Image"
+    class="scroll-image"
+    id="animatedImage"
+  >
 
-  <!-- สคริปต์ swipe เปลี่ยนพื้นหลังบนมือถือ -->
   <script>
-    // ตรวจจับว่าเป็นมือถือหรือไม่
-    const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
-
-    if (isMobile) {
-      const backgrounds = [
-        'https://i.postimg.cc/mD5QZMRC/background.png',
-        'https://i.postimg.cc/xyz/second.jpg',
-        'https://i.postimg.cc/abc/third.jpg'
-      ];
-      let current = 0;
-      let startX = 0;
-
-      document.body.addEventListener('touchstart', e => {
-        startX = e.changedTouches[0].screenX;
-      }, {passive: true});
-
-      document.body.addEventListener('touchend', e => {
-        const endX = e.changedTouches[0].screenX;
-        if (endX < startX - 50) {          // ปาดซ้าย → รูปถัดไป
-          current = (current + 1) % backgrounds.length;
-        } else if (endX > startX + 50) {   // ปาดขวา → รูปก่อนหน้า
-          current = (current - 1 + backgrounds.length) % backgrounds.length;
-        } else {
-          return; // ไม่ใช่การปาดจริงจัง
+    // ใช้ IntersectionObserver เช็คว่า element เข้ามาใน viewport หรือยัง
+    document.addEventListener('DOMContentLoaded', () => {
+      const img = document.getElementById('animatedImage');
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              img.classList.add('visible');
+            } else {
+              img.classList.remove('visible');
+            }
+          });
+        },
+        {
+          threshold: 0.1
         }
-        document.body.style.backgroundImage = `url('${backgrounds[current]}')`;
-      }, {passive: true});
-    }
+      );
+      observer.observe(img);
+    });
   </script>
+
 </body>
 </html>
