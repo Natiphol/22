@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -32,13 +31,15 @@
     }
     img { display:block; max-width:100%; }
 
-    /* reveal-on-scroll helper */
+    /* reveal-on-scroll */
     .reveal {
-      opacity:0; transform:translateY(20px);
-      transition:opacity 1s ease-out, transform 1s ease-out;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
     }
     .reveal.visible {
-      opacity:1; transform:translateY(0);
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* Hero Image */
@@ -65,16 +66,17 @@
       background: linear-gradient(135deg, var(--teal), var(--blue));
       display:inline-flex; align-items:center; justify-content:center;
       cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,0.1);
-      transition:transform .2s;
+      transition: transform .2s;
     }
-    .play-btn:active { transform:scale(.95); }
+    .play-btn:active { transform: scale(.95); }
     .play-btn svg { width:30px; height:30px; fill:#fff; }
     .progress-container {
       width:100%; height:6px; background:#eee; border-radius:3px;
       margin:20px 0 8px; overflow:hidden; cursor:pointer;
     }
     .progress {
-      width:0%; height:100%; background:var(--teal); transition:width .1s linear;
+      width:0%; height:100%; background:var(--teal);
+      transition: width .1s linear;
     }
     .time { font-size:14px; }
 
@@ -89,11 +91,12 @@
       font-family:'Playfair Display', serif;
       font-size:2.5rem; font-weight:700;
       margin-bottom:1rem; color:var(--dark-blue);
-      opacity:0; animation:fadeInDown 1s ease-out forwards;
+      opacity: 0;
+      animation: fadeInDown 1s ease-out forwards;
     }
     @keyframes fadeInDown {
-      from { opacity:0; transform:translateY(-20px);}
-      to   { opacity:1; transform:translateY(0);}
+      from { opacity:0; transform:translateY(-20px); }
+      to   { opacity:1; transform:translateY(0); }
     }
 
     /* Countdown Units */
@@ -105,15 +108,15 @@
     .countdown::-webkit-scrollbar { display:none; }
     .unit {
       text-align:center;
-      opacity:0; animation:fadeInUp .8s ease-out forwards;
+      opacity:0; animation: fadeInUp .8s ease-out forwards;
     }
     .unit:nth-child(1) { animation-delay:.3s; }
     .unit:nth-child(2) { animation-delay:.5s; }
     .unit:nth-child(3) { animation-delay:.7s; }
     .unit:nth-child(4) { animation-delay:.9s; }
     @keyframes fadeInUp {
-      from { opacity:0; transform:translateY(10px);}
-      to   { opacity:1; transform:translateY(0);}
+      from { opacity:0; transform:translateY(10px); }
+      to   { opacity:1; transform:translateY(0); }
     }
     .box {
       background:var(--cream); border:1px solid var(--gold);
@@ -135,18 +138,18 @@
       width:90%; max-width:600px; text-align:center;
       margin:24px 0 60px;
       opacity:0; transform:scale(.8) translateY(20px);
-      animation:subtitlePop 1s ease-out forwards;
+      animation: subtitlePop 1s ease-out forwards;
       animation-delay:1.5s;
     }
     .tagline {
-      font-family:'Playfair Display',serif;
+      font-family:'Playfair Display', serif;
       font-size:3.5rem; color:var(--dark-blue);
       border-bottom:2px solid var(--dark-blue);
       padding-bottom:8px; display:inline-block;
     }
     @keyframes subtitlePop {
-      0% { opacity:0; transform:scale(.8) translateY(20px);}
-      60%{ opacity:1; transform:scale(1.1) translateY(0);}
+      0% { opacity:0; transform:scale(.8) translateY(20px); }
+      60%{ opacity:1; transform:scale(1.1) translateY(0); }
       100%{opacity:1; transform:scale(1) translateY(0);}
     }
 
@@ -154,7 +157,7 @@
     .photo-slider {
       width:90%; max-width:800px; margin-bottom:60px;
       opacity:0; transform:translateY(20px);
-      transition:opacity 1.5s ease-out, transform 1.5s ease-out;
+      transition: opacity 1.5s ease-out, transform 1.5s ease-out;
     }
     .photo-slider.visible { opacity:1; transform:translateY(0); }
     .swiper-slide img {
@@ -180,13 +183,12 @@
       padding:16px; margin-bottom:16px; position:relative;
       background:#fff;
     }
-    .decor-icon {
-      width:32px; height:32px; position:absolute;
-      top:-16px; left:50%; transform:translateX(-50%);
-      fill:var(--teal);
+    .line {
+      display:flex; align-items:center; gap:0.5rem;
+      margin:8px 0; font-weight:400; font-size:1rem;
     }
-    .invitation-details p {
-      font-weight:300; margin:8px 0; text-align:center;
+    .icon {
+      font-size:1.5rem; color:var(--teal);
     }
     .invitation-text {
       font-weight:700; font-size:1.2rem; text-align:center;
@@ -198,11 +200,13 @@
   <!-- Hero Image -->
   <img id="heroImage" class="reveal" src="https://i.postimg.cc/6QGx2SKg/DSC087422-1.jpg" alt="Wedding Image"/>
 
-  <!-- Prompt -->
-  <div class="scroll-indicator">กรุณากดเล่นเพลงก่อน แล้วเลื่อนลงดูรายละเอียด</div>
+  <!-- Prompt with slide-in -->
+  <div class="scroll-indicator reveal">
+    กรุณากดเล่นเพลงก่อน แล้วเลื่อนลงดูรายละเอียด
+  </div>
 
-  <!-- Audio Player -->
-  <div class="audio-player">
+  <!-- Audio Player with slide-in -->
+  <div class="audio-player reveal">
     <audio id="audio" src="https://natiphol.github.io/mp3/No.mp3"></audio>
     <button id="playBtn" class="play-btn" aria-label="Play">
       <svg viewBox="0 0 64 64"><polygon points="16,8 56,32 16,56"/></svg>
@@ -254,9 +258,10 @@
   <!-- Invitation Section -->
   <div class="invitation-section reveal">
     <div class="invitation-details">
-      <svg class="decor-icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-      <p>นายสีศักดิ์ ศรีโกศล (พ่อ) และ นางสาวหนูพิน เจนวิถี (แม่)</p>
-      <p>นายวรพันธุ์ ชาญชนะโรจน์ (พี่ชาย) และ นางกานต์สินี ชาญชนะโรจน์ (แม่)</p>
+      <div class="line"><span class="icon">👨‍👩‍👦‍👦</span><span>นายสีศักดิ์ ศรีโกศล (พ่อ)</span></div>
+      <div class="line"><span class="icon">👩‍👦‍👦</span><span>นางสาวหนูพิน เจนวิถี (แม่)</span></div>
+      <div class="line"><span class="icon">👦</span><span>นายวรพันธุ์ ชาญชนะโรจน์ (พี่ชาย)</span></div>
+      <div class="line"><span class="icon">👧</span><span>นางกานต์สินี ชาญชนะโรจน์ (แม่)</span></div>
     </div>
     <div class="invitation-text">ขอเรียนเชิญร่วมเป็นเกียรติในพิธีมงคลสมรส</div>
   </div>
@@ -266,16 +271,16 @@
   <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // reveal on scroll
+      // reveal-on-scroll
       document.querySelectorAll('.reveal').forEach(el => {
         new IntersectionObserver(entries => {
           entries.forEach(e => {
-            if(e.isIntersecting){
+            if (e.isIntersecting) {
               e.target.classList.add('visible');
               e.target.classList.remove('reveal');
             }
           });
-        },{threshold:0.1}).observe(el);
+        }, { threshold: 0.1 }).observe(el);
       });
 
       // init Swiper & GLightbox
@@ -294,7 +299,7 @@
             currentTimeEl = document.getElementById('currentTime'),
             durationEl = document.getElementById('duration');
       playBtn.addEventListener('click', () => {
-        if(audio.paused){
+        if (audio.paused) {
           audio.play();
           playBtn.innerHTML = `<svg viewBox="0 0 64 64"><rect x="16" y="8" width="12" height="48"/><rect x="36" y="8" width="12" height="48"/></svg>`;
         } else {
@@ -311,7 +316,7 @@
         const rect = progressContainer.getBoundingClientRect();
         audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
       });
-      function formatTime(t){
+      function formatTime(t) {
         const m = Math.floor(t/60), s = Math.floor(t%60);
         return String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
       }
@@ -324,9 +329,9 @@
         minutes: document.getElementById('minutes'),
         seconds: document.getElementById('seconds'),
       };
-      function updateCountdown(){
+      function updateCountdown() {
         let diff = target - Date.now();
-        if(diff < 0) diff = 0;
+        if (diff < 0) diff = 0;
         const d = Math.floor(diff / 86400000); diff -= d*86400000;
         const h = Math.floor(diff / 3600000); diff -= h*3600000;
         const m = Math.floor(diff / 60000); diff -= m*60000;
@@ -337,9 +342,8 @@
         els.seconds.textContent = String(s).padStart(2,'0');
       }
       updateCountdown();
-      setInterval(updateCountdown, 1000);
+      setInterval(updateCountdown,1000);
     });
   </script>
 </body>
 </html>
-
