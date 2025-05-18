@@ -3,20 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wedding Invitation – Audio, Prompt & Countdown</title>
-  <!-- Google Font: IBM Plex Sans Thai -->
+  <title>Wedding Invitation – Audio, Prompt & Elegant Countdown</title>
+  <!-- Google Fonts -->
   <link
-    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap"
     rel="stylesheet"
   />
   <style>
+    :root {
+      --blue: #89CFF0;
+      --cream: #FFF5E1;
+      --teal: #A1D6E2;
+      --dark-blue: #2A6F97;
+    }
     /* Reset & Base */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: linear-gradient(135deg, var(--cream) 0%, var(--teal) 50%, var(--blue) 100%);
       font-family: 'IBM Plex Sans Thai', sans-serif;
-      background-color: #AEDFF7;
-      color: #333;
+      color: var(--dark-blue);
       line-height: 1.5;
+      padding: 24px 0;
     }
 
     /* Scroll-Animation Image */
@@ -24,12 +34,11 @@
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 2s ease-out, transform 2s ease-out;
-      display: block;
       width: 90%;
       max-width: 600px;
-      margin: 24px auto;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-bottom: 24px;
     }
     .scroll-image.visible {
       opacity: 1;
@@ -38,12 +47,12 @@
 
     /* Sliding Prompt */
     .scroll-indicator {
-      text-align: center;
-      margin: 16px auto 40px;
       opacity: 0;
       transform: translateX(-100vw);
       transition: opacity 2s ease-out, transform 2s ease-out;
       max-width: 90%;
+      text-align: center;
+      margin-bottom: 24px;
     }
     .scroll-indicator.visible {
       opacity: 1;
@@ -52,23 +61,23 @@
     .scroll-indicator .info {
       font-size: 18px;
       font-weight: 500;
-      color: #fff;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      color: var(--dark-blue);
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
     /* Audio Player */
     .audio-player {
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      width: 100%;
-      max-width: 400px;
-      margin: 0 auto;
-      padding: 24px;
-      text-align: center;
       opacity: 0;
       transform: translateX(100vw);
       transition: opacity 2s ease-out, transform 2s ease-out;
+      background: rgba(255,245,225,0.9);
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      width: calc(100% - 48px);
+      max-width: 400px;
+      padding: 24px;
+      text-align: center;
+      margin-bottom: 24px;
     }
     .audio-player.visible {
       opacity: 1;
@@ -77,7 +86,7 @@
     .play-btn {
       width: 64px; height: 64px;
       border: none; border-radius: 50%;
-      background: linear-gradient(135deg, #D0EFFF, #AEDFF7);
+      background: linear-gradient(135deg, var(--teal), var(--blue));
       display: inline-flex; align-items: center; justify-content: center;
       cursor: pointer;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -90,51 +99,51 @@
       background: #eee; border-radius: 3px;
       margin: 20px 0 8px; cursor: pointer; overflow: hidden;
     }
-    .progress {
-      width: 0%; height: 100%;
-      background: #AEDFF7; transition: width 0.1s linear;
-    }
-    .time {
-      margin-top: 8px;
-      font-size: 14px; color: #555;
-    }
+    .progress { width: 0%; height: 100%; background: var(--teal); transition: width 0.1s linear; }
+    .time { font-size: 14px; color: var(--dark-blue); }
 
     /* Message under player */
     .message {
       max-width: 90%;
-      margin: 24px auto;
       font-size: 16px;
       text-align: center;
+      margin-bottom: 40px;
       padding: 0 16px;
+      color: var(--dark-blue);
     }
 
-    /* Countdown Styles */
+    /* Elegant Countdown */
     .countdown-container {
-      background: rgba(255,255,255,0.9);
+      background: var(--cream);
+      border: 2px solid var(--teal);
       padding: 2rem 1.5rem;
       border-radius: 16px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-      display: inline-block;
-      margin: 40px auto 60px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      width: calc(100% - 48px);
+      max-width: 600px;
+      margin-bottom: 60px;
     }
     .countdown {
       display: flex;
       gap: 1rem;
       justify-content: center;
+      flex-wrap: wrap;
     }
-    .unit {
-      text-align: center;
-    }
+    .unit { text-align: center; }
     .box {
-      background: #fff;
+      background: var(--cream);
+      border: 2px solid var(--teal);
       padding: 1rem;
       min-width: 70px;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
     .number {
-      font-size: 2rem;
+      font-size: 2.2rem;
       font-weight: 700;
+      color: var(--dark-blue);
       display: inline-block;
       animation-duration: 0.8s;
       animation-fill-mode: both;
@@ -142,20 +151,22 @@
     .label {
       margin-top: 0.5rem;
       font-size: 1rem;
-      font-weight: 500;
-      color: #555;
+      font-weight: 700;
+      color: var(--dark-blue);
     }
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(10px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .number.animate {
-      animation-name: fadeInUp;
-    }
+    .number.animate { animation-name: fadeInUp; }
 
-    @media (max-width: 360px) {
+    @media (max-width: 480px) {
       .play-btn { width: 56px; height: 56px; }
       .play-btn svg { width: 24px; height: 24px; }
+      .countdown { gap: 0.5rem; }
+      .box { min-width: 60px; padding: 0.8rem; }
+      .number { font-size: 1.8rem; }
+      .label { font-size: 0.9rem; }
     }
   </style>
 </head>
@@ -178,9 +189,7 @@
   <div class="audio-player">
     <audio id="audio" src="https://natiphol.github.io/mp3/No.mp3"></audio>
     <button id="playBtn" class="play-btn" aria-label="Play">
-      <svg viewBox="0 0 64 64">
-        <polygon points="16,8 56,32 16,56"></polygon>
-      </svg>
+      <svg viewBox="0 0 64 64"><polygon points="16,8 56,32 16,56"></polygon></svg>
     </button>
     <div id="progressContainer" class="progress-container">
       <div id="progress" class="progress"></div>
