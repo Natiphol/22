@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wedding Invitation – Audio & Sliding Prompt</title>
+  <title>Wedding Invitation – Audio, Prompt & Countdown</title>
   <!-- Google Font: IBM Plex Sans Thai -->
   <link
     href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;700&display=swap"
@@ -11,15 +11,12 @@
   />
   <style>
     /* Reset & Base */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'IBM Plex Sans Thai', sans-serif;
       background-color: #AEDFF7;
       color: #333;
+      line-height: 1.5;
     }
 
     /* Scroll-Animation Image */
@@ -72,52 +69,34 @@
       opacity: 0;
       transform: translateX(100vw);
       transition: opacity 2s ease-out, transform 2s ease-out;
-      font-family: 'IBM Plex Sans Thai', sans-serif;
     }
     .audio-player.visible {
       opacity: 1;
       transform: translateX(0);
     }
     .play-btn {
-      width: 64px;
-      height: 64px;
-      border: none;
-      border-radius: 50%;
+      width: 64px; height: 64px;
+      border: none; border-radius: 50%;
       background: linear-gradient(135deg, #D0EFFF, #AEDFF7);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+      display: inline-flex; align-items: center; justify-content: center;
       cursor: pointer;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       transition: transform 0.2s;
     }
-    .play-btn:active {
-      transform: scale(0.95);
-    }
-    .play-btn svg {
-      width: 30px;
-      height: 30px;
-      fill: #fff;
-    }
+    .play-btn:active { transform: scale(0.95); }
+    .play-btn svg { width: 30px; height: 30px; fill: #fff; }
     .progress-container {
-      width: 100%;
-      height: 6px;
-      background: #eee;
-      border-radius: 3px;
-      margin: 20px 0 8px;
-      cursor: pointer;
-      overflow: hidden;
+      width: 100%; height: 6px;
+      background: #eee; border-radius: 3px;
+      margin: 20px 0 8px; cursor: pointer; overflow: hidden;
     }
     .progress {
-      width: 0%;
-      height: 100%;
-      background: #AEDFF7;
-      transition: width 0.1s linear;
+      width: 0%; height: 100%;
+      background: #AEDFF7; transition: width 0.1s linear;
     }
     .time {
       margin-top: 8px;
-      font-size: 14px;
-      color: #555;
+      font-size: 14px; color: #555;
     }
 
     /* Message under player */
@@ -125,27 +104,64 @@
       max-width: 90%;
       margin: 24px auto;
       font-size: 16px;
-      line-height: 1.5;
-      color: #333;
       text-align: center;
       padding: 0 16px;
     }
 
+    /* Countdown Styles */
+    .countdown-container {
+      background: rgba(255,255,255,0.9);
+      padding: 2rem 1.5rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      display: inline-block;
+      margin: 40px auto 60px;
+    }
+    .countdown {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .unit {
+      text-align: center;
+    }
+    .box {
+      background: #fff;
+      padding: 1rem;
+      min-width: 70px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .number {
+      font-size: 2rem;
+      font-weight: 700;
+      display: inline-block;
+      animation-duration: 0.8s;
+      animation-fill-mode: both;
+    }
+    .label {
+      margin-top: 0.5rem;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #555;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .number.animate {
+      animation-name: fadeInUp;
+    }
+
     @media (max-width: 360px) {
-      .play-btn {
-        width: 56px;
-        height: 56px;
-      }
-      .play-btn svg {
-        width: 24px;
-        height: 24px;
-      }
+      .play-btn { width: 56px; height: 56px; }
+      .play-btn svg { width: 24px; height: 24px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- 1. รูปอยู่บนสุด -->
+  <!-- 1. Scroll Image -->
   <img
     id="animatedImage"
     class="scroll-image"
@@ -153,7 +169,7 @@
     alt="Wedding Image"
   />
 
-  <!-- 2. ข้อความใต้รูป เลื่อนเข้ามาจากนอกจอ -->
+  <!-- 2. Sliding Prompt -->
   <div id="indicator" class="scroll-indicator">
     <span class="info">กรุณากดเล่นเพลงก่อน แล้วเลื่อนลงดูรายละเอียด</span>
   </div>
@@ -174,7 +190,7 @@
     </div>
   </div>
 
-  <!-- 4. ข้อความเพิ่มเติมใต้เครื่องเล่นเพลง -->
+  <!-- 4. Message under player -->
   <div class="message">
     <p>เราสองคนกำลังจะเริ่มต้นบทใหม่ของชีวิต<br>
     และอยากให้คุณเป็นส่วนหนึ่งในความทรงจำที่สวยงามครั้งนี้</p>
@@ -182,23 +198,45 @@
     Please join us as we celebrate the beginning of our forever.</p>
   </div>
 
+  <!-- 5. Elegant Countdown -->
+  <div class="countdown-container">
+    <div class="countdown">
+      <div class="unit">
+        <div class="box"><span id="days" class="number">0</span></div>
+        <div class="label">วัน</div>
+      </div>
+      <div class="unit">
+        <div class="box"><span id="hours" class="number">00</span></div>
+        <div class="label">ชั่วโมง</div>
+      </div>
+      <div class="unit">
+        <div class="box"><span id="minutes" class="number">00</span></div>
+        <div class="label">นาที</div>
+      </div>
+      <div class="unit">
+        <div class="box"><span id="seconds" class="number">00</span></div>
+        <div class="label">วินาที</div>
+      </div>
+    </div>
+  </div>
+
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Animation for Image, Prompt & Audio Player
+      // IntersectionObserver for image, prompt & player
       const img = document.getElementById('animatedImage');
       const indicator = document.getElementById('indicator');
       const audioPlayer = document.querySelector('.audio-player');
-      const observer = new IntersectionObserver(entries => {
+      const io = new IntersectionObserver(entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             img.classList.add('visible');
             indicator.classList.add('visible');
             audioPlayer.classList.add('visible');
-            observer.unobserve(img);
+            io.unobserve(img);
           }
         });
       }, { threshold: 0.1 });
-      observer.observe(img);
+      io.observe(img);
 
       // Audio Player Logic
       const audio = document.getElementById('audio');
@@ -241,11 +279,49 @@
         audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
       });
 
-      function formatTime(time) {
-        const m = Math.floor(time / 60) || 0;
-        const s = Math.floor(time % 60) || 0;
-        return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+      function formatTime(t) {
+        const m = Math.floor(t/60), s = Math.floor(t%60);
+        return String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
       }
+
+      // Countdown Logic
+      const target = new Date(2025,5,8,0,0,0).getTime();
+      const els = {
+        days:    document.getElementById('days'),
+        hours:   document.getElementById('hours'),
+        minutes: document.getElementById('minutes'),
+        seconds: document.getElementById('seconds'),
+      };
+
+      function updateCountdown() {
+        let diff = target - Date.now();
+        if (diff < 0) diff = 0;
+        const d = Math.floor(diff / (1000*60*60*24));
+        diff -= d * (1000*60*60*24);
+        const h = Math.floor(diff / (1000*60*60));
+        diff -= h * (1000*60*60);
+        const m = Math.floor(diff / (1000*60));
+        diff -= m * (1000*60);
+        const s = Math.floor(diff / 1000);
+
+        setValue('days', d);
+        setValue('hours', String(h).padStart(2,'0'));
+        setValue('minutes', String(m).padStart(2,'0'));
+        setValue('seconds', String(s).padStart(2,'0'));
+      }
+
+      function setValue(id, val) {
+        const el = els[id];
+        if (el.textContent !== String(val)) {
+          el.textContent = val;
+          el.classList.remove('animate');
+          void el.offsetWidth;
+          el.classList.add('animate');
+        }
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
     });
   </script>
 
