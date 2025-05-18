@@ -6,7 +6,7 @@
   <title>Wedding Invitation – Audio, Prompt & Elegant Countdown</title>
   <!-- Google Fonts -->
   <link
-    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;600;700&family=Playfair+Display:wght@300;400;700&display=swap"
     rel="stylesheet"
   />
   <!-- GLightbox CSS -->
@@ -14,13 +14,14 @@
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"
   />
-
   <style>
     :root {
       --blue: #89CFF0;
       --cream: #FFF5E1;
       --teal: #A1D6E2;
       --dark-blue: #2A6F97;
+      --gold-light: rgba(255,215,0,0.6);
+      --gold-rich: rgba(255,215,0,0.9);
       --max-width: 600px;
       --section-gap: 48px;
     }
@@ -43,7 +44,7 @@
       text-align: center;
     }
 
-    /* Scroll-Animation Image */
+    /* 1. Scroll-Animation Image */
     #animatedImage {
       opacity: 0;
       transform: translateY(20px);
@@ -57,7 +58,7 @@
       transform: translateY(0);
     }
 
-    /* Sliding Prompt */
+    /* 2. Sliding Prompt */
     .scroll-indicator {
       opacity: 0;
       transform: translateX(-100vw);
@@ -74,7 +75,7 @@
       text-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
-    /* Audio Player */
+    /* 3. Audio Player */
     .audio-player {
       opacity: 0;
       transform: translateX(100vw);
@@ -111,12 +112,10 @@
       margin-top: 8px;
     }
 
-    /* Messages */
-    .message p {
-      margin-bottom: 0.75rem;
-    }
+    /* 4. Messages */
+    .message p { margin-bottom: 0.75rem; }
 
-    /* Countdown Section */
+    /* 5. Countdown Section */
     .countdown-section {
       opacity: 0;
       transform: translateY(20px);
@@ -138,22 +137,74 @@
       gap: 16px;
       justify-items: center;
     }
-    .box {
+    .countdown .box {
       background: var(--cream);
       border: 2px solid var(--teal);
       padding: 1.25rem;
       border-radius: 8px;
       width: 100%;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 5rem;
     }
-    .number {
+    .countdown .number {
       font-size: 2.5rem;
+      line-height: 1;
     }
-    .label {
-      margin-top: 0.5rem; font-size: 1rem;
+    .countdown .label {
+      margin-top: 0.5rem;
+      font-size: 1rem;
     }
 
-    /* ===== Moment Always – Luxe UI ===== */
+    /* 6. Invitation Card – Luxe UI */
+    .invite-card {
+      background: linear-gradient(135deg, #fffaf0, #fff5e1);
+      padding: 32px;
+      border: 2px solid var(--gold-rich);
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    .invite-card::before, .invite-card::after {
+      content: '';
+      position: absolute;
+      width: 40px; height: 40px;
+      border: 2px solid var(--gold-rich);
+      border-radius: 50%;
+      top: -20px;
+    }
+    .invite-card::before { left: -20px; }
+    .invite-card::after  { right: -20px; }
+    .invite-card .names p {
+      margin: 12px 0;
+      font-weight: 400;
+      font-size: 1rem;
+    }
+    .invite-card .names p .name {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--dark-blue);
+    }
+    .invite-card .names p .icon {
+      margin: 0 8px;
+      color: var(--gold-rich);
+      font-size: 1.2rem;
+      vertical-align: middle;
+    }
+    .invite-card .line {
+      border-top: 1px solid var(--gold-light);
+      margin: 24px 0;
+    }
+    .invite-card .invite-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: var(--dark-blue);
+    }
+
+    /* 7. Moment Always – Luxe UI */
     .moment-section {
       margin-top: 70px;
       padding: 24px;
@@ -201,7 +252,7 @@
     }
     .prev, .next {
       position: absolute; top: 50%; transform: translateY(-50%);
-      background: rgba(255, 215, 0, 0.8); /* ทองอ่อน */
+      background: var(--gold-rich);
       border: none; font-size: 24px; width: 48px; height: 48px;
       border-radius: 50%; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
@@ -209,7 +260,7 @@
       transition: background 0.2s, transform 0.2s;
     }
     .prev:hover, .next:hover {
-      background: rgba(255, 215, 0, 1);
+      background: var(--gold-light);
       transform: translateY(-50%) scale(1.1);
     }
     .prev { left: 12px; } .next { right: 12px; }
@@ -263,7 +314,7 @@
     </div>
   </div>
 
-  <!-- 4. Message -->
+  <!-- 4. Opening Message -->
   <div class="container message">
     <p>เราสองคนกำลังจะเริ่มต้นบทใหม่ของชีวิตและอยากให้คุณเป็นส่วนหนึ่งในความทรงจำที่สวยงามครั้งนี้</p>
     <p>Our journey begins with love, and it becomes more meaningful with your support. Please join us as we celebrate the beginning of our forever.</p>
@@ -273,31 +324,19 @@
   <div id="countdownSection" class="container countdown-section">
     <div class="countdown-title">Countdown to Wedding</div>
     <div class="countdown">
-      <div class="unit">
-        <div class="box"><span id="days" class="number">0</span></div>
-        <div class="label">วัน</div>
-      </div>
-      <div class="unit">
-        <div class="box"><span id="hours" class="number">00</span></div>
-        <div class="label">ชั่วโมง</div>
-      </div>
-      <div class="unit">
-        <div class="box"><span id="minutes" class="number">00</span></div>
-        <div class="label">นาที</div>
-      </div>
-      <div class="unit">
-        <div class="box"><span id="seconds" class="number">00</span></div>
-        <div class="label">วินาที</div>
-      </div>
+      <div class="unit"><div class="box"><span id="days" class="number">0</span></div><div class="label">วัน</div></div>
+      <div class="unit"><div class="box"><span id="hours" class="number">00</span></div><div class="label">ชั่วโมง</div></div>
+      <div class="unit"><div class="box"><span id="minutes" class="number">00</span></div><div class="label">นาที</div></div>
+      <div class="unit"><div class="box"><span id="seconds" class="number">00</span></div><div class="label">วินาที</div></div>
     </div>
   </div>
 
-  <!-- 6. Message -->
+  <!-- 6. Mid Message -->
   <div class="container message">
     <p>As the days draw closer, our hearts grow more excited. We can’t wait to celebrate our love with you.</p>
   </div>
 
-  <!-- 7. Moment Always Section -->
+  <!-- 8. Moment Always Section -->
   <section id="momentAlways" class="container moment-section">
     <div class="moment-title">Moment Always</div>
     <div class="moment-gallery">
@@ -326,7 +365,19 @@
     </div>
   </section>
 
-  <!-- GLightbox JS -->
+  
+  <!-- 7. Invitation Card -->
+  <div class="container">
+    <div class="invite-card">
+      <div class="names">
+        <p><span class="name">นายสีศักดิ์ ศรีโกศล</span><span class="icon"></span><span class="name">นางสาวหนูพิน เจนวิถี</span> (พ่อ–แม่)</p>
+        <p><span class="name">นายวรพันธุ์ ชาญชนะโรจน์</span><span class="icon"></span><span class="name">นางกานต์สินี ชาญชนะโรจน์</span> (พี่ชาย–แม่)</p>
+      </div>
+      <div class="line"></div>
+      <p class="invite-text">ขอเรียนเชิญร่วมเป็นเกียรติในพิธีมงคลสมรส</p>
+    </div>
+  </div>
+  <!-- GLightbox JS & Core Script -->
   <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -457,6 +508,7 @@
         else if (endX - startX > 50) showSlides(--slideIndex);
       });
       showSlides(slideIndex);
+
       GLightbox({ selector: '.moment-slide', loop: true, touchNavigation: true, slideEffect: 'slide' });
     });
   </script>
