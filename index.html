@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wedding Invitation – Audio & Sliding Prompt</title>
-  <!-- Google Font Kanit -->
+  <!-- Google Fonts: elegant wedding theme -->
   <link
-    href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&display=swap"
     rel="stylesheet"
   />
   <style>
@@ -17,8 +17,8 @@
       box-sizing: border-box;
     }
     body {
-      font-family: 'Kanit', sans-serif;
-      background-color: #AEDFF7; /* ฟ้าพาสเทล */
+      font-family: 'Playfair Display', serif;
+      background-color: #AEDFF7;
       color: #333;
     }
 
@@ -26,7 +26,7 @@
     .scroll-image {
       opacity: 0;
       transform: translateY(20px);
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      transition: opacity 1s ease-out, transform 1s ease-out;
       display: block;
       width: 90%;
       max-width: 600px;
@@ -39,13 +39,13 @@
       transform: translateY(0);
     }
 
-    /*=== Sliding Prompt (เลื่อนจากด้านข้าง) ===*/
+    /*=== Sliding Prompt (เลื่อนจากนอกจอเข้ามา) ===*/
     .scroll-indicator {
       text-align: center;
       margin: 16px auto 40px;
       opacity: 0;
-      transform: translateX(-30px);
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      transform: translateX(-100vw);
+      transition: opacity 1s ease-out, transform 1s ease-out;
       max-width: 90%;
     }
     .scroll-indicator.visible {
@@ -53,12 +53,13 @@
       transform: translateX(0);
     }
     .scroll-indicator .info {
-      font-size: 16px;
+      font-family: 'Great Vibes', cursive;
+      font-size: 24px;
       color: #fff;
       text-shadow: 0 2px 4px rgba(0,0,0,0.3);
     }
 
-    /*=== Audio Player ===*/
+    /*=== Audio Player (สไลด์มาพร้อมกันจากขวา) ===*/
     .audio-player {
       background: rgba(255, 255, 255, 0.9);
       border-radius: 16px;
@@ -68,6 +69,13 @@
       margin: 0 auto 40px;
       padding: 24px;
       text-align: center;
+      opacity: 0;
+      transform: translateX(100vw);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+    .audio-player.visible {
+      opacity: 1;
+      transform: translateX(0);
     }
     .play-btn {
       width: 64px;
@@ -106,6 +114,8 @@
       transition: width 0.1s linear;
     }
     .time {
+      margin-top: 8px;
+      font-family: 'Playfair Display', serif;
       font-size: 14px;
       color: #555;
     }
@@ -124,7 +134,7 @@
 </head>
 <body>
 
-  <!-- 1. รูปอยู่บนสุด พร้อมอนิเมชัน -->
+  <!-- 1. รูปอยู่บนสุด -->
   <img
     id="animatedImage"
     class="scroll-image"
@@ -132,12 +142,12 @@
     alt="Wedding Image"
   />
 
-  <!-- 2. ข้อความใต้รูป เลื่อนเข้ามาจากด้านข้าง -->
+  <!-- 2. ข้อความใต้รูป เลื่อนเข้ามาจากนอกจอ -->
   <div id="indicator" class="scroll-indicator">
     <span class="info">กรุณากดเล่นเพลงก่อน แล้วเลื่อนลงดูรายละเอียด</span>
   </div>
 
-  <!-- 3. Audio Player -->
+  <!-- 3. Audio Player (สไลด์จากขวาพร้อมกัน) -->
   <div class="audio-player">
     <audio id="audio" src="https://natiphol.github.io/mp3/No.mp3"></audio>
     <button id="playBtn" class="play-btn" aria-label="Play">
@@ -155,14 +165,16 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // — Animation for Image & Prompt —
+      // — Animation for Image, Prompt & Audio Player —
       const img = document.getElementById('animatedImage');
       const indicator = document.getElementById('indicator');
+      const audioPlayer = document.querySelector('.audio-player');
       const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             img.classList.add('visible');
             indicator.classList.add('visible');
+            audioPlayer.classList.add('visible');
             observer.unobserve(img);
           }
         });
