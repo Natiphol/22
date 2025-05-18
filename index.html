@@ -1,13 +1,98 @@
-<style>
-  /* รีเซ็ตขอบ/ระยะขอบ และให้ความสูงเต็มจอ */
-  html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-  }
-  /* ตั้งภาพแบ็กกราวน์ */
-  body {
-    background: url('https://i.postimg.cc/mD5QZMRC/background.png') no-repeat center center fixed;
-    background-size: cover;
-  }
-</style>
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <!-- ปรับ viewport สำหรับมือถือ -->
+  <title>Mobile-First Background</title>
+  <style>
+    /* รีเซ็ตขอบ/ระยะขอบ และให้ความสูงเต็มจอ */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    body {
+      background-image: url('https://i.postimg.cc/mD5QZMRC/background.png');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      background-attachment: fixed; /* ปกติล็อคภาพไม่ให้เลื่อน */
+      transition: background-image 0.5s ease; /* ทำให้เปลี่ยนภาพนุ่มนวล */
+    }
+
+    /* บางเบราว์เซอร์มือถือจะไม่รองรับ fixed, ให้เปลี่ยนเป็น scroll */
+    @media (hover: none) and (pointer: coarse) {
+      body {
+        background-attachment: scroll;
+      }
+    }
+
+    /* ปุ่มสลับล็อค/ปลดล็อคเล็กๆ บนมุมจอ */
+    #toggleLock {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      padding: .5rem 1rem;
+      font-size: .9rem;
+      border: none;
+      border-radius: .5rem;
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      z-index: 1000;
+      touch-action: manipulation;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ปุ่มสลับล็อค/ปลดล็อคพื้นหลัง -->
+  <button id="toggleLock">ปลดล็อคพื้นหลัง</button>
+
+  <script>
+    // ตรวจจับว่ารันบนมือถือหรือเปล่า
+    const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+
+    // ถ้าเป็นมือถือ ให้เปิดฟังก์ชันสไลด์เปลี่ยนภาพด้วยการปาด (swipe)
+    if (isMobile) {
+      const backgrounds = [
+        'https://i.postimg.cc/mD5QZMRC/background.png',
+        'https://i.postimg.cc/xyz/second.jpg',
+        'https://i.postimg.cc/abc/third.jpg'
+      ];
+      let current = 0;
+      let startX = 0;
+
+      document.body.addEventListener('touchstart', e => {
+        startX = e.changedTouches[0].screenX;
+      }, {passive: true});
+
+      document.body.addEventListener('touchend', e => {
+        const endX = e.changedTouches[0].screenX;
+        if (endX < startX - 50) {          // ปาดไปทางซ้าย
+          current = (current + 1) % backgrounds.length;
+        } else if (endX > startX + 50) {   // ปาดไปทางขวา
+          current = (current - 1 + backgrounds.length) % backgrounds.length;
+        } else {
+          return; // ไม่ใช่การปาดจริงจัง
+        }
+        document.body.style.backgroundImage = `url('${backgrounds[current]}')`;
+      }, {passive: true});
+    }
+
+    // ปุ่มสลับล็อค/ปลดล็อค background-attachment
+    const btn = document.getElementById('toggleLock');
+    let locked = true;
+    btn.addEventListener('click', () => {
+      if (locked) {
+        document.body.style.backgroundAttachment = 'scroll';
+        btn.textContent = 'ล็อคพื้นหลัง';
+      } else {
+        document.body.style.backgroundAttachment = 'fixed';
+        btn.textContent = 'ปลดล็อคพื้นหลัง';
+      }
+      locked = !locked;
+    });
+  </script>
+</body>
+</html>
