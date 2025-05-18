@@ -3,12 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wedding Invitation – Audio, Prompt & Elegant Countdown</title>
+  <title>Wedding Invitation – Gallery & Countdown</title>
   <!-- Google Fonts -->
   <link
     href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap"
     rel="stylesheet"
   />
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+  <!-- GLightbox CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
   <style>
     :root {
       --blue: #89CFF0;
@@ -16,7 +20,6 @@
       --teal: #A1D6E2;
       --dark-blue: #2A6F97;
     }
-    /* Reset & Base */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       display: flex;
@@ -25,11 +28,10 @@
       background: linear-gradient(135deg, var(--cream) 0%, var(--teal) 50%, var(--blue) 100%);
       font-family: 'IBM Plex Sans Thai', sans-serif;
       color: var(--dark-blue);
-      line-height: 1.5;
       padding: 24px 0;
     }
 
-    /* Scroll-Animation Image */
+    /* 1. Scroll-Animation Image */
     .scroll-image {
       opacity: 0;
       transform: translateY(20px);
@@ -45,51 +47,30 @@
       transform: translateY(0);
     }
 
-    /* Sliding Prompt */
+    /* 2. Prompt */
     .scroll-indicator {
-      opacity: 0;
-      transform: translateX(-100vw);
-      transition: opacity 2s ease-out, transform 2s ease-out;
-      max-width: 90%;
+      font-size: 18px;
       text-align: center;
       margin-bottom: 24px;
     }
-    .scroll-indicator.visible {
-      opacity: 1;
-      transform: translateX(0);
-    }
-    .scroll-indicator .info {
-      font-size: 18px;
-      font-weight: 500;
-      color: var(--dark-blue);
-      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
 
-    /* Audio Player */
+    /* 3. Audio Player */
     .audio-player {
-      opacity: 0;
-      transform: translateX(100vw);
-      transition: opacity 2s ease-out, transform 2s ease-out;
       background: rgba(255,245,225,0.9);
       border-radius: 16px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-      width: calc(100% - 48px);
+      width: 90%;
       max-width: 400px;
       padding: 24px;
       text-align: center;
       margin-bottom: 24px;
-    }
-    .audio-player.visible {
-      opacity: 1;
-      transform: translateX(0);
     }
     .play-btn {
       width: 64px; height: 64px;
       border: none; border-radius: 50%;
       background: linear-gradient(135deg, var(--teal), var(--blue));
       display: inline-flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       transition: transform 0.2s;
     }
     .play-btn:active { transform: scale(0.95); }
@@ -97,31 +78,52 @@
     .progress-container {
       width: 100%; height: 6px;
       background: #eee; border-radius: 3px;
-      margin: 20px 0 8px; cursor: pointer; overflow: hidden;
+      margin: 20px 0 8px; overflow: hidden; cursor: pointer;
     }
-    .progress { width: 0%; height: 100%; background: var(--teal); transition: width 0.1s linear; }
+    .progress {
+      width: 0%; height: 100%;
+      background: var(--teal); transition: width 0.1s linear;
+    }
     .time { font-size: 14px; color: var(--dark-blue); }
 
-    /* Message under player */
+    /* Message */
     .message {
       max-width: 90%;
       font-size: 16px;
       text-align: center;
       margin-bottom: 40px;
-      padding: 0 16px;
       color: var(--dark-blue);
     }
 
-    /* Countdown: outer frame removed */
-    .countdown-container {
-      margin-bottom: 60px;
-      /* removed background, border, box-shadow */
-      padding: 0;
-      width: auto;
+    /* 4. Countdown Section & Title */
+    .countdown-section {
+      width: 90%;
+      max-width: 600px;
+      text-align: center;
+      margin-bottom: 24px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+    }
+    .countdown-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .countdown-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--dark-blue);
+      opacity: 0;
+      animation: fadeInDown 1.2s ease-out both;
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
     .countdown {
       display: flex;
-      gap: 1rem;
+      gap: 1.5rem;
       justify-content: center;
       flex-wrap: wrap;
     }
@@ -129,22 +131,20 @@
     .box {
       background: var(--cream);
       border: 2px solid var(--teal);
-      padding: 1rem;
-      min-width: 70px;
+      padding: 1.5rem;
+      min-width: 100px;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
     .number {
-      font-size: 2.2rem;
+      font-size: 3rem;
       font-weight: 700;
       color: var(--dark-blue);
-      display: inline-block;
-      animation-duration: 0.8s;
-      animation-fill-mode: both;
+      animation: fadeInUp 0.8s both;
     }
     .label {
-      margin-top: 0.5rem;
-      font-size: 1rem;
+      margin-top: 0.75rem;
+      font-size: 1.2rem;
       font-weight: 700;
       color: var(--dark-blue);
     }
@@ -152,21 +152,77 @@
       from { opacity: 0; transform: translateY(10px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .number.animate { animation-name: fadeInUp; }
+    /* Subtitle under countdown with pop animation */
+    .subtitle {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      color: var(--dark-blue);
+      margin-top: 1.5rem;
+      opacity: 0;
+      transform: scale(0.8) translateY(10px);
+      animation: subtitlePop 1s ease-out forwards;
+      animation-delay: 0.8s;
+    }
+    @keyframes subtitlePop {
+      0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(10px);
+      }
+      60% {
+        opacity: 1;
+        transform: scale(1.1) translateY(0);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    /* 5. Photo Slider under countdown */
+    .photo-slider {
+      width: 90%;
+      max-width: 800px;
+      margin-bottom: 60px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+    }
+    .photo-slider.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .swiper-slide img {
+      width: 100%;
+      border-radius: 8px;
+      display: block;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .swiper-pagination-bullet {
+      background: var(--dark-blue);
+      opacity: 0.4;
+    }
+    .swiper-pagination-bullet-active {
+      opacity: 1;
+    }
+    .swiper-button-next, .swiper-button-prev {
+      color: var(--dark-blue);
+    }
 
     @media (max-width: 480px) {
       .play-btn { width: 56px; height: 56px; }
       .play-btn svg { width: 24px; height: 24px; }
-      .countdown { gap: 0.5rem; }
-      .box { min-width: 60px; padding: 0.8rem; }
-      .number { font-size: 1.8rem; }
-      .label { font-size: 0.9rem; }
+      .box { min-width: 80px; padding: 1rem; }
+      .number { font-size: 2.2rem; }
+      .label { font-size: 1rem; }
+      .countdown-title { font-size: 2rem; }
+      .subtitle { font-size: 2rem; }
+      .swiper-button-next, .swiper-button-prev { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- 1. Scroll Image -->
+  <!-- Scroll-Animation Image -->
   <img
     id="animatedImage"
     class="scroll-image"
@@ -174,16 +230,16 @@
     alt="Wedding Image"
   />
 
-  <!-- 2. Sliding Prompt -->
-  <div id="indicator" class="scroll-indicator">
-    <span class="info">กรุณากดเล่นเพลงก่อน แล้วเลื่อนลงดูรายละเอียด</span>
+  <!-- Prompt -->
+  <div class="scroll-indicator">
+    กรุณากดเล่นเพลงก่อน แล้วเลื่อนลงดูรายละเอียด
   </div>
 
-  <!-- 3. Audio Player -->
+  <!-- Audio Player -->
   <div class="audio-player">
     <audio id="audio" src="https://natiphol.github.io/mp3/No.mp3"></audio>
     <button id="playBtn" class="play-btn" aria-label="Play">
-      <svg viewBox="0 0 64 64"><polygon points="16,8 56,32 16,56"></polygon></svg>
+      <svg viewBox="0 0 64 64"><polygon points="16,8 56,32 16,56"/></svg>
     </button>
     <div id="progressContainer" class="progress-container">
       <div id="progress" class="progress"></div>
@@ -193,7 +249,7 @@
     </div>
   </div>
 
-  <!-- 4. Message under player -->
+  <!-- Message -->
   <div class="message">
     <p>เราสองคนกำลังจะเริ่มต้นบทใหม่ของชีวิต<br>
     และอยากให้คุณเป็นส่วนหนึ่งในความทรงจำที่สวยงามครั้งนี้</p>
@@ -201,8 +257,9 @@
     Please join us as we celebrate the beginning of our forever.</p>
   </div>
 
-  <!-- 5. Countdown with no outer frame -->
-  <div class="countdown-container">
+  <!-- Countdown Section -->
+  <div id="countdownSection" class="countdown-section">
+    <div class="countdown-title">Countdown to Wedding</div>
     <div class="countdown">
       <div class="unit">
         <div class="box"><span id="days" class="number">0</span></div>
@@ -221,54 +278,87 @@
         <div class="label">วินาที</div>
       </div>
     </div>
+    <div class="subtitle">From This Moment, Always</div>
   </div>
 
+  <!-- Photo Slider -->
+  <section id="gallery" class="photo-slider">
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <a href="https://i.postimg.cc/SsTCWWJw/DSC-7529-19944.jpg" class="glightbox" data-gallery="wedding">
+            <img src="https://i.postimg.cc/SsTCWWJw/DSC-7529-19944.jpg" alt="">
+          </a>
+        </div>
+        <div class="swiper-slide">
+          <a href="https://i.postimg.cc/02vVmwcN/DSC-0160.jpg" class="glightbox" data-gallery="wedding">
+            <img src="https://i.postimg.cc/02vVmwcN/DSC-0160.jpg" alt="">
+          </a>
+        </div>
+        <div class="swiper-slide">
+          <a href="https://i.postimg.cc/cCRT2x4Z/DSC-7266-19681.jpg" class="glightbox" data-gallery="wedding">
+            <img src="https://i.postimg.cc/cCRT2x4Z/DSC-7266-19681.jpg" alt="">
+          </a>
+        </div>
+        <!-- เพิ่มได้ถึง 10 สไลด์ -->
+      </div>
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+  </section>
+
+  <!-- Swiper JS -->
+  <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+  <!-- GLightbox JS -->
+  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // IntersectionObserver for image, prompt & player
-      const img = document.getElementById('animatedImage');
-      const indicator = document.getElementById('indicator');
-      const audioPlayer = document.querySelector('.audio-player');
+      // Reveal elements on scroll
+      const scrollImage = document.getElementById('animatedImage');
+      const countdownSection = document.getElementById('countdownSection');
+      const gallery = document.getElementById('gallery');
       const io = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            img.classList.add('visible');
-            indicator.classList.add('visible');
-            audioPlayer.classList.add('visible');
-            io.unobserve(img);
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            io.unobserve(e.target);
           }
         });
       }, { threshold: 0.1 });
-      io.observe(img);
+      io.observe(scrollImage);
+      io.observe(countdownSection);
+      io.observe(gallery);
+
+      // Init Swiper
+      new Swiper('.swiper-container', {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: true,
+        pagination: { el: '.swiper-pagination', clickable: true },
+        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+      });
+
+      // Init GLightbox
+      GLightbox({ selector: '.glightbox', loop: true });
 
       // Audio Player Logic
-      const audio = document.getElementById('audio');
-      const playBtn = document.getElementById('playBtn');
-      const progress = document.getElementById('progress');
-      const progressContainer = document.getElementById('progressContainer');
-      const currentTimeEl = document.getElementById('currentTime');
-      const durationEl = document.getElementById('duration');
+      const audio = document.getElementById('audio'),
+            playBtn = document.getElementById('playBtn'),
+            progress = document.getElementById('progress'),
+            progressContainer = document.getElementById('progressContainer'),
+            currentTimeEl = document.getElementById('currentTime'),
+            durationEl = document.getElementById('duration');
       playBtn.addEventListener('click', () => {
         if (audio.paused) {
           audio.play();
-          playBtn.innerHTML = `
-            <svg viewBox="0 0 64 64">
-              <rect x="16" y="8" width="12" height="48"></rect>
-              <rect x="36" y="8" width="12" height="48"></rect>
-            </svg>`;
-          playBtn.setAttribute('aria-label', 'Pause');
+          playBtn.innerHTML = `<svg viewBox="0 0 64 64"><rect x="16" y="8" width="12" height="48"/><rect x="36" y="8" width="12" height="48"/></svg>`;
         } else {
           audio.pause();
-          playBtn.innerHTML = `
-            <svg viewBox="0 0 64 64">
-              <polygon points="16,8 56,32 16,56"></polygon>
-            </svg>`;
-          playBtn.setAttribute('aria-label', 'Play');
+          playBtn.innerHTML = `<svg viewBox="0 0 64 64"><polygon points="16,8 56,32 16,56"/></svg>`;
         }
       });
-      audio.addEventListener('loadedmetadata', () => {
-        durationEl.textContent = formatTime(audio.duration);
-      });
+      audio.addEventListener('loadedmetadata', () => durationEl.textContent = formatTime(audio.duration));
       audio.addEventListener('timeupdate', () => {
         currentTimeEl.textContent = formatTime(audio.currentTime);
         progress.style.width = (audio.currentTime / audio.duration) * 100 + '%';
@@ -285,20 +375,17 @@
       // Countdown Logic
       const target = new Date(2025,5,8,0,0,0).getTime();
       const els = {
-        days:    document.getElementById('days'),
-        hours:   document.getElementById('hours'),
+        days: document.getElementById('days'),
+        hours: document.getElementById('hours'),
         minutes: document.getElementById('minutes'),
         seconds: document.getElementById('seconds'),
       };
       function updateCountdown() {
         let diff = target - Date.now();
         if (diff < 0) diff = 0;
-        const d = Math.floor(diff / (1000*60*60*24));
-        diff -= d * (1000*60*60*24);
-        const h = Math.floor(diff / (1000*60*60));
-        diff -= h * (1000*60*60);
-        const m = Math.floor(diff / (1000*60));
-        diff -= m * (1000*60);
+        const d = Math.floor(diff / (1000*60*60*24)); diff -= d * 1000*60*60*24;
+        const h = Math.floor(diff / (1000*60*60)); diff -= h * 1000*60*60;
+        const m = Math.floor(diff / (1000*60)); diff -= m * 1000*60;
         const s = Math.floor(diff / 1000);
         setValue('days', d);
         setValue('hours', String(h).padStart(2,'0'));
@@ -307,7 +394,7 @@
       }
       function setValue(id, val) {
         const el = els[id];
-        if (el.textContent !== String(val)) {
+        if (el.textContent !== val) {
           el.textContent = val;
           el.classList.remove('animate');
           void el.offsetWidth;
@@ -318,6 +405,5 @@
       setInterval(updateCountdown, 1000);
     });
   </script>
-
 </body>
 </html>
