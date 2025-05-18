@@ -9,7 +9,6 @@
     href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap"
     rel="stylesheet"
   />
-
   <!-- GLightbox CSS -->
   <link
     rel="stylesheet"
@@ -111,7 +110,7 @@
       padding: 0 16px; color: var(--dark-blue);
     }
 
-    /* Countdown Section & Title */
+    /* Countdown Section */
     .countdown-section {
       opacity: 0;
       transform: translateY(20px);
@@ -126,7 +125,7 @@
     }
     .countdown-title {
       font-family: 'Playfair Display', serif;
-      font-size: 2.5rem;
+      font-size: 3.5rem;
       color: var(--dark-blue);
       margin-bottom: 1rem;
       opacity: 0;
@@ -138,8 +137,6 @@
     .countdown-section.visible .countdown-title {
       animation: fadeInDown 1.2s ease-out both;
     }
-
-    /* Countdown Units */
     .countdown {
       display: flex; gap: 1.5rem;
       justify-content: center; flex-wrap: wrap;
@@ -172,14 +169,14 @@
     /* ==== Moment Always Slider ==== */
     .moment-section {
       text-align: center;
-      margin: 60px auto;
+      margin: 70px auto;
       max-width: 600px;
     }
     .moment-title {
       font-family: 'Playfair Display', serif;
-      font-size: 2rem;
+      font-size: 4.5rem;    /* ขยายหัวข้อให้เด่นขึ้น */
       color: var(--dark-blue);
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
     .moment-gallery {
       position: relative;
@@ -234,15 +231,9 @@
       opacity: 1;
       background: var(--dark-blue);
     }
-
     @media (max-width: 480px) {
-      .play-btn { width: 56px; height: 56px; }
-      .play-btn svg { width: 24px; height: 24px; }
-      .countdown { gap: 1rem; }
-      .box { min-width: 80px; padding: 1rem; }
-      .number { font-size: 2.2rem; }
-      .label { font-size: 1rem; }
-      .countdown-title { font-size: 2rem; }
+      .moment-title { font-size: 2rem; }
+      .prev, .next { font-size: 20px; width: 36px; height: 36px; }
     }
   </style>
 </head>
@@ -282,6 +273,8 @@
     <p>Our journey begins with love, and it becomes more meaningful with your support.<br>
     Please join us as we celebrate the beginning of our forever.</p>
   </div>
+  
+  
 
   <!-- 5. Countdown Section -->
   <div id="countdownSection" class="countdown-section">
@@ -306,9 +299,14 @@
     </div>
   </div>
 
+ <div class="message">
+    <p>As the days draw closer, our hearts grow more excited.<br>
+We can’t wait to celebrate our love with you.</p>
+  </div>
+
+  <div class="moment-title">Moment Always</div>
   <!-- 6. Moment Always Section -->
   <section id="momentAlways" class="moment-section">
-    <div class="moment-title">Moment Always</div>
     <div class="moment-gallery">
       <button class="prev" aria-label="Previous">&larr;</button>
       <div class="slides">
@@ -327,7 +325,6 @@
             <img src="https://i.postimg.cc/cCRT2x4Z/DSC-7266-19681.jpg" alt="Moment 3">
           </a>
         </div>
-        <!-- เพิ่ม <div class="slide">…</div> ได้สูงสุด 10 รูป -->
       </div>
       <button class="next" aria-label="Next">&rarr;</button>
     </div>
@@ -335,7 +332,6 @@
       <span class="dot"></span>
       <span class="dot"></span>
       <span class="dot"></span>
-      <!-- เพิ่ม .dot ให้ตรงกับจำนวน .slide -->
     </div>
   </section>
 
@@ -376,9 +372,9 @@
         if (audio.paused) {
           audio.play();
           playBtn.innerHTML = `
-            <svg viewBox="0 0 64 64">
-              <rect x="16" y="8" width="12" height="48"></rect>
-              <rect x="36" y="8" width="12" height="48"></rect>
+            <svg viewBox="0 0 64 64">              
+              <rect x="16" y="8" width="12" height="48"></rect>              
+              <rect x="36" y="8" width="12" height="48"></rect>            
             </svg>`;
           playBtn.setAttribute('aria-label', 'Pause');
         } else {
@@ -441,14 +437,13 @@
       updateCountdown();
       setInterval(updateCountdown, 1000);
 
-      // ==== Moment Always Slider & Lightbox ====
+      // Moment Always Slider & Lightbox
       const slidesContainer = document.querySelector('.slides');
       const slides = document.querySelectorAll('.slide');
       const dots = document.querySelectorAll('.dot');
       const prevBtn = document.querySelector('.prev');
       const nextBtn = document.querySelector('.next');
       let slideIndex = 1;
-
       function showSlides(n) {
         if (n > slides.length) slideIndex = 1;
         if (n < 1) slideIndex = slides.length;
@@ -456,39 +451,25 @@
         slidesContainer.style.transform = `translateX(${offset}%)`;
         dots.forEach((d, i) => d.classList.toggle('active', i === slideIndex - 1));
       }
-
       prevBtn.addEventListener('click', () => showSlides(--slideIndex));
       nextBtn.addEventListener('click', () => showSlides(++slideIndex));
-
       dots.forEach((dot, idx) => {
         dot.addEventListener('click', () => {
           slideIndex = idx + 1;
           showSlides(slideIndex);
         });
       });
-
-      // Swipe บนมือถือ
+      // Swipe Support
       let startX = 0;
       const gallery = document.querySelector('.moment-gallery');
-      gallery.addEventListener('touchstart', e => {
-        startX = e.changedTouches[0].clientX;
-      });
+      gallery.addEventListener('touchstart', e => startX = e.changedTouches[0].clientX);
       gallery.addEventListener('touchend', e => {
         const endX = e.changedTouches[0].clientX;
         if (startX - endX > 50) showSlides(++slideIndex);
         else if (endX - startX > 50) showSlides(--slideIndex);
       });
-
-      // เริ่มต้น
       showSlides(slideIndex);
-
-      // GLightbox Initialization
-      const lightbox = GLightbox({
-        selector: '.moment-slide',
-        loop: true,
-        touchNavigation: true,
-        slideEffect: 'slide',
-      });
+      GLightbox({ selector: '.moment-slide', loop: true, touchNavigation: true, slideEffect: 'slide' });
     });
   </script>
 </body>
