@@ -21,6 +21,8 @@
       --cream: #FFF5E1;
       --teal: #A1D6E2;
       --dark-blue: #2A6F97;
+      --max-width: 600px;
+      --section-gap: 48px;
     }
     /* Reset & Base */
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -28,23 +30,29 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      background: linear-gradient(135deg, var(--cream) 0%, var(--teal) 50%, var(--blue) 100%);
+      background: linear-gradient(135deg, var(--cream), var(--teal), var(--blue));
       font-family: 'IBM Plex Sans Thai', sans-serif;
       color: var(--dark-blue);
-      padding: 24px 0;
+      padding: var(--section-gap) 16px;
+      line-height: 1.6;
     }
-
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin-bottom: var(--section-gap);
+      text-align: center;
+    }
     /* Scroll-Animation Image */
-    .scroll-image {
+    #animatedImage {
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 2s ease-out, transform 2s ease-out;
-      width: 90%; max-width: 600px;
+      width: 100%;
+      height: auto;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      margin-bottom: 24px;
     }
-    .scroll-image.visible {
+    #animatedImage.visible {
       opacity: 1;
       transform: translateY(0);
     }
@@ -54,16 +62,14 @@
       opacity: 0;
       transform: translateX(-100vw);
       transition: opacity 2s ease-out, transform 2s ease-out;
-      max-width: 90%;
-      text-align: center;
-      margin-bottom: 24px;
     }
     .scroll-indicator.visible {
       opacity: 1;
       transform: translateX(0);
     }
     .scroll-indicator .info {
-      font-size: 18px; font-weight: 500;
+      font-size: 1.125rem;
+      font-weight: 500;
       color: var(--dark-blue);
       text-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
@@ -76,9 +82,7 @@
       background: rgba(255,245,225,0.9);
       border-radius: 16px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-      width: calc(100% - 48px); max-width: 400px;
-      padding: 24px; text-align: center;
-      margin-bottom: 24px;
+      padding: 24px;
     }
     .audio-player.visible {
       opacity: 1;
@@ -92,6 +96,7 @@
       cursor: pointer;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       transition: transform 0.2s;
+      margin-bottom: 16px;
     }
     .play-btn:active { transform: scale(0.95); }
     .play-btn svg { width: 30px; height: 30px; fill: #fff; }
@@ -101,13 +106,14 @@
       margin: 20px 0 8px; cursor: pointer; overflow: hidden;
     }
     .progress { width: 0%; height: 100%; background: var(--teal); transition: width 0.1s linear; }
-    .time { font-size: 14px; color: var(--dark-blue); }
+    .time {
+      font-size: 14px; color: var(--dark-blue);
+      margin-top: 8px;
+    }
 
-    /* Message under player */
-    .message {
-      max-width: 90%; font-size: 16px;
-      text-align: center; margin-bottom: 40px;
-      padding: 0 16px; color: var(--dark-blue);
+    /* Messages */
+    .message p {
+      margin-bottom: 0.75rem;
     }
 
     /* Countdown Section */
@@ -115,9 +121,6 @@
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 1.5s ease-out, transform 1.5s ease-out;
-      width: 100%; max-width: 600px;
-      text-align: center;
-      margin-bottom: 60px;
     }
     .countdown-section.visible {
       opacity: 1;
@@ -125,112 +128,62 @@
     }
     .countdown-title {
       font-family: 'Playfair Display', serif;
-      font-size: 3.5rem;
+      font-size: 3rem;
+      margin-bottom: 24px;
       color: var(--dark-blue);
-      margin-bottom: 1rem;
-      opacity: 0;
-    }
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .countdown-section.visible .countdown-title {
-      animation: fadeInDown 1.2s ease-out both;
     }
     .countdown {
-      display: flex; gap: 1.5rem;
-      justify-content: center; flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 16px;
+      justify-items: center;
     }
-    .unit { text-align: center; }
     .box {
       background: var(--cream);
       border: 2px solid var(--teal);
-      padding: 1.5rem; min-width: 100px;
+      padding: 1.25rem;
       border-radius: 8px;
+      width: 100%;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
     .number {
-      font-size: 3rem; font-weight: 700;
-      color: var(--dark-blue);
-      display: inline-block;
-      animation-duration: 0.8s; animation-fill-mode: both;
+      font-size: 2.5rem;
     }
     .label {
-      margin-top: 0.75rem;
-      font-size: 1.2rem; font-weight: 700;
-      color: var(--dark-blue);
+      margin-top: 0.5rem; font-size: 1rem;
     }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .number.animate { animation-name: fadeInUp; }
 
-    /* ==== Moment Always Slider ==== */
-    .moment-section {
-      text-align: center;
-      margin: 70px auto;
-      max-width: 600px;
-    }
+    /* Moment Always Slider */
+    .moment-section { margin-top: 70px; }
     .moment-title {
       font-family: 'Playfair Display', serif;
-      font-size: 4.5rem;    /* ขยายหัวข้อให้เด่นขึ้น */
+      font-size: 3rem;
+      margin-bottom: 24px;
       color: var(--dark-blue);
-      margin-bottom: 30px;
     }
     .moment-gallery {
       position: relative;
       overflow: hidden;
     }
-    .slides {
-      display: flex;
-      transition: transform 0.5s ease;
-    }
-    .slide {
-      min-width: 100%;
-      box-sizing: border-box;
-    }
-    .slide img {
-      width: 100%;
-      border-radius: 8px;
-      cursor: pointer;
-    }
+    .slides { display: flex; transition: transform 0.5s ease; }
+    .slide { flex: 0 0 100%; }
+    .slide img { width: 100%; border-radius: 8px; cursor: pointer; }
+
     .prev, .next {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255, 255, 255, 0.8);
-      border: none;
-      font-size: 24px;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.8); border: none;
+      font-size: 24px; width: 40px; height: 40px; border-radius: 50%;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
     }
-    .prev { left: 10px; }
-    .next { right: 10px; }
-    .dot-container {
-      text-align: center;
-      margin-top: 12px;
-    }
+    .prev { left: 10px; } .next { right: 10px; }
+    .dot-container { text-align: center; margin-top: 12px; }
     .dot {
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      margin: 0 5px;
-      background: var(--teal);
-      border-radius: 50%;
-      cursor: pointer;
-      opacity: 0.5;
-      transition: opacity 0.3s;
+      display: inline-block; width: 12px; height: 12px;
+      margin: 0 4px; background: var(--teal); border-radius: 50%;
+      cursor: pointer; opacity: 0.5; transition: opacity 0.3s;
     }
-    .dot.active {
-      opacity: 1;
-      background: var(--dark-blue);
-    }
+    .dot.active { opacity: 1; background: var(--dark-blue); }
+
     @media (max-width: 480px) {
       .moment-title { font-size: 2rem; }
       .prev, .next { font-size: 20px; width: 36px; height: 36px; }
@@ -240,20 +193,22 @@
 <body>
 
   <!-- 1. Scroll Image -->
-  <img
-    id="animatedImage"
-    class="scroll-image"
-    src="https://i.postimg.cc/6QGx2SKg/DSC087422-1.jpg"
-    alt="Wedding Image"
-  />
+  <div class="container">
+    <img
+      id="animatedImage"
+      class="scroll-image"
+      src="https://i.postimg.cc/6QGx2SKg/DSC087422-1.jpg"
+      alt="Wedding Image"
+    />
+  </div>
 
   <!-- 2. Sliding Prompt -->
-  <div id="indicator" class="scroll-indicator">
+  <div id="indicator" class="container scroll-indicator">
     <span class="info">กรุณากดเล่นเพลงก่อน แล้วเลื่อนลงดูรายละเอียด</span>
   </div>
 
   <!-- 3. Audio Player -->
-  <div class="audio-player">
+  <div class="container audio-player">
     <audio id="audio" src="https://natiphol.github.io/mp3/No.mp3"></audio>
     <button id="playBtn" class="play-btn" aria-label="Play">
       <svg viewBox="0 0 64 64"><polygon points="16,8 56,32 16,56"></polygon></svg>
@@ -266,18 +221,14 @@
     </div>
   </div>
 
-  <!-- 4. Message under player -->
-  <div class="message">
-    <p>เราสองคนกำลังจะเริ่มต้นบทใหม่ของชีวิต<br>
-    และอยากให้คุณเป็นส่วนหนึ่งในความทรงจำที่สวยงามครั้งนี้</p>
-    <p>Our journey begins with love, and it becomes more meaningful with your support.<br>
-    Please join us as we celebrate the beginning of our forever.</p>
+  <!-- 4. Message -->
+  <div class="container message">
+    <p>เราสองคนกำลังจะเริ่มต้นบทใหม่ของชีวิตและอยากให้คุณเป็นส่วนหนึ่งในความทรงจำที่สวยงามครั้งนี้</p>
+    <p>Our journey begins with love, and it becomes more meaningful with your support. Please join us as we celebrate the beginning of our forever.</p>
   </div>
-  
-  
 
   <!-- 5. Countdown Section -->
-  <div id="countdownSection" class="countdown-section">
+  <div id="countdownSection" class="container countdown-section">
     <div class="countdown-title">Countdown to Wedding</div>
     <div class="countdown">
       <div class="unit">
@@ -299,15 +250,14 @@
     </div>
   </div>
 
- <div class="message">
-    <p>As the days draw closer, our hearts grow more excited.<br>
-We can’t wait to celebrate our love with you.</p>
+  <!-- 6. Message -->
+  <div class="container message">
+    <p>As the days draw closer, our hearts grow more excited. We can’t wait to celebrate our love with you.</p>
   </div>
 
- 
-  <!-- 6. Moment Always Section -->
-  <section id="momentAlways" class="moment-section">
-     <div class="moment-title">Moment Always</div>
+  <!-- 7. Moment Always Section -->
+  <section id="momentAlways" class="container moment-section">
+    <div class="moment-title">Moment Always</div>
     <div class="moment-gallery">
       <button class="prev" aria-label="Previous">&larr;</button>
       <div class="slides">
@@ -330,9 +280,7 @@ We can’t wait to celebrate our love with you.</p>
       <button class="next" aria-label="Next">&rarr;</button>
     </div>
     <div class="dot-container">
-      <span class="dot"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
+      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
     </div>
   </section>
 
@@ -340,7 +288,7 @@ We can’t wait to celebrate our love with you.</p>
   <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Observe image, prompt, player & countdown
+      // Intersection Observer for image, prompt, player & countdown
       const img = document.getElementById('animatedImage');
       const indicator = document.getElementById('indicator');
       const audioPlayer = document.querySelector('.audio-player');
@@ -373,9 +321,9 @@ We can’t wait to celebrate our love with you.</p>
         if (audio.paused) {
           audio.play();
           playBtn.innerHTML = `
-            <svg viewBox="0 0 64 64">              
-              <rect x="16" y="8" width="12" height="48"></rect>              
-              <rect x="36" y="8" width="12" height="48"></rect>            
+            <svg viewBox="0 0 64 64">
+              <rect x="16" y="8" width="12" height="48"></rect>
+              <rect x="36" y="8" width="12" height="48"></rect>
             </svg>`;
           playBtn.setAttribute('aria-label', 'Pause');
         } else {
