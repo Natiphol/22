@@ -96,51 +96,51 @@
 
     /* 4. Countdown (modified) */
     @keyframes fadeInUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
-    .countdown-section {
-      opacity:0; transform:translateY(20px);
-      transition:transform 1s, opacity 1s;
-      padding:var(--spacing) 0;
-      text-align: center;
-    }
-    .countdown-section.visible {
-      opacity:1; transform:translateY(0);
-    }
-    .countdown-main-title,
-    .countdown-header,
-    .countdown-invite {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-    }
-    .countdown-section.visible .countdown-main-title {
-      opacity: 1; transform: translateY(0); transition-delay: 0.2s;
-      font-family:'Playfair Display',serif;
-      font-size:2.4rem;
-      text-transform:uppercase;
-      margin-bottom:0.5rem;
-    }
-    .countdown-section.visible .countdown-header {
-      opacity: 1; transform: translateY(0); transition-delay: 0.4s;
-    }
-    .countdown-section.visible .countdown-invite {
-      opacity: 1; transform: translateY(0); transition-delay: 0.6s;
-    }
-    .countdown-header {
-      display:flex; align-items:center; justify-content:center;
-      gap:0.5rem;
-      font-family:'IBM Plex Sans Thai',sans-serif;
-      font-size:1rem; text-transform:uppercase;
-      margin-bottom:0.75rem;
-    }
-    .countdown-header .dash { line-height:1; }
-    .event-date { font-weight:500; }
-    .countdown-invite {
-      font-size:0.95rem; margin-bottom:var(--spacing);
-      color:var(--dark-blue);
-    }
-    .countdown {
-      display:flex; justify-content:space-around; gap:var(--spacing);
-    }
+    /* —— CSS สำหรับ Countdown —— */
+.countdown-section {
+  text-align: center;
+  padding: var(--spacing) 0;
+}
+
+.countdown-main-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.6rem;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.countdown-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: var(--spacing);
+}
+
+.countdown-header .line {
+  flex-grow: 1;
+  height: 2px;
+  background: var(--dark-blue);
+}
+
+.event-date {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.countdown-invite {
+  font-size: 0.95rem;
+  margin-bottom: var(--spacing);
+  color: var(--dark-blue);
+}
+
+.countdown {
+  display: flex;
+  justify-content: space-around;
+  gap: var(--spacing);
+}
     .unit { text-align:center }
     .box {
       background:var(--cream); border:1px solid var(--teal);
@@ -263,38 +263,44 @@
          Please join us as we celebrate the beginning of our forever.
       </p>
     </section>
+    
+<!-- 4. Countdown -->
+<section id="countdownSection" class="countdown-section container">
+  <!-- หัวข้อหลักใหญ่ -->
+  <h2 class="countdown-main-title">SUNDAY</h2>
 
-    <!-- 4. Countdown -->
-    <section id="countdownSection" class="countdown-section container">
-      <h2 class="countdown-main-title">COUNTDOWN TO WEDDING</h2>
-      <div class="countdown-header">
-        <span class="day-of-week">SUNDAY</span>
-        <span class="dash">—</span>
-        <span class="event-date">8 June 2025</span>
-        <span class="dash">—</span>
-      </div>
-      <p class="countdown-invite">
-        Please join us in celebrating a beautiful journey of love as we count down to our wedding day.
-      </p>
-      <div class="countdown">
-        <div class="unit">
-          <div class="box"><span id="days" class="number">0</span></div>
-          <div class="label">วัน</div>
-        </div>
-        <div class="unit">
-          <div class="box"><span id="hours" class="number">00</span></div>
-          <div class="label">ชั่วโมง</div>
-        </div>
-        <div class="unit">
-          <div class="box"><span id="minutes" class="number">00</span></div>
-          <div class="label">นาที</div>
-        </div>
-        <div class="unit">
-          <div class="box"><span id="seconds" class="number">00</span></div>
-          <div class="label">วินาที</div>
-        </div>
-      </div>
-    </section>
+  <!-- ขีดยาวซ้าย–ขวา และวันที่ -->
+  <div class="countdown-header">
+    <div class="line"></div>
+    <span class="event-date">8 June 2025</span>
+    <div class="line"></div>
+  </div>
+
+  <!-- ข้อความเชิญ -->
+  <p class="countdown-invite">
+    Please join us in celebrating a beautiful journey of love as we count down to our wedding day.
+  </p>
+
+  <!-- ตัวนับถอยหลัง -->
+  <div class="countdown">
+    <div class="unit">
+      <div class="box"><span id="days" class="number">0</span></div>
+      <div class="label">วัน</div>
+    </div>
+    <div class="unit">
+      <div class="box"><span id="hours" class="number">00</span></div>
+      <div class="label">ชั่วโมง</div>
+    </div>
+    <div class="unit">
+      <div class="box"><span id="minutes" class="number">00</span></div>
+      <div class="label">นาที</div>
+    </div>
+    <div class="unit">
+      <div class="box"><span id="seconds" class="number">00</span></div>
+      <div class="label">วินาที</div>
+    </div>
+  </div>
+</section>
 
     <!-- 5. MOMENTALWAY Gallery -->
     <section id="momentSection" class="gallery-section section-frame container">
