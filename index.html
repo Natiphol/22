@@ -199,41 +199,64 @@
     .gallery-section.visible .gallery-tagline {
       opacity:1; transform:translateY(0);
     }
-    /* Section 6: รูปเต็มแผ่น + อนิเมชั่น */
+   /* Section 6: รูปเต็มแผ่น */
 .couple-section {
   width: 100%;
   overflow: hidden;
-  /* ถ้าต้องการเว้นขอบบน-ล่าง ให้ปรับ padding */
+  position: relative;
   padding: 0;
-  animation: sectionFadeIn 0.8s ease-out both;
 }
+
+/* รูปพร้อมอนิเมชั่น */
 .couple-full {
   display: block;
   width: 100%;
   height: auto;
   object-fit: cover;
-  transform: translateY(20px);
+  transform-origin: center center;
   opacity: 0;
-  animation: imageSlideUp 1s ease-out forwards 0.3s;
 }
 
-/* เฟรมค่อยๆ ปรากฏ */
-@keyframes sectionFadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+/* คลาสอนิเมชั่น */
+.animate-fancy {
+  animation:
+    slideFadeIn 1s ease-out forwards,
+    kenburns 20s ease-out 0.5s infinite alternate;
 }
-/* รูปเลื่อนขึ้นพร้อมจางเข้ามา */
-@keyframes imageSlideUp {
+
+/* จางเข้า + สไลด์ขึ้น */
+@keyframes slideFadeIn {
   from {
-    transform: translateY(20px);
+    transform: translateY(30px) scale(1.05);
     opacity: 0;
   }
   to {
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
     opacity: 1;
   }
 }
 
+/* เคนเบิร์นสโลว์ ซูมเข้า-ออก */
+@keyframes kenburns {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.1) rotate(0.5deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* Responsive ปรับความเร็วหรือขนาดหากต้องการ */
+@media (max-width: 480px) {
+  .animate-fancy {
+    animation:
+      slideFadeIn 1s ease-out forwards,
+      kenburns 25s ease-out 0.5s infinite alternate;
+  }
+}
 
 
 
@@ -308,9 +331,9 @@
       <p class="gallery-tagline">จากนี้และตลอดไป<br>“From this day forward, and forever.”</p>
     </section>
     
-<!-- 6. Couple Full-Width Photo -->
+<!-- 6. Couple Full-Width Photo with Fancy Animation -->
 <section id="coupleSection" class="couple-section">
-  <img class="couple-full" src="https://i.postimg.cc/2yR20bY2/DSC08741-1.jpg" alt="PANNITA & NATIPHOL">
+  <img class="couple-full animate-fancy" src="https://i.postimg.cc/2yR20bY2/DSC08741-1.jpg" alt="PANNITA & NATIPHOL">
 </section>
 
 
