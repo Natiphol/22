@@ -602,118 +602,132 @@
   </main>
 
   <!-- GLightbox & Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // Hero → Prompt & Audio reveal
-      const heroImg = document.getElementById('animatedImage');
-      const indicator = document.getElementById('indicator');
-      const audioPlayer = document.getElementById('audioPlayer');
-      new IntersectionObserver((entries, obs) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            heroImg.classList.add('visible');
-            indicator.classList.add('visible');
-            audioPlayer.classList.add('visible');
-            obs.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.1 }).observe(heroImg);
-
-      // Reveal other sections
-      const toReveal = [
-        document.getElementById('messageSection'),
-        document.getElementById('countdownSection'),
-        document.getElementById('momentSection'),
-        document.getElementById('coupleSection'),
-        document.getElementById('scheduleSection')
-      ];
-      const io = new IntersectionObserver((entries, obs) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add('visible');
-            obs.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.2 });
-      toReveal.forEach(el => io.observe(el));
-
-      // Audio controls
-      const audio = document.getElementById('audio');
-      const playBtn = document.getElementById('playBtn');
-      const progress = document.getElementById('progress');
-      const progCont = document.getElementById('progressContainer');
-      const cur = document.getElementById('currentTime');
-      const dur = document.getElementById('duration');
-      playBtn.addEventListener('click', () => {
-        if (audio.paused) {
-          audio.play();
-          playBtn.innerHTML = '<svg viewBox="0 0 64 64"><rect x="16" y="8" width="12" height="48"/><rect x="36" y="8" width="12" height="48"/></svg>';
-        } else {
-          audio.pause();
-          playBtn.innerHTML = '<svg viewBox="0 0 64 64"><polygon points="16,8 56,32 16,56"/></svg>';
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Hero → Prompt & Audio reveal
+    const heroImg = document.getElementById('animatedImage');
+    const indicator = document.getElementById('indicator');
+    const audioPlayer = document.getElementById('audioPlayer');
+    new IntersectionObserver((entries, obs) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          heroImg.classList.add('visible');
+          indicator.classList.add('visible');
+          audioPlayer.classList.add('visible');
+          obs.unobserve(e.target);
         }
       });
-      audio.addEventListener('loadedmetadata', () => dur.textContent = formatTime(audio.duration));
-      audio.addEventListener('timeupdate', () => {
-        cur.textContent = formatTime(audio.currentTime);
-        progress.style.width = (audio.currentTime / audio.duration) * 100 + '%';
-      });
-      progCont.addEventListener('click', e => {
-        const rect = progCont.getBoundingClientRect();
-        audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
-      });
-      function formatTime(t) {
-        const m = Math.floor(t / 60), s = Math.floor(t % 60);
-        return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
-      }
+    }, { threshold: 0.1 }).observe(heroImg);
 
-      // Countdown
-      const target = new Date(2025, 5, 8).getTime();
-      const ids = ['days', 'hours', 'minutes', 'seconds'];
-      function updateCountdown() {
-        const diff = Math.max(target - Date.now(), 0);
-        const vals = [
-          Math.floor(diff / (1000 * 60 * 60 * 24)),
-          Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-          Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
-          Math.floor((diff % 60000) / 1000)
-        ];
-        vals.forEach((v, i) => {
-          const el = document.getElementById(ids[i]);
-          el.textContent = String(v).padStart(i > 0 ? 2 : 1, '0');
-          el.classList.add('animate');
-          setTimeout(() => el.classList.remove('animate'), 800);
-        });
-      }
-      updateCountdown();
-      setInterval(updateCountdown, 1000);
-
-      // Gallery slider
-      const slides = document.querySelectorAll('.slide');
-      const dots   = document.querySelectorAll('.dot');
-      const slider = document.querySelector('.slides');
-      let idx = 0;
-      function showSlide(i) {
-        idx = (i + slides.length) % slides.length;
-        slider.style.transform = `translateX(-${idx*100}%)`;
-        dots.forEach((d,j) => d.classList.toggle('active', j===idx));
-      }
-      document.querySelector('.prev').addEventListener('click', () => showSlide(idx-1));
-      document.querySelector('.next').addEventListener('click', () => showSlide(idx+1));
-      dots.forEach((d,i) => d.addEventListener('click', () => showSlide(i)));
-      let startX = 0;
-      document.querySelector('.gallery').addEventListener('touchstart', e => startX = e.touches[0].clientX);
-      document.querySelector('.gallery').addEventListener('touchend', e => {
-        const endX = e.changedTouches[0].clientX;
-        if (startX - endX > 50) showSlide(idx+1);
-        if (endX - startX > 50) showSlide(idx-1);
+    // Reveal other sections
+    const toReveal = [
+      document.getElementById('messageSection'),
+      document.getElementById('countdownSection'),
+      document.getElementById('momentSection'),
+      document.getElementById('coupleSection'),
+      document.getElementById('scheduleSection')
+    ];
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          obs.unobserve(e.target);
+        }
       });
-      showSlide(0);
+    }, { threshold: 0.2 });
+    toReveal.forEach(el => io.observe(el));
 
-      // GLightbox
-      GLightbox({ selector: '.glightbox', loop: true, touchNavigation: true });
+    // ← ตรงนี้ให้ต่อด้วยโค้ดสังเกต schedule items
+    const scheduleItems = document.querySelectorAll('.schedule-item');
+    const ioSchedule = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    scheduleItems.forEach(item => ioSchedule.observe(item));
+    // ↑ จบส่วนสังเกตตารางพิธี
+
+    // Audio controls
+    const audio = document.getElementById('audio');
+    const playBtn = document.getElementById('playBtn');
+    const progress = document.getElementById('progress');
+    const progCont = document.getElementById('progressContainer');
+    const cur = document.getElementById('currentTime');
+    const dur = document.getElementById('duration');
+    playBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        playBtn.innerHTML = '<svg viewBox="0 0 64 64"><rect x="16" y="8" width="12" height="48"/><rect x="36" y="8" width="12" height="48"/></svg>';
+      } else {
+        audio.pause();
+        playBtn.innerHTML = '<svg viewBox="0 0 64 64"><polygon points="16,8 56,32 16,56"/></svg>';
+      }
     });
-  </script>
+    audio.addEventListener('loadedmetadata', () => dur.textContent = formatTime(audio.duration));
+    audio.addEventListener('timeupdate', () => {
+      cur.textContent = formatTime(audio.currentTime);
+      progress.style.width = (audio.currentTime / audio.duration) * 100 + '%';
+    });
+    progCont.addEventListener('click', e => {
+      const rect = progCont.getBoundingClientRect();
+      audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
+    });
+    function formatTime(t) {
+      const m = Math.floor(t / 60), s = Math.floor(t % 60);
+      return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+    }
+
+    // Countdown
+    const target = new Date(2025, 5, 8).getTime();
+    const ids = ['days', 'hours', 'minutes', 'seconds'];
+    function updateCountdown() {
+      const diff = Math.max(target - Date.now(), 0);
+      const vals = [
+        Math.floor(diff / (1000 * 60 * 60 * 24)),
+        Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+        Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
+        Math.floor((diff % 60000) / 1000)
+      ];
+      vals.forEach((v, i) => {
+        const el = document.getElementById(ids[i]);
+        el.textContent = String(v).padStart(i > 0 ? 2 : 1, '0');
+        el.classList.add('animate');
+        setTimeout(() => el.classList.remove('animate'), 800);
+      });
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Gallery slider
+    const slides = document.querySelectorAll('.slide');
+    const dots   = document.querySelectorAll('.dot');
+    const slider = document.querySelector('.slides');
+    let idx = 0;
+    function showSlide(i) {
+      idx = (i + slides.length) % slides.length;
+      slider.style.transform = `translateX(-${idx*100}%)`;
+      dots.forEach((d,j) => d.classList.toggle('active', j===idx));
+    }
+    document.querySelector('.prev').addEventListener('click', () => showSlide(idx-1));
+    document.querySelector('.next').addEventListener('click', () => showSlide(idx+1));
+    dots.forEach((d,i) => d.addEventListener('click', () => showSlide(i)));
+    let startX = 0;
+    document.querySelector('.gallery').addEventListener('touchstart', e => startX = e.touches[0].clientX);
+    document.querySelector('.gallery').addEventListener('touchend', e => {
+      const endX = e.changedTouches[0].clientX;
+      if (startX - endX > 50) showSlide(idx+1);
+      if (endX - startX > 50) showSlide(idx-1);
+    });
+    showSlide(0);
+
+    // GLightbox
+    GLightbox({ selector: '.glightbox', loop: true, touchNavigation: true });
+  });
+</script>
+
 </body>
 </html>
