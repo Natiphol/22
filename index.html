@@ -14,9 +14,9 @@
   <title>Wedding Invitation – Mobile UX</title>
   <style>
     :root {
-      --blue-light: #e0f7fa;
-      --blue-deep:  #89CFF0;
-      --white:      #ffffff;
+      --ivory:      #FFFFF0;
+      --blue:       #89CFF0;
+      --cream:      #FFF5E1;
       --teal:       #A1D6E2;
       --dark-blue:  #2A6F97;
       --gold:       #D4AF37;
@@ -27,64 +27,53 @@
     * { margin:0; padding:0; box-sizing:border-box }
     html, body {
       height:100%;
-      font-family:'IBM Plex Sans Thai',sans-serif;
+      background-color: var(--ivory);
+      font-family: 'IBM Plex Sans Thai', sans-serif;
       color: var(--dark-blue);
       line-height:1.5;
     }
     a, button { touch-action: manipulation; -webkit-tap-highlight-color: transparent }
-    header { position: sticky; top:0; background:rgba(255,255,255,0.9); z-index:1000; }
+    header { position: sticky; top:0; width:100%; background: var(--ivory); z-index:1000; }
 
     main {
-      display:flex; flex-direction:column;
-      align-items:center; gap:calc(var(--spacing)*2);
-      padding:calc(var(--spacing)*2) 0;
+      display:flex; flex-direction:column; align-items:center;
+      gap:calc(var(--spacing)*2); padding:calc(var(--spacing)*2) 0;
     }
     .container { width:90%; max-width:420px }
-
-    /* SECTION BACKGROUNDS */
-    .section-hero      { background: linear-gradient(180deg, var(--blue-light), var(--white)); }
-    .section-prompt    { background: linear-gradient(180deg, var(--white), var(--blue-light)); }
-    .section-message   { background: linear-gradient(180deg, var(--blue-light), var(--white)); }
-    .section-countdown { background: linear-gradient(180deg, var(--white), var(--blue-light)); }
-    .gallery-section   { background: linear-gradient(180deg, var(--blue-light), var(--white)); }
-    #familySection     { background: linear-gradient(180deg, var(--white), var(--blue-light)); }
-
     img { display:block; width:100%; border-radius:var(--radius) }
 
     /* 1. Hero */
-    .hero {
-      overflow:hidden; margin:var(--spacing) 0;
-      padding:0;
-    }
+    .hero { width:100%; margin-top:var(--spacing); overflow:hidden; }
     #animatedImage {
       opacity:0; transform:translateY(20px);
       transition:opacity 1.5s ease-out, transform 1.5s ease-out;
     }
-    #animatedImage.visible {
-      opacity:1; transform:translateY(0);
-    }
+    #animatedImage.visible { opacity:1; transform:translateY(0); }
 
     /* 2. Prompt & Audio */
-    .prompt-container {
-      position:relative; overflow:hidden;
-      padding:var(--spacing) 0;
+    .prompt-container { position:relative; overflow:hidden; padding-top:var(--spacing); }
+    .scroll-indicator {
+      display:inline-block; padding:0.4rem 0.8rem;
+      background:var(--bg-alpha); font-weight:500;
+      color:var(--dark-blue);
+      transform:translateX(-100vw); opacity:0;
+      transition:transform 1s ease-out, opacity 1s ease-out;
+      margin-bottom:var(--spacing);
     }
+    .scroll-indicator.visible { transform:translateX(0); opacity:1; }
     .audio-player {
       background:var(--bg-alpha); border-radius:var(--radius);
       padding:calc(var(--spacing)*1.5);
       box-shadow:0 4px 16px rgba(0,0,0,0.05);
       transform:translateX(100vw); opacity:0;
       transition:transform 1s ease-out 0.5s, opacity 1s ease-out 0.5s;
-      margin-bottom:var(--spacing);
     }
-    .audio-player.visible {
-      transform:translateX(0); opacity:1;
-    }
+    .audio-player.visible { transform:translateX(0); opacity:1; }
     .play-btn {
       width:56px; height:56px; border:none; border-radius:50%;
-      background:linear-gradient(135deg,var(--teal),var(--blue-deep));
+      background:linear-gradient(135deg,var(--teal),var(--blue));
       display:inline-flex; align-items:center; justify-content:center;
-      cursor:pointer; transition:transform .2s;
+      transition:transform .2s; cursor:pointer;
     }
     .play-btn:active { transform:scale(.95) }
     .play-btn svg { width:24px; height:24px; fill:#fff }
@@ -93,63 +82,32 @@
       margin:var(--spacing) 0; overflow:hidden; cursor:pointer;
     }
     .progress { width:0%; height:100%; background:var(--teal) }
-    .time { font-size:.9rem; color:var(--dark-blue); }
+    .time { font-size:.9rem; color:var(--dark-blue) }
 
-    .scroll-indicator {
-      display:inline-block; padding:.4rem .8rem;
-      background:var(--bg-alpha); font-weight:500;
-      color:var(--dark-blue);
-      transform:translateX(-100vw); opacity:0;
-      transition:transform 1s ease-out, opacity 1s ease-out;
-    }
-    .scroll-indicator.visible {
-      transform:translateX(0); opacity:1;
-    }
-
-    /* 3. Personal Message */
-    .message {
-      opacity:0; transform:translateY(20px);
-      transition:opacity 1s, transform 1s;
-      padding:var(--spacing) 0;
-    }
-    .message.visible {
-      opacity:1; transform:translateY(0);
-    }
+    /* 3. Message & Tagline */
+    .message { opacity:0; transform:translateY(20px); transition:opacity 1s, transform 1s; padding:var(--spacing) 0; }
+    .message.visible { opacity:1; transform:translateY(0); }
     .message p {
       opacity:0; transform:translateY(20px) scale(.9);
       transition:opacity .6s, transform .6s;
     }
-    .message.visible p:nth-child(1) {
-      transition-delay:.2s; opacity:1; transform:translateY(0) scale(1);
-    }
-    .message.visible p:nth-child(2) {
-      transition-delay:.4s; opacity:1; transform:translateY(0) scale(1);
-    }
+    .message.visible p:nth-child(1) { transition-delay:.2s; opacity:1; transform:translateY(0) scale(1); }
+    .message.visible p:nth-child(2) { transition-delay:.4s; opacity:1; transform:translateY(0) scale(1); }
 
     /* 4. Countdown */
     @keyframes fadeInDown { from{opacity:0;transform:translateY(-10px)} to{opacity:1;transform:translateY(0)} }
     @keyframes pulse { 0%,100%{transform:scale(1)}50%{transform:scale(1.05)} }
-    .countdown-section {
-      opacity:0; transform:translateY(20px);
-      transition:transform 1s, opacity 1s;
-      padding:var(--spacing) 0;
-    }
-    .countdown-section.visible {
-      opacity:1; transform:translateY(0);
-    }
+    .countdown-section { opacity:0; transform:translateY(20px); transition:transform 1s,opacity 1s; padding:var(--spacing) 0; }
+    .countdown-section.visible { opacity:1; transform:translateY(0); }
     .countdown-title {
       font-family:'Playfair Display',serif; font-size:2rem;
-      text-transform:uppercase; opacity:0;
-      margin-bottom:var(--spacing);
-    }
-    .countdown-section.visible .countdown-title {
-      animation:fadeInDown 1s ease-out both,
-                pulse 2s ease-in-out 1s infinite;
+      text-transform:uppercase; opacity:0; margin-bottom:var(--spacing);
+      animation: fadeInDown 1s ease-out both, pulse 2s ease-in-out 1s infinite;
     }
     .countdown { display:flex; justify-content:space-around; gap:var(--spacing) }
     .unit { text-align:center }
     .box {
-      background:var(--white); border:1px solid var(--teal);
+      background:var(--cream); border:1px solid var(--teal);
       padding:.75rem; min-width:70px; border-radius:var(--radius);
       box-shadow:0 4px 12px rgba(0,0,0,0.05);
     }
@@ -161,40 +119,34 @@
     .label { margin-top:.3rem; font-size:.85rem; font-weight:500; color:var(--dark-blue) }
 
     /* 5. MOMENTALWAY Gallery */
-    .gallery-section {
-      width:100%; margin:var(--spacing) 0;
-    }
-    .gallery-section .section-frame {
+    .gallery-section { width:100%; margin:var(--spacing) 0; }
+    .section-frame {
       background:#fff; border:2px solid var(--teal);
       border-radius:var(--radius); padding:calc(var(--spacing)*1.5);
       box-shadow:0 4px 16px rgba(0,0,0,0.1); text-align:center;
     }
-    .gallery-section .section-title {
+    .section-title {
       font-family:'Playfair Display',serif; font-size:1.8rem;
       text-transform:uppercase; margin-bottom:var(--spacing);
     }
     .gallery { position:relative; overflow:hidden; padding:0 var(--spacing); }
     .slides { display:flex; transition:transform .5s ease; }
-    .slide { min-width:100%; padding:0 var(--spacing); box-sizing:border-box; }
+    .slide { min-width:100%; padding:0 var(--spacing); }
     .slide img { width:100%; border-radius:var(--radius); cursor:pointer; }
     .prev, .next {
       position:absolute; top:50%; transform:translateY(-50%);
-      background:var(--bg-alpha); border:none; width:36px; height:36px;
-      border-radius:50%; display:flex; align-items:center; justify-content:center;
+      background:var(--bg-alpha);border:none;width:36px;height:36px;
+      border-radius:50%;display:flex;align-items:center;justify-content:center;
       box-shadow:0 2px 8px rgba(0,0,0,0.2); cursor:pointer;
     }
     .prev { left:8px } .next { right:8px }
-    .prev svg, .next svg { width:18px; height:18px; fill:var(--dark-blue) }
-    .dot-container {
-      display:flex; justify-content:center; gap:6px; margin-top:var(--spacing);
-    }
+    .prev svg, .next svg { width:18px;height:18px; fill:var(--dark-blue) }
+    .dot-container { display:flex;justify-content:center;gap:6px;margin-top:var(--spacing); }
     .dot {
-      width:10px; height:10px; background:var(--teal);
-      border-radius:50%; opacity:.5; cursor:pointer;
-      transition:opacity .3s;
+      width:10px;height:10px;background:var(--teal);
+      border-radius:50%;opacity:.5;cursor:pointer;transition:opacity .3s;
     }
-    .dot.active { opacity:1; background:var(--dark-blue) }
-
+    .dot.active { opacity:1;background:var(--dark-blue); }
     .gallery-tagline {
       opacity:0; transform:translateY(20px);
       transition:opacity 1s, transform 1s;
@@ -205,14 +157,8 @@
     }
 
     /* 6. Family & Hosts */
-    #familySection {
-      opacity:0; transform:translateY(20px);
-      transition:opacity 1s, transform 1s;
-      padding:var(--spacing) 0;
-    }
-    #familySection.visible {
-      opacity:1; transform:translateY(0);
-    }
+    #familySection { opacity:0; transform:translateY(20px); transition:opacity 1s,transform 1s; padding:var(--spacing) 0; }
+    #familySection.visible { opacity:1; transform:translateY(0); }
     #familySection .inner-frame {
       border:1px solid var(--gold); border-radius:calc(var(--radius)/2);
       padding:var(--spacing); background:var(--bg-alpha);
@@ -223,32 +169,27 @@
     }
     .family-grid .block {
       opacity:0; transform:translateY(20px);
-      transition:opacity .6s, transform .6s;
+      transition:opacity .6s,transform .6s;
     }
     #familySection.visible .block:nth-child(1) { transition-delay:.2s; opacity:1; transform:translateY(0); }
     #familySection.visible .block:nth-child(2) { transition-delay:.4s; opacity:1; transform:translateY(0); }
     #familySection.visible .block:nth-child(3) { transition-delay:.6s; opacity:1; transform:translateY(0); }
     #familySection.visible .block:nth-child(4) { transition-delay:.8s; opacity:1; transform:translateY(0); }
     .family-grid .name {
-      font-family:'Playfair Display',serif; font-weight:700; font-size:1.1rem;
+      font-family:'Playfair Display',serif;font-weight:700;font-size:1.1rem;
       margin-bottom:.25rem;
     }
     .family-grid .role {
-      font-weight:300; font-size:.9rem; color:var(--dark-blue);
+      font-weight:300;font-size:.9rem;color:var(--dark-blue);
     }
-    hr.gold {
-      border:none; border-top:1px solid var(--gold); margin:var(--spacing) 0;
-    }
-    .invite-text {
-      font-weight:500; font-size:1rem; text-align:center;
-    }
+    hr.gold { border:none;border-top:1px solid var(--gold);margin:var(--spacing) 0; }
+    .invite-text { font-weight:500;font-size:1rem;text-align:center; }
 
     @media(min-width:480px) {
-      .play-btn { width:64px; height:64px }
-      .play-btn svg { width:30px; height:30px }
-      .countdown-title { font-size:2.2rem }
-      .section-title { font-size:2rem }
-      #familySection .section-title { font-size:2rem }
+      .countdown-title { font-size:2.2rem; }
+      .section-title, #familySection .section-title { font-size:2rem; }
+      .play-btn { width:64px;height:64px; }
+      .play-btn svg { width:30px;height:30px; }
     }
   </style>
 </head>
@@ -256,12 +197,13 @@
   <header><nav class="main-nav"></nav></header>
   <main>
     <!-- 1. Hero -->
-    <section class="hero section-hero container">
+    <section class="hero container">
       <img id="animatedImage" src="https://i.postimg.cc/6QGx2SKg/DSC087422-1.jpg" alt="Wedding background" />
     </section>
 
     <!-- 2. Prompt & Audio -->
-    <section class="prompt-container section-prompt container">
+    <section class="prompt-container container">
+      <div id="indicator" class="scroll-indicator">กรุณากดเล่นเพลงก่อน แล้วเลื่อนลงดูรายละเอียด</div>
       <div id="audioPlayer" class="audio-player">
         <audio id="audio" src="https://natiphol.github.io/mp3/No.mp3"></audio>
         <button id="playBtn" class="play-btn" aria-label="Play">
@@ -270,18 +212,17 @@
         <div id="progressContainer" class="progress-container"><div id="progress" class="progress"></div></div>
         <div class="time"><span id="currentTime">00:00</span> / <span id="duration">00:00</span></div>
       </div>
-      <div id="indicator" class="scroll-indicator">กรุณากดเล่นเพลงก่อน แล้วเลื่อนลงดูรายละเอียด</div>
     </section>
 
     <!-- 3. Personal Message -->
-    <section id="messageSection" class="message section-message container">
+    <section id="messageSection" class="message container">
       <p>เราสองคนกำลังจะเริ่มต้นบทใหม่ของชีวิตและอยากให้คุณเป็นส่วนหนึ่งในความทรงจำที่สวยงามครั้งนี้</p>
       <p>Our journey begins with love, and it becomes more meaningful with your support.<br>
       Please join us as we celebrate the beginning of our forever.</p>
     </section>
 
     <!-- 4. Countdown -->
-    <section id="countdownSection" class="countdown-section section-countdown container">
+    <section id="countdownSection" class="countdown-section container">
       <div class="countdown-title">COUNTDOWN TO WEDDING</div>
       <div class="countdown">
         <div class="unit"><div class="box"><span id="days" class="number">0</span></div><div class="label">วัน</div></div>
@@ -314,7 +255,7 @@
         <div class="family-grid">
           <div class="block"><p class="name">นายสีศักดิ์ ศรีโกศล</p><p class="role">(พ่อ)</p></div>
           <div class="block"><p class="name">นางสาวหนูพิน เจนวิถี</p><p class="role">(แม่)</p></div>
-          <div class="block"><p class="name">นายวรพันธุ์ ชาญชนะโรจน์</p><p class="role">(พี่ชาย)</p></div>
+          <div class="block"><p class="name">นายวรพันธ์ ชาญชนะโรจน์</p><p class="role">(พี่ชาย)</p></div>
           <div class="block"><p class="name">นางกานต์สินี ชาญชนะโรจน์</p><p class="role">(แม่)</p></div>
         </div>
         <hr class="gold" />
