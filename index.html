@@ -407,62 +407,40 @@
     }
 
     /* 7. Wedding Schedule */
-    .schedule-section {
-      padding: var(--spacing) 0;
-    }
-    .schedule-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      text-transform: uppercase;
-      line-height: 1.2;
-      animation: fadeInDown 1s ease-out both;
-      margin-bottom: var(--spacing);
-    }
-    .divider {
-      height: 2px;
-      background: var(--dark-blue);
-      margin: var(--spacing) 0;
-    }
-    .schedule-date {
-      font-size: 1rem;
-      font-weight: 500;
-      margin-bottom: var(--spacing);
-    }
-    .schedule-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: var(--spacing);
-      padding: 0;
-    }
-    .schedule-item {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing);
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity .6s ease-out, transform .6s ease-out;
-    }
-    .schedule-item.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .schedule-item ion-icon {
-      font-size: 32px;
-      flex-shrink: 0;
-      color: var(--gold);
-    }
-    .schedule-item .info {
-      text-align: left;
-    }
-    .schedule-item .time {
-      font-weight: 700;
-      display: block;
-    }
-    .schedule-item .desc {
-      display: block;
-      margin-top: 4px;
-    }
+ /* ปรับใหม่ให้แต่ละไอเท็มอยู่ตรงกลางทีละบรรทัด */
+.schedule-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.schedule-item {
+  text-align: center;
+  margin-bottom: calc(var(--spacing) * 1.5);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .6s ease-out, transform .6s ease-out;
+}
+.schedule-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* ไอคอนใหญ่ขึ้นหน่อย */
+.schedule-item ion-icon {
+  font-size: 40px;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+/* เวลา และ คำบรรยาย */
+.schedule-item .time {
+  font-weight: 700;
+  font-size: 1.1rem;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+.schedule-item .desc {
+  font-size: 1rem;
+}
   </style>
 </head>
 <body>
@@ -555,7 +533,7 @@
     <!-- 7. Wedding Schedule -->
     <section id="scheduleSection" class="schedule-section container">
       <h2 class="schedule-title">
-        WEDDING<br>SCHEDULE
+        WEDDINGS CHEDULE<br>กำหนดการ 
       </h2>
 
       <div class="divider"></div>
@@ -568,35 +546,28 @@
       <div class="divider"></div>
 
       <ul class="schedule-list">
-        <li class="schedule-item">
-          <ion-icon name="walk-outline"></ion-icon>
-          <div class="info">
-            <span class="time">15.30 น.</span>
-            <span class="desc">พิธีแห่ขันหมาก</span>
-          </div>
-        </li>
-        <li class="schedule-item">
-          <ion-icon name="diamond-outline"></ion-icon>
-          <div class="info">
-            <span class="time">16.09 น.</span>
-            <span class="desc">พิธีสวมแหวน</span>
-          </div>
-        </li>
-        <li class="schedule-item">
-          <ion-icon name="water-outline"></ion-icon>
-          <div class="info">
-            <span class="time">17.29 น.</span>
-            <span class="desc">พิธีรดน้ำสังข์</span>
-          </div>
-        </li>
-        <li class="schedule-item">
-          <ion-icon name="restaurant-outline"></ion-icon>
-          <div class="info">
-            <span class="time">18.30 น.</span>
-            <span class="desc">งานเลี้ยงฉลองมงคลสมรส</span>
-          </div>
-        </li>
-      </ul>
+  <li class="schedule-item">
+    <ion-icon name="walk-outline"></ion-icon>
+    <span class="time">15.30 น.</span>
+    <span class="desc">พิธีแห่ขันหมาก</span>
+  </li>
+  <li class="schedule-item">
+    <ion-icon name="diamond-outline"></ion-icon>
+    <span class="time">16.09 น.</span>
+    <span class="desc">พิธีสวมแหวน</span>
+  </li>
+  <li class="schedule-item">
+    <ion-icon name="water-outline"></ion-icon>
+    <span class="time">17.29 น.</span>
+    <span class="desc">พิธีรดน้ำสังข์</span>
+  </li>
+  <li class="schedule-item">
+    <ion-icon name="restaurant-outline"></ion-icon>
+    <span class="time">18.30 น.</span>
+    <span class="desc">งานเลี้ยงฉลองมงคลสมรส</span>
+  </li>
+</ul>
+
     </section>
 
   </main>
