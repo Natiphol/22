@@ -10,16 +10,22 @@
 
   <!-- GLightbox CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
-  
+
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=IBM+Plex+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=IBM+Plex+Sans+Thai:wght@400;500;700&family=Yellowtail&display=swap" rel="stylesheet">
 
-
-
-  
+  <!-- Font Awesome Free Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-pOJrX9pJZH0Gug1v0VMH1sPqE5a+Y3LkzX1RWw7E7F4WcRhM3wIyF61Mt7u4J1pss5R1O8qK/0Nzm5DU0YqE2g=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
 
   <title>Wedding Invitation – Mobile UX</title>
   <style>
+    /* ==== Theme Colors & Variables ==== */
     :root {
       --ivory:      #FFFFF0;
       --blue:       #89CFF0;
@@ -41,15 +47,27 @@
     }
     a, button { touch-action: manipulation; -webkit-tap-highlight-color: transparent }
     header { position: sticky; top:0; width:100%; background: var(--ivory); z-index:1000; }
+    .container { width:90%; max-width:420px; margin:0 auto; }
 
+    /* ==== Common Animations ==== */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%,100% { transform: scale(1); }
+      50%     { transform: scale(1.05); }
+    }
+
+    /* ==== 1. Hero ==== */
     main {
       display:flex; flex-direction:column; align-items:center;
       gap:calc(var(--spacing)*2); padding:calc(var(--spacing)*2) 0;
     }
-    .container { width:90%; max-width:420px }
-    img { display:block; width:100%; border-radius:var(--radius) }
-
-    /* 1. Hero */
     .hero { width:100%; margin-top:var(--spacing); overflow:hidden; }
     #animatedImage {
       opacity:0; transform:translateY(20px);
@@ -57,7 +75,7 @@
     }
     #animatedImage.visible { opacity:1; transform:translateY(0); }
 
-    /* 2. Prompt & Audio */
+    /* ==== 2. Prompt & Audio ==== */
     .prompt-container { position:relative; overflow:hidden; padding-top:var(--spacing); }
     .scroll-indicator {
       display:inline-block; padding:0.4rem 0.8rem;
@@ -91,7 +109,7 @@
     .progress { width:0%; height:100%; background:var(--teal) }
     .time { font-size:.9rem; color:var(--dark-blue) }
 
-    /* 3. Message & Tagline */
+    /* ==== 3. Personal Message ==== */
     .message {
       opacity: 0; transform: translateY(20px);
       transition: opacity 1s, transform 1s;
@@ -106,7 +124,7 @@
     .message.visible p:nth-child(1) { transition-delay:.2s; opacity:1; transform:translateY(0) scale(1); }
     .message.visible p:nth-child(2) { transition-delay:.4s; opacity:1; transform:translateY(0) scale(1); }
 
-    /* 4. Countdown */
+    /* ==== 4. Countdown ==== */
     .countdown-section {
       text-align: center;
       padding: var(--spacing) 0;
@@ -115,19 +133,21 @@
       font-family: 'Playfair Display', serif;
       font-size: 3.6rem;
       text-transform: uppercase;
+      color: var(--gold);
       margin-bottom: 0.75rem;
-      animation: fadeInDown 1s ease-out both, pulse 2s ease-in-out 1s infinite;
+      animation: fadeInDown 1s both, pulse 2s ease-in-out 1s infinite;
     }
     .countdown-header {
       display: flex; align-items: center; justify-content:center;
       gap: 0.75rem; margin-bottom: var(--spacing);
     }
     .countdown-header .line {
-      flex-grow: 1; height: 2px; background: var(--dark-blue);
+      flex-grow: 1; height: 2px; background: var(--gold);
     }
     .event-date {
       font-family: 'IBM Plex Sans Thai', sans-serif;
       font-size: 1rem; font-weight: 500; text-transform: uppercase;
+      color: var(--dark-blue);
     }
     .countdown-invite {
       font-size:0.95rem; margin-bottom:var(--spacing);
@@ -148,7 +168,7 @@
     }
     .label { margin-top:.3rem; font-size:.85rem; font-weight:500; color:var(--dark-blue) }
 
-    /* 5. BEST MOMENT Section */
+    /* ==== 5. BEST MOMENT ==== */
     .section-main-title {
       font-family: 'Playfair Display', serif;
       font-size: 2.4rem;
@@ -199,167 +219,77 @@
     .gallery-section.visible .gallery-tagline {
       opacity:1; transform:translateY(0);
     }
-   /* Section 6: รูปเต็มแผ่น */
-.couple-section {
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-  padding: 0;
-}
 
-/* รูปพร้อมอนิเมชั่น */
-.couple-full {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  transform-origin: center center;
-  opacity: 0;
-}
+    /* ==== 6. Couple Full-Width Photo ==== */
+    .couple-section {
+      width:100%; overflow:hidden; position:relative; padding:0;
+    }
+    .couple-full {
+      display:block; width:100%; height:auto; object-fit:cover;
+      transform-origin:center center; opacity:0;
+      animation: slideUp 1s ease-out forwards, pulse 20s ease-in-out 0.5s infinite alternate;
+    }
 
-/* คลาสอนิเมชั่น */
-.animate-fancy {
-  animation:
-    slideFadeIn 1s ease-out forwards,
-    kenburns 20s ease-out 0.5s infinite alternate;
-}
+    /* ==== 8. Wedding Schedule ==== */
+    .schedule-section { padding:2rem var(--spacing); }
+    .schedule-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem; text-align:center; color:var(--gold);
+      animation: fadeInDown 1s both; line-height:1.2;
+    }
+    .schedule-divider {
+      height:2px; background:var(--gold); border:none;
+      margin:0.5rem 0 1rem;
+    }
+    .schedule-date, .schedule-date-th {
+      text-align:center; margin:0.2rem 0; color:var(--dark-blue);
+      animation: fadeInDown 1s both;
+    }
+    .schedule-date-th { color:#555; }
 
-/* จางเข้า + สไลด์ขึ้น */
-@keyframes slideFadeIn {
-  from {
-    transform: translateY(30px) scale(1.05);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-}
+    .schedule-grid {
+      display:grid; grid-template-columns:repeat(auto-fit, minmax(160px,1fr));
+      gap:1rem; margin-top:1rem;
+    }
+    .schedule-item {
+      display:flex; align-items:center; padding:0.75rem;
+      background:var(--cream); border-radius:var(--radius);
+      box-shadow:0 4px 12px rgba(0,0,0,0.05); opacity:0;
+      animation: slideUp 0.6s ease-out forwards;
+    }
+    .schedule-item .icon {
+      font-size:1.5rem; color:var(--gold); margin-right:0.75rem;
+    }
+    .schedule-item .time {
+      font-weight:600; font-size:1rem; color:var(--dark-blue);
+    }
+    .schedule-item .detail {
+      font-size:0.9rem; color:#444;
+    }
+    /* staggered delays */
+    .schedule-item:nth-child(1) { animation-delay:0s; }
+    .schedule-item:nth-child(2) { animation-delay:0.1s; }
+    .schedule-item:nth-child(3) { animation-delay:0.2s; }
+    .schedule-item:nth-child(4) { animation-delay:0.3s; }
 
-/* เคนเบิร์นสโลว์ ซูมเข้า-ออก */
-@keyframes kenburns {
-  0% {
-    transform: scale(1) rotate(0deg);
-  }
-  50% {
-    transform: scale(1.1) rotate(0.5deg);
-  }
-  100% {
-    transform: scale(1) rotate(0deg);
-  }
-}
-
-/* Responsive ปรับความเร็วหรือขนาดหากต้องการ */
-@media (max-width: 480px) {
-  .animate-fancy {
-    animation:
-      slideFadeIn 1s ease-out forwards,
-      kenburns 25s ease-out 0.5s infinite alternate;
-  }
-}
-/* Section 7: Wedding Schedule */
-.schedule-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.8rem;
-  text-align: center;
-  color: var(--gold);
-  animation: fadeInDown 1s ease-out both;
-  margin-bottom: 0.5rem;
-  line-height: 1.2;
-}
-.schedule-divider {
-  border: none;
-  height: 2px;
-  background: var(--gold);
-  margin: 0.5rem 0 1rem;
-  animation: fadeIn 1s ease-out both;
-}
-.schedule-date,
-.schedule-date-th {
-  text-align: center;
-  font-size: 1rem;
-  margin: 0.2rem 0;
-  animation: fadeIn 1s ease-out both;
-}
-.schedule-date-th {
-  color: #555;
-}
-
-/* Grid 2 คอลัมน์ */
-.schedule-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-/* ไอเท็มแต่ละรายการ */
-.schedule-item {
-  display: flex;
-  align-items: center;
-  padding: 0.75rem;
-  background: var(--cream);
-  border-radius: var(--radius);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  overflow: hidden;
-}
-.schedule-item .icon {
-  width: 40px;
-  height: 40px;
-  margin-right: 0.75rem;
-}
-.schedule-item .info {
-  display: flex;
-  flex-direction: column;
-}
-.schedule-item .time {
-  font-weight: 600;
-  font-size: 1rem;
-  color: var(--dark-blue);
-}
-.schedule-item .detail {
-  font-size: 0.9rem;
-  color: #444;
-}
-
-/* อนิเมชันเล็กๆ เลื่อนขึ้น + จางเข้า */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-@keyframes fadeInDown {
-  from { opacity: 0; transform: translateY(-10px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.animate-up {
-  opacity: 0;
-  animation: slideUp 0.6s ease-out forwards;
-}
-
-/* Responsive */
-@media (max-width: 480px) {
-  .schedule-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-
+    /* Responsive adjustments */
+    @media (max-width:480px) {
+      .countdown-main-title { font-size:3rem; }
+      .section-main-title { font-size:2.4rem; }
+      .couple-full { animation-duration:1.2s; }
+    }
   </style>
 </head>
 <body>
   <header><nav class="main-nav"></nav></header>
-  <main>
+  <main class="container">
     <!-- 1. Hero -->
-    <section class="hero container">
+    <section class="hero">
       <img id="animatedImage" src="https://i.postimg.cc/6QGx2SKg/DSC087422-1.jpg" alt="Wedding background" />
     </section>
 
     <!-- 2. Prompt & Audio -->
-    <section class="prompt-container container">
+    <section class="prompt-container">
       <div id="indicator" class="scroll-indicator">กรุณากดเล่นเพลงก่อน แล้วเลื่อนลงดูรายละเอียด</div>
       <div id="audioPlayer" class="audio-player">
         <audio id="audio" src="https://natiphol.github.io/mp3/No.mp3"></audio>
@@ -372,7 +302,7 @@
     </section>
 
     <!-- 3. Personal Message -->
-    <section id="messageSection" class="message container">
+    <section id="messageSection" class="message">
       <p>เราสองคนกำลังจะเริ่มต้นบทใหม่ของชีวิตและอยากให้คุณเป็นส่วนหนึ่งในความทรงจำที่สวยงามครั้งนี้</p>
       <p>Our journey begins with love, and it becomes more meaningful with your support.<br>
          Please join us as we celebrate the beginning of our forever.
@@ -380,7 +310,7 @@
     </section>
 
     <!-- 4. Countdown -->
-    <section id="countdownSection" class="countdown-section container">
+    <section id="countdownSection" class="countdown-section">
       <h2 class="countdown-main-title">SUNDAY</h2>
       <div class="countdown-header">
         <div class="line"></div>
@@ -398,8 +328,8 @@
       </div>
     </section>
 
-    <!-- 5. BEST MOMENT Section -->
-    <section id="momentSection" class="gallery-section section-frame container">
+    <!-- 5. BEST MOMENT -->
+    <section id="momentSection" class="gallery-section section-frame">
       <h2 class="section-main-title">BEST MOMENT</h2>
       <div class="section-header">
         <div class="line"></div>
@@ -418,89 +348,73 @@
       <div class="dot-container"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
       <p class="gallery-tagline">จากนี้และตลอดไป<br>“From this day forward, and forever.”</p>
     </section>
-    
-<!-- 6. Couple Full-Width Photo with Fancy Animation -->
-<section id="coupleSection" class="couple-section">
-  <img class="couple-full animate-fancy" src="https://i.postimg.cc/2yR20bY2/DSC08741-1.jpg" alt="PANNITA & NATIPHOL">
-</section>
 
-<!-- 7. Wedding Schedule -->
-<section id="scheduleSection" class="schedule-section container">
-  <!-- หัวข้อสองบรรทัด พร้อมอนิเมชัน -->
-  <h2 class="schedule-title">WEDDING<br>SCHEDULE</h2>
-  <hr class="schedule-divider">
-  <!-- วันที่ภาษาอังกฤษ / ไทย -->
-  <p class="schedule-date">SUNDAY &nbsp; 8 June 2025</p>
-  <p class="schedule-date-th">วันอาทิตย์ &nbsp; 8 มิถุนายน 2568</p>
-  <hr class="schedule-divider">
+    <!-- 6. Couple Full-Width Photo -->
+    <section id="coupleSection" class="couple-section">
+      <img class="couple-full" src="https://i.postimg.cc/2yR20bY2/DSC08741-1.jpg" alt="PANNITA & NATIPHOL">
+    </section>
 
-  <!-- ตารางกำหนดการ 2 คอลัมน์ -->
-  <div class="schedule-grid">
-    <!-- รายการที่ 1 -->
-    <div class="schedule-item animate-up">
-      <img src="https://i.postimg.cc/4xPQmLYH/procession-icon.png" alt="พิธีแห่ขันหมาก" class="icon">
-      <div class="info">
-        <span class="time">15.30 น.</span>
-        <span class="detail">พิธีแห่ขันหมาก</span>
+    <!-- 8. Wedding Schedule -->
+    <section id="scheduleSection8" class="schedule-section">
+      <h2 class="schedule-title">WEDDING<br>SCHEDULE</h2>
+      <hr class="schedule-divider">
+      <p class="schedule-date">SUNDAY &nbsp; 8 June 2025</p>
+      <p class="schedule-date-th">วันอาทิตย์ &nbsp; 8 มิถุนายน 2568</p>
+      <hr class="schedule-divider">
+      <div class="schedule-grid">
+        <div class="schedule-item">
+          <i class="fa-solid fa-crown icon"></i>
+          <div class="info">
+            <span class="time">15.30 น.</span>
+            <span class="detail">พิธีแห่ขันหมาก</span>
+          </div>
+        </div>
+        <div class="schedule-item">
+          <i class="fa-solid fa-ring icon"></i>
+          <div class="info">
+            <span class="time">16.09 น.</span>
+            <span class="detail">พิธีสวมแหวน</span>
+          </div>
+        </div>
+        <div class="schedule-item">
+          <i class="fa-solid fa-droplet icon"></i>
+          <div class="info">
+            <span class="time">17.29 น.</span>
+            <span class="detail">พิธีรดน้ำสังข์</span>
+          </div>
+        </div>
+        <div class="schedule-item">
+          <i class="fa-solid fa-glass-cheers icon"></i>
+          <div class="info">
+            <span class="time">18.30 น.</span>
+            <span class="detail">งานเลี้ยงฉลองมงคลสมรส</span>
+          </div>
+        </div>
       </div>
-    </div>
-    <!-- รายการที่ 2 -->
-    <div class="schedule-item animate-up" style="animation-delay: 0.1s;">
-      <img src="https://i.postimg.cc/t4MGVhYb/ring-icon.png" alt="พิธีสวมแหวน" class="icon">
-      <div class="info">
-        <span class="time">16.09 น.</span>
-        <span class="detail">พิธีสวมแหวน</span>
-      </div>
-    </div>
-    <!-- รายการที่ 3 -->
-    <div class="schedule-item animate-up" style="animation-delay: 0.2s;">
-      <img src="https://i.postimg.cc/Vk07R9mL/water-icon.png" alt="พิธีรดน้ำสังข์" class="icon">
-      <div class="info">
-        <span class="time">17.29 น.</span>
-        <span class="detail">พิธีรดน้ำสังข์</span>
-      </div>
-    </div>
-    <!-- รายการที่ 4 -->
-    <div class="schedule-item animate-up" style="animation-delay: 0.3s;">
-      <img src="https://i.postimg.cc/fRkKHcKs/party-icon.png" alt="งานเลี้ยงฉลองมงคลสมรส" class="icon">
-      <div class="info">
-        <span class="time">18.30 น.</span>
-        <span class="detail">งานเลี้ยงฉลองมงคลสมรส</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
-
+    </section>
+  </main>
 
   <!-- GLightbox & Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Hero → Prompt & Audio reveal
+      // Hero reveal
       const heroImg = document.getElementById('animatedImage');
-      const indicator = document.getElementById('indicator');
-      const audioPlayer = document.getElementById('audioPlayer');
       const ioHero = new IntersectionObserver((entries, obs) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            heroImg.classList.add('visible');
-            indicator.classList.add('visible');
-            audioPlayer.classList.add('visible');
-            obs.unobserve(heroImg);
-          }
-        });
+        if (entries[0].isIntersecting) {
+          heroImg.classList.add('visible');
+          obs.unobserve(heroImg);
+        }
       }, { threshold: 0.1 });
       ioHero.observe(heroImg);
 
-      // Reveal other sections (รวม Section 6)
-      const toReveal = [
+      // Reveal sections
+      const revealEls = [
         document.getElementById('messageSection'),
         document.getElementById('countdownSection'),
         document.getElementById('momentSection'),
-        document.getElementById('coupleSection')
+        document.getElementById('coupleSection'),
+        document.getElementById('scheduleSection8'),
       ];
       const io = new IntersectionObserver((entries, obs) => {
         entries.forEach(e => {
@@ -510,7 +424,7 @@
           }
         });
       }, { threshold: 0.2 });
-      toReveal.forEach(el => io.observe(el));
+      revealEls.forEach(el => io.observe(el));
 
       // Audio controls
       const audio = document.getElementById('audio');
@@ -554,10 +468,7 @@
           Math.floor((diff%60000)/1000)
         ];
         vals.forEach((v,i) => {
-          const el = document.getElementById(ids[i]);
-          el.textContent = String(v).padStart(i>0?2:1,'0');
-          el.classList.add('animate');
-          setTimeout(() => el.classList.remove('animate'), 800);
+          document.getElementById(ids[i]).textContent = String(v).padStart(i>0?2:1,'0');
         });
       }
       updateCountdown(); setInterval(updateCountdown,1000);
@@ -566,25 +477,22 @@
       const slides = document.querySelectorAll('.slide');
       const dots   = document.querySelectorAll('.dot');
       const slider = document.querySelector('.slides');
-      const prev   = document.querySelector('.prev');
-      const next   = document.querySelector('.next');
       let idx = 0;
       function showSlide(i) {
         idx = (i + slides.length) % slides.length;
         slider.style.transform = `translateX(-${idx*100}%)`;
         dots.forEach((d,j) => d.classList.toggle('active', j===idx));
       }
-      prev.addEventListener('click', () => showSlide(idx-1));
-      next.addEventListener('click', () => showSlide(idx+1));
-      dots.forEach((d,i) => d.addEventListener('click', () => showSlide(i)));
-      let startX = 0;
-      const gallery = document.querySelector('.gallery');
-      gallery.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-      gallery.addEventListener('touchend', e => {
+      document.querySelector('.prev').onclick = () => showSlide(idx-1);
+      document.querySelector('.next').onclick = () => showSlide(idx+1);
+      dots.forEach((d,i) => d.onclick = () => showSlide(i));
+      let startX = 0, gallery = document.querySelector('.gallery');
+      gallery.ontouchstart = e => startX = e.touches[0].clientX;
+      gallery.ontouchend = e => {
         const endX = e.changedTouches[0].clientX;
         if (startX - endX > 50) showSlide(idx+1);
         if (endX - startX > 50) showSlide(idx-1);
-      });
+      };
       showSlide(0);
 
       // GLightbox
