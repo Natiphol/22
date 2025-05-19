@@ -18,6 +18,7 @@
       --cream:      #FFF5E1;
       --teal:       #A1D6E2;
       --dark-blue:  #2A6F97;
+      --gold:       #D4AF37;
       --bg-alpha:   rgba(255,245,225,0.9);
       --radius:     12px;
       --spacing:    1rem;
@@ -27,271 +28,231 @@
       height:100%;
       padding-top: env(safe-area-inset-top);
       padding-bottom: env(safe-area-inset-bottom);
-    }
-    a, button {
-      touch-action: manipulation;
-      -webkit-tap-highlight-color: transparent;
-    }
-    body {
       background: linear-gradient(135deg, var(--cream), var(--teal), var(--blue));
       font-family: 'IBM Plex Sans Thai', sans-serif;
       color: var(--dark-blue);
       line-height:1.5;
     }
+    a, button {
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
     header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: rgba(255,255,255,0.9);
+      position: sticky; top: 0; width:100%;
+      background: rgba(255,255,255,0.9); z-index:1000;
     }
     main {
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:calc(var(--spacing)*2);
-      padding-bottom: calc(var(--spacing)*2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: calc(var(--spacing)*2);
+      padding: calc(var(--spacing)*2) 0;
     }
     .container {
-      width:90%;
-      max-width:420px;
-      text-align:center;
+      width: 90%; max-width: 420px; text-align: center;
     }
     img {
-      display:block;
-      width:100%;
-      height:auto;
+      display: block; width: 100%; height: auto;
       border-radius: var(--radius);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
     /* 1. Hero Image + Animation */
     .hero {
-      width:100%;
-      margin-top: var(--spacing);
-      overflow:hidden;
+      width:100%; margin-top: var(--spacing); overflow: hidden;
     }
     #animatedImage {
-      opacity:0;
-      transform: translateY(20px);
+      opacity: 0; transform: translateY(20px);
       transition: opacity 1.5s ease-out, transform 1.5s ease-out;
     }
     #animatedImage.visible {
-      opacity:1;
-      transform: translateY(0);
+      opacity: 1; transform: translateY(0);
     }
 
     /* 2. Prompt & Audio slide-in */
     .prompt-container {
-      position: relative;
-      overflow: hidden;
+      position: relative; overflow: hidden;
       padding-top: var(--spacing);
     }
     .scroll-indicator {
-      display:inline-block;
-      padding:0.4rem 0.8rem;
+      display: inline-block;
+      padding: 0.4rem 0.8rem;
       border:1px solid var(--dark-blue);
       border-radius: calc(var(--radius)/2);
       background: var(--bg-alpha);
-      font-size:1rem;
-      font-weight:500;
+      font-size:1rem; font-weight:500;
       color: var(--dark-blue);
-      transform: translateX(-100vw);
-      opacity:0;
+      transform: translateX(-100vw); opacity: 0;
       transition: transform 1s ease-out, opacity 1s ease-out;
       margin-bottom: var(--spacing);
     }
     .scroll-indicator.visible {
-      transform: translateX(0);
-      opacity:1;
+      transform: translateX(0); opacity: 1;
     }
     .audio-player {
       background: var(--bg-alpha);
       border-radius: var(--radius);
       padding: calc(var(--spacing)*1.5);
       box-shadow: 0 4px 16px rgba(0,0,0,0.05);
-      transform: translateX(100vw);
-      opacity:0;
+      transform: translateX(100vw); opacity: 0;
       transition: transform 1s ease-out 0.5s, opacity 1s ease-out 0.5s;
     }
     .audio-player.visible {
-      transform: translateX(0);
-      opacity:1;
+      transform: translateX(0); opacity: 1;
     }
     .play-btn {
       width:56px; height:56px;
       border:none; border-radius:50%;
       background: linear-gradient(135deg, var(--teal), var(--blue));
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      cursor:pointer;
-      box-shadow:0 4px 12px rgba(0,0,0,0.1);
-      transition:transform 0.2s;
+      display:inline-flex; align-items:center; justify-content:center;
+      cursor:pointer; transition: transform 0.2s;
     }
     .play-btn:active { transform: scale(0.95) }
     .play-btn svg { width:24px; height:24px; fill:#fff }
     .progress-container {
       width:100%; height:6px;
       background:#eee; border-radius:3px;
-      margin: var(--spacing) 0;
-      overflow:hidden; cursor:pointer;
+      margin: var(--spacing) 0; overflow:hidden; cursor:pointer;
     }
     .progress { width:0%; height:100%; background: var(--teal) }
     .time { font-size:0.9rem; color: var(--dark-blue) }
 
-    /* 3. Personal Message Animations */
+    /* 3. Personal Message + Tagline */
     .message {
-      opacity: 0;
-      transform: translateY(20px);
+      opacity: 0; transform: translateY(20px);
       transition: opacity 1s ease-out, transform 1s ease-out;
     }
     .message.visible {
-      opacity: 1;
-      transform: translateY(0);
+      opacity: 1; transform: translateY(0);
     }
-    .message p {
-      opacity: 0;
-      transform: translateY(20px);
+    .message p, .message .tagline {
+      opacity: 0; transform: translateY(20px) scale(0.9);
       transition: opacity 0.6s ease-out, transform 0.6s ease-out;
     }
     .message.visible p:nth-child(1) {
-      opacity:1; transform: translateY(0); transition-delay: 0.2s;
+      transition-delay: 0.2s; opacity:1; transform: translateY(0) scale(1);
     }
     .message.visible p:nth-child(2) {
-      opacity:1; transform: translateY(0); transition-delay: 0.4s;
+      transition-delay: 0.4s; opacity:1; transform: translateY(0) scale(1);
+    }
+    .message.visible .tagline {
+      transition-delay: 0.6s; opacity:1; transform: translateY(0) scale(1);
+      font-style: italic; margin-top: var(--spacing);
+      color: var(--dark-blue);
     }
 
-    /* 4. Countdown (emphasize + pulse) */
+    /* 4. Countdown */
     @keyframes fadeInDown {
-      from { opacity:0; transform: translateY(-10px) }
-      to   { opacity:1; transform: translateY(0) }
+      from { opacity:0; transform: translateY(-10px) } to { opacity:1; transform: translateY(0) }
     }
     @keyframes pulse {
-      0%,100% { transform: scale(1); }
-      50%     { transform: scale(1.05); }
+      0%,100% { transform: scale(1) } 50% { transform: scale(1.05) }
     }
     .countdown-section {
-      width:100%;
-      max-width:420px;
-      opacity:0;
-      transform: translateY(20px);
+      opacity:0; transform: translateY(20px);
       transition: transform 1s ease-out, opacity 1s ease-out;
     }
     .countdown-section.visible {
-      opacity:1;
-      transform: translateY(0);
+      opacity:1; transform: translateY(0);
     }
     .countdown-title {
       font-family: 'Playfair Display', serif;
-      font-size:2rem;
-      margin-bottom: var(--spacing);
-      color: var(--dark-blue);
-      text-transform: uppercase;
+      font-size: 2rem; margin-bottom: var(--spacing);
+      text-transform: uppercase; color: var(--dark-blue);
       opacity: 0;
     }
     .countdown-section.visible .countdown-title {
       animation: fadeInDown 1s ease-out both, pulse 2s ease-in-out 1s infinite;
     }
     .countdown {
-      display:flex;
-      justify-content:space-around;
-      gap:var(--spacing);
+      display:flex; justify-content:space-around;
+      gap: var(--spacing);
     }
     .unit { text-align:center }
     .box {
-      background: var(--cream);
-      border: 1px solid var(--teal);
-      padding:0.75rem;
-      min-width:70px;
-      border-radius: var(--radius);
+      background: var(--cream); border:1px solid var(--teal);
+      padding:0.75rem; min-width:70px; border-radius:var(--radius);
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
     @keyframes fadeInUp {
-      from { opacity:0; transform: translateY(10px) }
-      to   { opacity:1; transform: translateY(0) }
+      from { opacity:0; transform: translateY(10px) } to { opacity:1; transform: translateY(0) }
     }
     .number {
-      font-size:2rem; font-weight:700;
-      color: var(--dark-blue);
+      font-size:2rem; font-weight:700; color:var(--dark-blue);
       animation: fadeInUp 0.8s ease both;
     }
     .label {
-      margin-top:0.3rem;
-      font-size:0.85rem;
-      font-weight:500;
-      color: var(--dark-blue);
+      margin-top:0.3rem; font-size:0.85rem;
+      font-weight:500; color:var(--dark-blue);
     }
 
-    /* 5. momentAlway Gallery Frame */
+    /* 5. MOMENTALWAY Gallery */
     .section-frame {
-      background: var(--cream);
-      border: 2px solid var(--teal);
-      border-radius: var(--radius);
-      padding: calc(var(--spacing) * 1.5);
-      max-width: 420px;
-      margin: var(--spacing) auto;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-      text-align: center;
+      background: #fff; border:2px solid var(--teal);
+      border-radius:var(--radius); padding:calc(var(--spacing)*1.5);
+      max-width:420px; margin:var(--spacing) auto;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1); text-align:center;
     }
     .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
-      color: var(--dark-blue);
-      margin-bottom: var(--spacing);
-      text-transform: uppercase;
+      font-family:'Playfair Display', serif;
+      font-size:1.8rem; color:var(--dark-blue);
+      margin-bottom:var(--spacing); text-transform:uppercase;
     }
-    .gallery {
-      position: relative;
-      overflow: hidden;
-      padding: 0 var(--spacing);
-      border-radius: var(--radius);
-    }
-    .slides {
-      display: flex;
-      transition: transform 0.5s ease;
-    }
+    .gallery { position:relative; overflow:hidden; padding:0 var(--spacing); }
+    .slides { display:flex; transition: transform 0.5s ease; }
     .slide {
-      min-width: 100%;
-      padding: 0 var(--spacing);
-      box-sizing: border-box;
+      min-width:100%; padding:0 var(--spacing); box-sizing:border-box;
     }
     .slide img {
-      width: 100%;
-      display: block;
-      border-radius: var(--radius);
-      cursor: pointer;
+      width:100%; border-radius:var(--radius); cursor:pointer;
     }
     .prev, .next {
-      position: absolute;
-      top: 50%; transform: translateY(-50%);
-      background: var(--bg-alpha);
-      border: none;
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-      cursor: pointer;
+      position:absolute; top:50%; transform:translateY(-50%);
+      background: var(--bg-alpha); border:none; width:36px; height:36px;
+      border-radius:50%; display:flex; align-items:center; justify-content:center;
+      box-shadow:0 2px 8px rgba(0,0,0,0.2); cursor:pointer;
     }
-    .prev { left: 8px; }
-    .next { right: 8px; }
-    .prev svg, .next svg {
-      width: 18px; height: 18px; fill: var(--dark-blue);
-    }
+    .prev { left:8px } .next { right:8px }
+    .prev svg, .next svg { width:18px; height:18px; fill:var(--dark-blue) }
     .dot-container {
-      display: flex; justify-content: center;
-      gap: 6px; margin-top: var(--spacing);
+      display:flex; justify-content:center; gap:6px; margin-top:var(--spacing);
     }
     .dot {
-      width: 10px; height: 10px;
-      background: var(--teal);
-      border-radius: 50%;
-      opacity: 0.5;
-      cursor: pointer;
-      transition: opacity 0.3s;
+      width:10px; height:10px; background:var(--teal);
+      border-radius:50%; opacity:0.5; cursor:pointer;
+      transition:opacity 0.3s;
     }
     .dot.active {
-      opacity: 1;
-      background: var(--dark-blue);
+      opacity:1; background:var(--dark-blue);
+    }
+
+    /* 6. Family & Invitation */
+    .family-section .inner-frame {
+      border:1px solid var(--gold);
+      border-radius:calc(var(--radius)/2);
+      padding: var(--spacing);
+      background: var(--bg-alpha);
+    }
+    .family-grid {
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing);
+    }
+    .family-grid .block { text-align:center; }
+    .family-grid .block p.name {
+      font-weight:700; font-size:1.1rem;
+      margin-bottom:0.25rem;
+    }
+    .family-grid .block p.role {
+      font-weight:300; font-size:0.9rem;
+      color:var(--dark-blue);
+    }
+    hr.gold {
+      border:none; border-top:1px solid var(--gold);
+      margin: var(--spacing) 0;
+    }
+    .invite-text {
+      font-weight:500; font-size:1rem;
+      text-align:center;
     }
 
     @media(min-width:480px) {
@@ -335,6 +296,7 @@
       <p>เราสองคนกำลังจะเริ่มต้นบทใหม่ของชีวิตและอยากให้คุณเป็นส่วนหนึ่งในความทรงจำที่สวยงามครั้งนี้</p>
       <p>Our journey begins with love, and it becomes more meaningful with your support.<br>
       Please join us as we celebrate the beginning of our forever.</p>
+      <p class="tagline">จากนี้และตลอดไป<br>“From this day forward, and forever.”</p>
     </section>
 
     <!-- 4. Countdown -->
@@ -365,12 +327,40 @@
         <span class="dot"></span><span class="dot"></span><span class="dot"></span>
       </div>
     </section>
+
+    <!-- 6. Family & Invitation -->
+    <section class="family-section container section-frame">
+      <div class="section-title">Family & Hosts</div>
+      <div class="inner-frame">
+        <div class="family-grid">
+          <div class="block">
+            <p class="name">นายสีศักดิ์ ศรีโกศล</p>
+            <p class="role">(พ่อ)</p>
+          </div>
+          <div class="block">
+            <p class="name">นางสาวหนูพิน เจนวิถี</p>
+            <p class="role">(แม่)</p>
+          </div>
+          <div class="block">
+            <p class="name">นายวรพันธุ์ ชาญชนะโรจน์</p>
+            <p class="role">(พี่ชาย)</p>
+          </div>
+          <div class="block">
+            <p class="name">นางกานต์สินี ชาญชนะโรจน์</p>
+            <p class="role">(แม่)</p>
+          </div>
+        </div>
+        <hr class="gold" />
+        <p class="invite-text">ขอเรียนเชิญร่วมเป็นเกียรติในพิธีมงคลสมรส</p>
+      </div>
+    </section>
   </main>
 
-  <!-- GLightbox & Script -->
+  <!-- GLightbox & Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      // Reveal animations
       const heroImg = document.getElementById('animatedImage');
       const indicator = document.getElementById('indicator');
       const audioPlayer = document.getElementById('audioPlayer');
@@ -378,7 +368,6 @@
       const countdownSection = document.getElementById('countdownSection');
       const momentSection = document.getElementById('momentSection');
 
-      // 1. Hero → Prompt & Audio
       const ioHero = new IntersectionObserver((entries, obs) => {
         entries.forEach(e => {
           if (e.isIntersecting) {
@@ -391,7 +380,6 @@
       }, { threshold: 0.1 });
       ioHero.observe(heroImg);
 
-      // 2. Other reveal
       const io = new IntersectionObserver((entries, obs) => {
         entries.forEach(e => {
           if (e.isIntersecting) {
@@ -413,9 +401,11 @@
       const dur = document.getElementById('duration');
       playBtn.addEventListener('click', () => {
         if (audio.paused) {
-          audio.play(); playBtn.innerHTML = `<svg viewBox="0 0 64 64"><rect x="16" y="8" width="12" height="48"/><rect x="36" y="8" width="12" height="48"/></svg>`;
+          audio.play();
+          playBtn.innerHTML = `<svg viewBox="0 0 64 64"><rect x="16" y="8" width="12" height="48"/><rect x="36" y="8" width="12" height="48"/></svg>`;
         } else {
-          audio.pause(); playBtn.innerHTML = `<svg viewBox="0 0 64 64"><polygon points="16,8 56,32 16,56"/></svg>`;
+          audio.pause();
+          playBtn.innerHTML = `<svg viewBox="0 0 64 64"><polygon points="16,8 56,32 16,56"/></svg>`;
         }
       });
       audio.addEventListener('loadedmetadata', () => dur.textContent = formatTime(audio.duration));
