@@ -10,6 +10,8 @@
 
   <!-- GLightbox CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=IBM+Plex+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet">
 
   <title>Wedding Invitation – Mobile UX</title>
   <style>
@@ -23,15 +25,6 @@
       --bg-alpha:   rgba(255,245,225,0.9);
       --radius:     12px;
       --spacing:    1rem;
-    }
-    /* Keyframes for animations */
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50%      { transform: scale(1.05); }
     }
     * { margin:0; padding:0; box-sizing:border-box }
     html, body {
@@ -202,6 +195,64 @@
       opacity:1; transform:translateY(0);
     }
 
+    /* 6. Couple Section */
+    .couple-section {
+      padding: calc(var(--spacing)*2) 0;
+      display: flex; justify-content: center; align-items: center;
+    }
+    .couple-frame {
+      background: var(--cream);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      padding: 2rem;
+      text-align: center;
+      max-width: 90%;
+      animation: fadeInScale 1s ease-out both;
+    }
+    .couple-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      margin: 0.2rem 0;
+      line-height: 1.2;
+      color: var(--dark-blue);
+      text-transform: uppercase;
+    }
+    .nickname {
+      display: block;
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      margin-top: 0.2rem;
+      color: #555;
+      text-transform: none;
+    }
+    .heart {
+      font-size: 2.8rem;
+      margin: 0.5rem 0;
+      color: var(--gold);
+      animation: beat 1s infinite;
+    }
+
+    /* Keyframes */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50%      { transform: scale(1.05); }
+    }
+    @keyframes fadeInScale {
+      from { opacity: 0; transform: scale(0.85); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    @keyframes beat {
+      0%,100% { transform: scale(1); }
+      50%     { transform: scale(1.2); }
+    }
+
     @media(min-width:480px) {
       .countdown-main-title { font-size:4rem; }
       .section-main-title { font-size:2.8rem; }
@@ -258,7 +309,7 @@
       </div>
     </section>
 
-    <!-- 5. BEST MOMENT -->
+    <!-- 5. BEST MOMENT Section -->
     <section id="momentSection" class="gallery-section section-frame container">
       <h2 class="section-main-title">BEST MOMENT</h2>
       <div class="section-header">
@@ -277,6 +328,15 @@
       </div>
       <div class="dot-container"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
       <p class="gallery-tagline">จากนี้และตลอดไป<br>“From this day forward, and forever.”</p>
+    </section>
+
+    <!-- 6. Couple Section -->
+    <section id="coupleSection" class="couple-section container">
+      <div class="couple-frame">
+        <h2 class="couple-name">นางสาวพัณณิตา ศรีโกศล <span class="nickname">(ตั๊ก)</span></h2>
+        <div class="heart">❤</div>
+        <h2 class="couple-name">นายเนติพล ชาญชนะโรจน์ <span class="nickname">(ตาล)</span></h2>
+      </div>
     </section>
   </main>
 
@@ -300,11 +360,12 @@
       }, { threshold: 0.1 });
       ioHero.observe(heroImg);
 
-      // Reveal other sections
+      // Reveal other sections (รวม Section 6)
       const toReveal = [
         document.getElementById('messageSection'),
         document.getElementById('countdownSection'),
-        document.getElementById('momentSection')
+        document.getElementById('momentSection'),
+        document.getElementById('coupleSection')
       ];
       const io = new IntersectionObserver((entries, obs) => {
         entries.forEach(e => {
