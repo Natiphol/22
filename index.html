@@ -8,8 +8,15 @@
   <meta name="theme-color" content="#89CFF0" />
   <meta name="format-detection" content="telephone=no" />
 
+  <!-- GLightbox CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=IBM+Plex+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Ionicons (ฟรี) -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
   <title>Wedding Invitation – Mobile UX</title>
   <style>
@@ -383,14 +390,8 @@
         kenburns 20s ease-out 0.5s infinite alternate;
     }
     @keyframes slideFadeIn {
-      from {
-        transform: translateY(30px) scale(1.05);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-      }
+      from { transform: translateY(30px) scale(1.05); opacity: 0; }
+      to   { transform: translateY(0) scale(1);    opacity: 1; }
     }
     @keyframes kenburns {
       0%   { transform: scale(1) rotate(0deg); }
@@ -404,12 +405,68 @@
           kenburns 25s ease-out 0.5s infinite alternate;
       }
     }
+
+    /* 7. Wedding Schedule */
+    .schedule-section {
+      padding: var(--spacing) 0;
+    }
+    .schedule-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      text-transform: uppercase;
+      line-height: 1.2;
+      animation: fadeInDown 1s ease-out both;
+      margin-bottom: var(--spacing);
+    }
+    .divider {
+      height: 2px;
+      background: var(--dark-blue);
+      margin: var(--spacing) 0;
+    }
+    .schedule-date {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: var(--spacing);
+    }
+    .schedule-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing);
+      padding: 0;
+    }
+    .schedule-item {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .6s ease-out, transform .6s ease-out;
+    }
+    .schedule-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .schedule-item ion-icon {
+      font-size: 32px;
+      flex-shrink: 0;
+      color: var(--gold);
+    }
+    .schedule-item .info {
+      text-align: left;
+    }
+    .schedule-item .time {
+      font-weight: 700;
+      display: block;
+    }
+    .schedule-item .desc {
+      display: block;
+      margin-top: 4px;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <nav class="main-nav"></nav>
-  </header>
+  <header><nav class="main-nav"></nav></header>
   <main>
     <!-- 1. Hero -->
     <section class="hero container">
@@ -494,8 +551,57 @@
     <section id="coupleSection" class="couple-section">
       <img class="couple-full animate-fancy" src="https://i.postimg.cc/2yR20bY2/DSC08741-1.jpg" alt="PANNITA & NATIPHOL">
     </section>
+
+    <!-- 7. Wedding Schedule -->
+    <section id="scheduleSection" class="schedule-section container">
+      <h2 class="schedule-title">
+        WEDDING<br>SCHEDULE
+      </h2>
+
+      <div class="divider"></div>
+
+      <div class="schedule-date">
+        <span class="day-en">SUNDAY  8 June 2025</span><br>
+        <span class="day-th">วันอาทิตย์ 8 มิถุนายน 2568</span>
+      </div>
+
+      <div class="divider"></div>
+
+      <ul class="schedule-list">
+        <li class="schedule-item">
+          <ion-icon name="walk-outline"></ion-icon>
+          <div class="info">
+            <span class="time">15.30 น.</span>
+            <span class="desc">พิธีแห่ขันหมาก</span>
+          </div>
+        </li>
+        <li class="schedule-item">
+          <ion-icon name="diamond-outline"></ion-icon>
+          <div class="info">
+            <span class="time">16.09 น.</span>
+            <span class="desc">พิธีสวมแหวน</span>
+          </div>
+        </li>
+        <li class="schedule-item">
+          <ion-icon name="water-outline"></ion-icon>
+          <div class="info">
+            <span class="time">17.29 น.</span>
+            <span class="desc">พิธีรดน้ำสังข์</span>
+          </div>
+        </li>
+        <li class="schedule-item">
+          <ion-icon name="restaurant-outline"></ion-icon>
+          <div class="info">
+            <span class="time">18.30 น.</span>
+            <span class="desc">งานเลี้ยงฉลองมงคลสมรส</span>
+          </div>
+        </li>
+      </ul>
+    </section>
+
   </main>
 
+  <!-- GLightbox & Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -519,7 +625,8 @@
         document.getElementById('messageSection'),
         document.getElementById('countdownSection'),
         document.getElementById('momentSection'),
-        document.getElementById('coupleSection')
+        document.getElementById('coupleSection'),
+        document.getElementById('scheduleSection')
       ];
       const io = new IntersectionObserver((entries, obs) => {
         entries.forEach(e => {
