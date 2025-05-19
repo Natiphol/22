@@ -430,6 +430,56 @@
   font-size: 1.2rem;
   margin-right: 0.5rem;
 }
+/* ——— Section RSVP ——— */
+.rsvp-section {
+  padding: var(--spacing) 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+.rsvp-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+//rsvp
+.rsvp-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  text-transform: uppercase;
+  margin-bottom: var(--spacing);
+  color: var(--dark-blue);
+}
+.rsvp-subtitle {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: var(--spacing);
+  color: var(--dark-blue);
+}
+.divider {
+  width: 100%;
+  height: 2px;
+  background: var(--dark-blue);
+  margin: var(--spacing) auto;
+}
+.rsvp-message p {
+  margin-bottom: var(--spacing);
+  line-height: 1.6;
+  color: var(--dark-blue);
+}
+.rsvp-btn {
+  display: inline-block;
+  background: var(--blue);
+  color: #fff;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+.rsvp-btn:hover {
+  background: var(--teal);
+  transform: scale(1.05);
+}
 
   </style>
 </head>
@@ -546,6 +596,22 @@
   </p>
 </section>
 
+    <!-- 10. RSVP Section -->
+<section id="rsvpSection" class="rsvp-section container">
+  <h2 class="rsvp-title">RSVP</h2>
+  <p class="rsvp-subtitle">ขอเรียนเชิญตอบรับคำเชิญ (RSVP)</p>
+  <div class="divider"></div>
+  <div class="rsvp-message">
+    <p>เพราะทุกก้าวสำคัญในชีวิต จะงดงามยิ่งขึ้นเมื่อมีคนที่เรารักอยู่เคียงข้าง</p>
+    <p>เราจึงขอเรียนเชิญท่านมาเป็นส่วนหนึ่งในวันแห่งความทรงจำของเรา</p>
+    <p>และจะเป็นเกียรติอย่างยิ่ง หากท่านสามารถมาร่วมแสดงความยินดี</p>
+  </div>
+  <a href="YOUR_RSVP_LINK_HERE" class="rsvp-btn" target="_blank" rel="noopener">
+    ตอบรับคำเชิญ (RSVP)
+  </a>
+</section>
+
+
 
 
   </main>
@@ -577,7 +643,8 @@
         document.getElementById('coupleSection'),
         document.getElementById('scheduleSection'),
         document.getElementById('themeSection'),
-        document.getElementById('mapSection') 
+        document.getElementById('mapSection'),
+        document.getElementById('rsvpSection') 
       ];
       const io = new IntersectionObserver((entries, obs) => {
         entries.forEach(e => {
@@ -588,6 +655,7 @@
         });
       }, { threshold: 0.2 });
       toReveal.forEach(el => io.observe(el));
+
 
       // Schedule items observer
       const scheduleItems = document.querySelectorAll('.schedule-item');
