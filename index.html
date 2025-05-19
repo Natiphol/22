@@ -473,7 +473,62 @@
 .schedule-item .desc {
   font-size: 1rem;
 }
+
+    /* ——— Section 9: Theme Colors ——— */
+.theme-section {
+  padding: var(--spacing) 0;
+}
+.theme-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  text-transform: uppercase;
+  animation: fadeInDown 1s ease-out both;
+  margin-bottom: var(--spacing);
+}
+.divider {
+  width: 100%;
+  height: 2px;
+  background: var(--dark-blue);
+  margin: var(--spacing) auto;
+}
+
+/* วงกลมสี */
+.color-circles {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing);
+  margin-bottom: var(--spacing);
+}
+.color-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+.color-circle.blue  { background: var(--blue); }
+.color-circle.cream { background: var(--cream); }
+.color-circle.green { background: var(--teal); }
+
+/* แถบสีสไลด์เข้ามา */
+.bar-container {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 0.5);
+}
+.color-bar {
+  width: 100%;
+  height: 60px;
+  transform: translateX(-100%);
+  transition: transform 1.2s ease-out;
+}
+.color-bar.blue-bar  { background: var(--blue);  transition-delay: 0s; }
+.color-bar.cream-bar { background: var(--cream); transition-delay: 0.2s; }
+.color-bar.green-bar{ background: var(--teal);  transition-delay: 0.4s; }
+.color-bar.visible {
+  transform: translateX(0);
+}
+
   </style>
+
 </head>
 <body>
   <header><nav class="main-nav"></nav></header>
@@ -602,10 +657,30 @@
     </li>
   </ul>
 </section>
+<!-- 8. Theme Colors -->
+<section id="themeSection" class="theme-section container">
+  <h2 class="theme-title">THEME COLORS</h2>
+  <div class="divider"></div>
+
+  <!-- ตัวอย่างสีวงกลม -->
+  <div class="color-circles">
+    <div class="color-circle blue"></div>
+    <div class="color-circle cream"></div>
+    <div class="color-circle green"></div>
+  </div>
+
+  <!-- แถบสีที่สไลด์เข้ามา -->
+  <div class="bar-container">
+    <div class="color-bar blue-bar"></div>
+    <div class="color-bar cream-bar"></div>
+    <div class="color-bar green-bar"></div>
+  </div>
+</section>
 
   </main>
 
-  <!-- GLightbox & Scripts -->
+```html
+<!-- GLightbox & Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
@@ -630,7 +705,8 @@
       document.getElementById('countdownSection'),
       document.getElementById('momentSection'),
       document.getElementById('coupleSection'),
-      document.getElementById('scheduleSection')
+      document.getElementById('scheduleSection'),
+      document.getElementById('themeSection')
     ];
     const io = new IntersectionObserver((entries, obs) => {
       entries.forEach(e => {
@@ -642,7 +718,7 @@
     }, { threshold: 0.2 });
     toReveal.forEach(el => io.observe(el));
 
-    // ← ตรงนี้ให้ต่อด้วยโค้ดสังเกต schedule items
+    // Schedule items observer
     const scheduleItems = document.querySelectorAll('.schedule-item');
     const ioSchedule = new IntersectionObserver((entries, obs) => {
       entries.forEach(entry => {
@@ -653,7 +729,18 @@
       });
     }, { threshold: 0.2 });
     scheduleItems.forEach(item => ioSchedule.observe(item));
-    // ↑ จบส่วนสังเกตตารางพิธี
+
+    // Theme colors bars (parallax effect)
+    const bars = document.querySelectorAll('.color-bar');
+    const ioBars = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    bars.forEach(bar => ioBars.observe(bar));
 
     // Audio controls
     const audio = document.getElementById('audio');
@@ -732,6 +819,8 @@
     GLightbox({ selector: '.glightbox', loop: true, touchNavigation: true });
   });
 </script>
+```
+
 
 </body>
 </html>
