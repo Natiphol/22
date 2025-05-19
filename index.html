@@ -431,55 +431,95 @@
   margin-right: 0.5rem;
 }
     
-/* ——— Section RSVP ——— */
+:root {
+  --spacing: 2rem;
+  --radius: 0.5rem;
+  --dark-blue: #0B3D91;
+  --blue: #1E90FF;
+  --teal: #20B2AA;
+  --text-color: #333;
+}
+
+/* Container กำหนดความกว้างกลางหน้า */
+.container {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--spacing);
+  padding-right: var(--spacing);
+}
+
+/* Section หลัก */
 .rsvp-section {
-  padding: var(--spacing) 0;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 1s ease-out, transform 1s ease-out;
+  padding-top: var(--spacing);
+  padding-bottom: var(--spacing);
+  text-align: center;
+  background-color: #f9f9f9;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
-.rsvp-section.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-//rsvp
+
+/* หัวเรื่องใหญ่ */
 .rsvp-title {
   font-family: 'Playfair Display', serif;
-  font-size:4rem;
+  font-size: 3.5rem;
   text-transform: uppercase;
-  margin-bottom: var(--spacing);
+  margin-bottom: calc(var(--spacing) / 2);
   color: var(--dark-blue);
 }
+
+/* คำอธิบายเล็กด้านล่างหัวเรื่อง */
 .rsvp-subtitle {
-  font-size: 1.1rem;
-  font-weight: 500;
+  font-family: 'Kanit', sans-serif;
+  font-size: 1.25rem;
   margin-bottom: var(--spacing);
   color: var(--dark-blue);
 }
+
+/* เส้นคั่น */
 .divider {
-  width: 100%;
-  height: 2px;
-  background: var(--dark-blue);
-  margin: var(--spacing) auto;
+  width: 60px;
+  height: 4px;
+  background-color: var(--dark-blue);
+  margin: 0 auto var(--spacing) auto;
 }
+
+/* ข้อความในส่วน RSVP */
 .rsvp-message p {
-  margin-bottom: var(--spacing);
+  font-family: 'Kanit', sans-serif;
+  font-size: 1rem;
   line-height: 1.6;
-  color: var(--dark-blue);
+  margin-bottom: var(--spacing);
+  color: var(--text-color);
 }
+
+/* ปุ่ม RSVP */
 .rsvp-btn {
   display: inline-block;
-  background: var(--blue);
-  color: #fff;
-  font-weight: 500;
   padding: 0.75rem 1.5rem;
+  font-family: 'Kanit', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  color: #fff;
+  background-color: var(--blue);
   border-radius: var(--radius);
   text-decoration: none;
   transition: background 0.3s ease, transform 0.2s ease;
 }
-.rsvp-btn:hover {
-  background: var(--teal);
+
+.rsvp-btn:hover,
+.rsvp-btn:focus {
+  background-color: var(--teal);
   transform: scale(1.05);
+  outline: none;
+}
+
+/* รองรับผู้ใช้ที่ลดการเคลื่อนไหว */
+@media (prefers-reduced-motion: reduce) {
+  .rsvp-btn {
+    transition: none !important;
+    transform: none !important;
+  }
 }
 
   </style>
