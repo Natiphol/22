@@ -287,50 +287,95 @@
     }
     .schedule-item .desc{font-size:1rem}
 
-    /* 8. Theme Colors */
-    .theme-section {
-      padding:var(--spacing) 0; overflow:hidden;
-    }
-    .theme-title {
-      font-family:'Playfair Display'; font-size:2rem;
-      text-transform:uppercase; margin-bottom:var(--spacing);
-      animation:fadeInDown 1s ease-out both;
-    }
-    .divider {
-      width:100%; height:2px; background:var(--dark-blue);
-      margin:var(--spacing) auto;
-    }
-    .theme-desc {
-      font-size:1rem; font-weight:500; margin:var(--spacing) 0;
-    }
-    .color-circles {
-      display:flex; justify-content:center;
-      gap:var(--spacing); margin-bottom:var(--spacing);
-    }
-    .color-circle {
-      width:58px; height:58px; border-radius:50%;
-      opacity:0; transform:translateY(20px);
-      transition:opacity 1s ease-out,transform 1s ease-out;
-    }
-    .color-circle:nth-child(1){transition-delay:0.2s}
-    .color-circle:nth-child(2){transition-delay:0.4s}
-    .color-circle:nth-child(3){transition-delay:0.6s}
-    .color-circle.visible{opacity:1;transform:translateY(0)}
-    .color-circle.blue{background:var(--blue)}
-    .color-circle.cream{background:var(--cream)}
-    .color-circle.green{background:var(--teal)}
-    .bar-container {
-      display:flex; flex-direction:column;
-      gap:calc(var(--spacing)*.5); overflow:hidden;
-    }
-    .color-bar {
-      width:100%; height:60px; transform:translateX(-100%);
-      transition:transform 1.2s ease-out;
-    }
-    .color-bar.blue-bar{background:var(--blue);transition-delay:0}
-    .color-bar.cream-bar{background:var(--cream);transition-delay:.2s}
-    .color-bar.green-bar{background:var(--teal);transition-delay:.4s}
-    .color-bar.visible{transform:translateX(0)}
+   /* ——— Section 8: Theme Colors ——— */
+.theme-section {
+  padding: var(--spacing) 0;
+  overflow: hidden;
+}
+
+.theme-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  text-transform: uppercase;
+  margin-bottom: var(--spacing);
+  animation: fadeInDown 1s ease-out both;
+  color: var(--dark-blue);
+}
+
+.divider {
+  width: 100%;
+  height: 2px;
+  background: var(--dark-blue);
+  margin: var(--spacing) auto;
+}
+
+.theme-desc {
+  margin: var(--spacing) 0;
+}
+.theme-desc span {
+  display: block;
+  font-size: 1rem;
+  font-weight: 500;
+  margin: var(--spacing) 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+.theme-desc span:nth-child(1) { transition-delay: 0.2s; }
+.theme-desc span:nth-child(2) { transition-delay: 0.4s; }
+.theme-desc span:nth-child(3) { transition-delay: 0.6s; }
+.theme-desc span.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* วงกลมสี แสดงในแนวตั้ง */
+.color-circles {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing);
+  margin-bottom: var(--spacing);
+}
+.color-circle {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+.color-circle:nth-child(1) { transition-delay: 0.2s; }
+.color-circle:nth-child(2) { transition-delay: 0.4s; }
+.color-circle:nth-child(3) { transition-delay: 0.6s; }
+.color-circle.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.color-circle.blue  { background: var(--blue); }
+.color-circle.cream { background: var(--cream); }
+.color-circle.green { background: var(--teal); }
+
+/* แถบสีสไลด์เข้ามา */
+.bar-container {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 0.5);
+  overflow: hidden;
+}
+.color-bar {
+  width: 100%;
+  height: 60px;
+  transform: translateX(-100%);
+  transition: transform 1.2s ease-out;
+}
+.color-bar.blue-bar  { background: var(--blue);  transition-delay: 0s; }
+.color-bar.cream-bar { background: var(--cream); transition-delay: 0.2s; }
+.color-bar.green-bar{ background: var(--teal);  transition-delay: 0.4s; }
+.color-bar.visible {
+  transform: translateX(0);
+}
+
 
 /* ——— Section 9: Map & Google Maps Link with Slide-Up Animation ——— */
 .map-section {
@@ -469,23 +514,33 @@
       </ul>
     </section>
 
-    <!-- 8. Theme Colors -->
-    <section id="themeSection" class="theme-section container">
-      <h2 class="theme-title">THEME COLORS</h2>
-      <div class="divider"></div>
-      <p class="theme-desc">Blue / Cream / Green</p>
-      <div class="divider"></div>
-      <div class="color-circles">
-        <div class="color-circle blue"></div>
-        <div class="color-circle cream"></div>
-        <div class="color-circle green"></div>
-      </div>
-      <div class="bar-container">
-        <div class="color-bar blue-bar"></div>
-        <div class="color-bar cream-bar"></div>
-        <div class="color-bar green-bar"></div>
-      </div>
-    </section>
+  <!-- 8. Theme Colors -->
+<section id="themeSection" class="theme-section container">
+  <h2 class="theme-title">THEME COLORS</h2>
+  <div class="divider"></div>
+
+  <!-- แยกแต่ละคำลงบรรทัดใหม่ -->
+  <p class="theme-desc">
+    <span>Blue</span>
+    <span>Cream</span>
+    <span>Green</span>
+  </p>
+
+  <div class="divider"></div>
+
+  <!-- วงกลมสี แสดงในแนวตั้ง -->
+  <div class="color-circles">
+    <div class="color-circle blue"></div>
+    <div class="color-circle cream"></div>
+    <div class="color-circle green"></div>
+  </div>
+
+  <div class="bar-container">
+    <div class="color-bar blue-bar"></div>
+    <div class="color-bar cream-bar"></div>
+    <div class="color-bar green-bar"></div>
+  </div>
+</section>
 
 <!-- 9. Map & Google Maps Link -->
 <section id="mapSection" class="map-section container">
