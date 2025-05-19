@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
@@ -9,12 +8,7 @@
   <meta name="theme-color" content="#89CFF0" />
   <meta name="format-detection" content="telephone=no" />
 
-  <!-- GLightbox CSS -->
-
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
-
-  <!-- Google Fonts -->
-
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=IBM+Plex+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet">
 
   <title>Wedding Invitation – Mobile UX</title>
@@ -30,338 +24,497 @@
       --radius:     12px;
       --spacing:    1rem;
     }
-    * { margin:0; padding:0; box-sizing:border-box }
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
     html, body {
-      height:100%;
+      height: 100%;
       background-color: var(--ivory);
       font-family: 'IBM Plex Sans Thai', sans-serif;
       color: var(--dark-blue);
-      line-height:1.5;
+      line-height: 1.5;
+      text-align: center;
     }
-    a, button { touch-action: manipulation; -webkit-tap-highlight-color: transparent }
-    header { position: sticky; top:0; width:100%; background: var(--ivory); z-index:1000; }
+    a, button {
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      background: var(--ivory);
+      z-index: 1000;
+    }
 
-```
-main {
-  display:flex; flex-direction:column; align-items:center;
-  gap:calc(var(--spacing)*2); padding:calc(var(--spacing)*2) 0;
-}
-.container { width:90%; max-width:420px }
-img { display:block; width:100%; border-radius:var(--radius) }
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: calc(var(--spacing) * 2);
+      padding: calc(var(--spacing) * 2) 0;
+      text-align: center;
+    }
+    .container {
+      width: 90%;
+      max-width: 420px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    img {
+      display: block;
+      width: 100%;
+      border-radius: var(--radius);
+      margin: 0 auto;
+    }
 
-/* 1. Hero */
-.hero { width:100%; margin-top:var(--spacing); overflow:hidden; }
-#animatedImage {
-  opacity:0; transform:translateY(20px);
-  transition:opacity 1.5s ease-out, transform 1.5s ease-out;
-}
-#animatedImage.visible { opacity:1; transform:translateY(0); }
+    /* 1. Hero */
+    .hero {
+      width: 100%;
+      margin-top: var(--spacing);
+      overflow: hidden;
+    }
+    #animatedImage {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+    }
+    #animatedImage.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-/* 2. Prompt & Audio */
-.prompt-container { position:relative; overflow:hidden; padding-top:var(--spacing); }
-.scroll-indicator {
-  display:inline-block; padding:0.4rem 0.8rem;
-  background:var(--bg-alpha); font-weight:500;
-  color:var(--dark-blue);
-  transform:translateX(-100vw); opacity:0;
-  transition:transform 1s ease-out, opacity 1s ease-out;
-  margin-bottom:var(--spacing);
-}
-.scroll-indicator.visible { transform:translateX(0); opacity:1; }
-.audio-player {
-  background:var(--bg-alpha); border-radius:var(--radius);
-  padding:calc(var(--spacing)*1.5);
-  box-shadow:0 4px 16px rgba(0,0,0,0.05);
-  transform:translateX(100vw); opacity:0;
-  transition:transform 1s ease-out 0.5s, opacity 1s ease-out 0.5s;
-}
-.audio-player.visible { transform:translateX(0); opacity:1; }
-.play-btn {
-  width:56px; height:56px; border:none; border-radius:50%;
-  background:linear-gradient(135deg,var(--teal),var(--blue));
-  display:inline-flex; align-items:center; justify-content:center;
-  transition:transform .2s; cursor:pointer;
-}
-.play-btn:active { transform:scale(.95) }
-.play-btn svg { width:24px; height:24px; fill:#fff }
-.progress-container {
-  width:100%; height:6px; background:#eee; border-radius:3px;
-  margin:var(--spacing) 0; overflow:hidden; cursor:pointer;
-}
-.progress { width:0%; height:100%; background:var(--teal) }
-.time { font-size:.9rem; color:var(--dark-blue) }
+    /* 2. Prompt & Audio */
+    .prompt-container {
+      position: relative;
+      overflow: hidden;
+      padding-top: var(--spacing);
+    }
+    .scroll-indicator {
+      display: inline-block;
+      padding: 0.4rem 0.8rem;
+      background: var(--bg-alpha);
+      font-weight: 500;
+      color: var(--dark-blue);
+      transform: translateX(-100vw);
+      opacity: 0;
+      transition: transform 1s ease-out, opacity 1s ease-out;
+      margin-bottom: var(--spacing);
+    }
+    .scroll-indicator.visible {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    .audio-player {
+      background: var(--bg-alpha);
+      border-radius: var(--radius);
+      padding: calc(var(--spacing) * 1.5);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+      transform: translateX(100vw);
+      opacity: 0;
+      transition: transform 1s ease-out 0.5s, opacity 1s ease-out 0.5s;
+      margin: 0 auto;
+      display: inline-block;
+      text-align: center;
+    }
+    .audio-player.visible {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    .play-btn {
+      width: 56px;
+      height: 56px;
+      border: none;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform .2s;
+      cursor: pointer;
+      margin-bottom: var(--spacing);
+    }
+    .play-btn:active {
+      transform: scale(.95);
+    }
+    .play-btn svg {
+      width: 24px;
+      height: 24px;
+      fill: #fff;
+    }
+    .progress-container {
+      width: 100%;
+      height: 6px;
+      background: #eee;
+      border-radius: 3px;
+      margin: var(--spacing) 0;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .progress {
+      width: 0%;
+      height: 100%;
+      background: var(--teal);
+    }
+    .time {
+      font-size: .9rem;
+      color: var(--dark-blue);
+    }
 
-/* 3. Message & Tagline */
-.message {
-  opacity: 0; transform: translateY(20px);
-  transition: opacity 1s, transform 1s;
-  padding: var(--spacing) 0;
-  text-align: center;
-}
-.message.visible { opacity:1; transform:translateY(0); }
-.message p {
-  opacity:0; transform:translateY(20px) scale(.9);
-  transition:opacity .6s, transform .6s;
-}
-.message.visible p:nth-child(1) { transition-delay:.2s; opacity:1; transform:translateY(0) scale(1); }
-.message.visible p:nth-child(2) { transition-delay:.4s; opacity:1; transform:translateY(0) scale(1); }
+    /* 3. Personal Message */
+    .message {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s, transform 1s;
+      padding: var(--spacing) 0;
+    }
+    .message.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .message p {
+      opacity: 0;
+      transform: translateY(20px) scale(.9);
+      transition: opacity .6s, transform .6s;
+    }
+    .message.visible p:nth-child(1) {
+      transition-delay: .2s;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    .message.visible p:nth-child(2) {
+      transition-delay: .4s;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
 
-/* 4. Countdown */
-.countdown-section {
-  text-align: center;
-  padding: var(--spacing) 0;
-}
-.countdown-main-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 3.6rem;
-  text-transform: uppercase;
-  margin-bottom: 0.75rem;
-  animation: fadeInDown 1s ease-out both, pulse 2s ease-in-out 1s infinite;
-}
-.countdown-header {
-  display: flex; align-items: center; justify-content:center;
-  gap: 0.75rem; margin-bottom: var(--spacing);
-}
-.countdown-header .line {
-  flex-grow: 1; height: 2px; background: var(--dark-blue);
-}
-.event-date {
-  font-family: 'IBM Plex Sans Thai', sans-serif;
-  font-size: 1rem; font-weight: 500; text-transform: uppercase;
-}
-.countdown-invite {
-  font-size:0.95rem; margin-bottom:var(--spacing);
-  color:var(--dark-blue);
-}
-.countdown {
-  display:flex; justify-content:space-around; gap:var(--spacing);
-}
-.unit { text-align:center }
-.box {
-  background:var(--cream); border:1px solid var(--teal);
-  padding:.75rem; min-width:70px; border-radius:var(--radius);
-  box-shadow:0 4px 12px rgba(0,0,0,0.05);
-}
-.number {
-  font-size:2rem; font-weight:700; color:var(--dark-blue);
-  animation: fadeInDown .8s both;
-}
-.label { margin-top:.3rem; font-size:.85rem; font-weight:500; color:var(--dark-blue) }
+    /* 4. Countdown */
+    .countdown-section {
+      padding: var(--spacing) 0;
+    }
+    .countdown-main-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.6rem;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      animation: fadeInDown 1s ease-out both, pulse 2s ease-in-out 1s infinite;
+    }
+    .countdown-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: var(--spacing);
+    }
+    .countdown-header .line {
+      flex-grow: 1;
+      height: 2px;
+      background: var(--dark-blue);
+    }
+    .event-date {
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+    .countdown-invite {
+      font-size: .95rem;
+      margin-bottom: var(--spacing);
+      color: var(--dark-blue);
+    }
+    .countdown {
+      display: flex;
+      justify-content: space-around;
+      gap: var(--spacing);
+    }
+    .unit {
+      text-align: center;
+    }
+    .box {
+      background: var(--cream);
+      border: 1px solid var(--teal);
+      padding: .75rem;
+      min-width: 70px;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    .number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--dark-blue);
+      animation: fadeInDown .8s both;
+    }
+    .label {
+      margin-top: .3rem;
+      font-size: .85rem;
+      font-weight: 500;
+      color: var(--dark-blue);
+    }
 
-/* 5. BEST MOMENT Section */
-.section-main-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.4rem;
-  text-transform: uppercase;
-  margin-bottom: 0.75rem;
-  text-align: center;
-}
-.section-header {
-  display: flex; align-items: center; justify-content:center;
-  gap: 0.75rem; margin-bottom: var(--spacing);
-}
-.section-header .line {
-  flex-grow: 1; height: 2px; background: var(--dark-blue);
-}
-.section-label {
-  font-family: 'IBM Plex Sans Thai', sans-serif;
-  font-size: 1rem; font-weight:500; text-transform: uppercase;
-}
-.gallery-section { width:100%; margin:var(--spacing) 0; }
-.section-frame {
-  background:#fff; border:2px solid var(--teal);
-  border-radius:var(--radius); padding:calc(var(--spacing)*1.5);
-  box-shadow:0 4px 16px rgba(0,0,0,0.1); text-align:center;
-}
-.gallery { position:relative; overflow:hidden; padding:0 var(--spacing); }
-.slides { display:flex; transition:transform .5s ease; }
-.slide { min-width:100%; padding:0 var(--spacing); }
-.slide img { width:100%; border-radius:var(--radius); cursor:pointer; }
-.prev, .next {
-  position:absolute; top:50%; transform:translateY(-50%);
-  background:var(--bg-alpha); border:none; width:36px; height:36px;
-  border-radius:50%; display:flex; align-items:center; justify-content:center;
-  box-shadow:0 2px 8px rgba(0,0,0,0.2); cursor:pointer;
-}
-.prev { left:8px } .next { right:8px }
-.prev svg, .next svg { width:18px; height:18px; fill:var(--dark-blue) }
-.dot-container { display:flex; justify-content:center; gap:6px; margin-top:var(--spacing); }
-.dot {
-  width:10px; height:10px; background:var(--teal);
-  border-radius:50%; opacity:.5; cursor:pointer; transition:opacity .3s;
-}
-.dot.active { opacity:1; background:var(--dark-blue); }
-.gallery-tagline {
-  opacity:0; transform:translateY(20px);
-  transition:opacity 1s, transform 1s;
-  font-style:italic; margin-top:var(--spacing);
-}
-.gallery-section.visible .gallery-tagline {
-  opacity:1; transform:translateY(0);
-}
-```
+    /* 5. BEST MOMENT Section */
+    .section-main-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: var(--spacing);
+    }
+    .section-header .line {
+      flex-grow: 1;
+      height: 2px;
+      background: var(--dark-blue);
+    }
+    .section-label {
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+    .gallery-section {
+      width: 100%;
+      margin: var(--spacing) 0;
+    }
+    .section-frame {
+      background: #fff;
+      border: 2px solid var(--teal);
+      border-radius: var(--radius);
+      padding: calc(var(--spacing) * 1.5);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+    .gallery {
+      position: relative;
+      overflow: hidden;
+      padding: 0 var(--spacing);
+    }
+    .slides {
+      display: flex;
+      transition: transform .5s ease;
+    }
+    .slide {
+      min-width: 100%;
+      padding: 0 var(--spacing);
+    }
+    .slide img {
+      width: 100%;
+      border-radius: var(--radius);
+      cursor: pointer;
+      margin: 0 auto;
+    }
+    .prev, .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--bg-alpha);
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+    .prev { left: 8px; }
+    .next { right: 8px; }
+    .prev svg, .next svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--dark-blue);
+    }
+    .dot-container {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: var(--spacing);
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      background: var(--teal);
+      border-radius: 50%;
+      opacity: .5;
+      cursor: pointer;
+      transition: opacity .3s;
+    }
+    .dot.active {
+      opacity: 1;
+      background: var(--dark-blue);
+    }
+    .gallery-tagline {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s, transform 1s;
+      font-style: italic;
+      margin-top: var(--spacing);
+    }
+    .gallery-section.visible .gallery-tagline {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-/\* Section 6: รูปเต็มแผ่น \*/
-.couple-section {
-width: 100%;
-overflow: hidden;
-position: relative;
-padding: 0;
-}
-
-/\* รูปพร้อมอนิเมชั่น \*/
-.couple-full {
-display: block;
-width: 100%;
-height: auto;
-object-fit: cover;
-transform-origin: center center;
-opacity: 0;
-}
-
-/\* คลาสอนิเมชั่น \*/
-.animate-fancy {
-animation:
-slideFadeIn 1s ease-out forwards,
-kenburns 20s ease-out 0.5s infinite alternate;
-}
-
-/\* จางเข้า + สไลด์ขึ้น \*/
-@keyframes slideFadeIn {
-from {
-transform: translateY(30px) scale(1.05);
-opacity: 0;
-}
-to {
-transform: translateY(0) scale(1);
-opacity: 1;
-}
-}
-
-/\* เคนเบิร์นสโลว์ ซูมเข้า-ออก \*/
-@keyframes kenburns {
-0% {
-transform: scale(1) rotate(0deg);
-}
-50% {
-transform: scale(1.1) rotate(0.5deg);
-}
-100% {
-transform: scale(1) rotate(0deg);
-}
-}
-
-/\* Responsive ปรับความเร็วหรือขนาดหากต้องการ \*/
-@media (max-width: 480px) {
-.animate-fancy {
-animation:
-slideFadeIn 1s ease-out forwards,
-kenburns 25s ease-out 0.5s infinite alternate;
-}
-}
-
+    /* 6. Couple Full-Width Photo with Fancy Animation */
+    .couple-section {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      padding: 0;
+    }
+    .couple-full {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      transform-origin: center center;
+      opacity: 0;
+      margin: 0 auto;
+    }
+    .animate-fancy {
+      animation:
+        slideFadeIn 1s ease-out forwards,
+        kenburns 20s ease-out 0.5s infinite alternate;
+    }
+    @keyframes slideFadeIn {
+      from {
+        transform: translateY(30px) scale(1.05);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+    @keyframes kenburns {
+      0%   { transform: scale(1) rotate(0deg); }
+      50%  { transform: scale(1.1) rotate(0.5deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+    @media (max-width: 480px) {
+      .animate-fancy {
+        animation:
+          slideFadeIn 1s ease-out forwards,
+          kenburns 25s ease-out 0.5s infinite alternate;
+      }
+    }
   </style>
 </head>
 <body>
-  <header><nav class="main-nav"></nav></header>
+  <header>
+    <nav class="main-nav"></nav>
+  </header>
   <main>
     <!-- 1. Hero -->
     <section class="hero container">
       <img id="animatedImage" src="https://i.postimg.cc/6QGx2SKg/DSC087422-1.jpg" alt="Wedding background" />
     </section>
 
-```
-<!-- 2. Prompt & Audio -->
-<section class="prompt-container container">
-  <div id="indicator" class="scroll-indicator">กรุณากดเล่นเพลงก่อน แล้วเลื่อนลงดูรายละเอียด</div>
-  <div id="audioPlayer" class="audio-player">
-    <audio id="audio" src="https://natiphol.github.io/mp3/No.mp3"></audio>
-    <button id="playBtn" class="play-btn" aria-label="Play">
-      <svg viewBox="0 0 64 64"><polygon points="16,8 56,32 16,56"/></svg>
-    </button>
-    <div id="progressContainer" class="progress-container"><div id="progress" class="progress"></div></div>
-    <div class="time"><span id="currentTime">00:00</span> / <span id="duration">00:00</span></div>
-  </div>
-</section>
+    <!-- 2. Prompt & Audio -->
+    <section class="prompt-container container">
+      <div id="indicator" class="scroll-indicator">
+        กรุณากดเล่นเพลงก่อน แล้วเลื่อนลงดูรายละเอียด
+      </div>
+      <div id="audioPlayer" class="audio-player">
+        <audio id="audio" src="https://natiphol.github.io/mp3/No.mp3"></audio>
+        <button id="playBtn" class="play-btn" aria-label="Play">
+          <svg viewBox="0 0 64 64"><polygon points="16,8 56,32 16,56"/></svg>
+        </button>
+        <div id="progressContainer" class="progress-container">
+          <div id="progress" class="progress"></div>
+        </div>
+        <div class="time">
+          <span id="currentTime">00:00</span> / <span id="duration">00:00</span>
+        </div>
+      </div>
+    </section>
 
-<!-- 3. Personal Message -->
-<section id="messageSection" class="message container">
-  <p>เราสองคนกำลังจะเริ่มต้นบทใหม่ของชีวิตและอยากให้คุณเป็นส่วนหนึ่งในความทรงจำที่สวยงามครั้งนี้</p>
-  <p>Our journey begins with love, and it becomes more meaningful with your support.<br>
-     Please join us as we celebrate the beginning of our forever.
-  </p>
-</section>
+    <!-- 3. Personal Message -->
+    <section id="messageSection" class="message container">
+      <p>เราสองคนกำลังจะเริ่มต้นบทใหม่ของชีวิตและอยากให้คุณเป็นส่วนหนึ่งในความทรงจำที่สวยงามครั้งนี้</p>
+      <p>
+        Our journey begins with love, and it becomes more meaningful with your support.<br>
+        Please join us as we celebrate the beginning of our forever.
+      </p>
+    </section>
 
-<!-- 4. Countdown -->
-<section id="countdownSection" class="countdown-section container">
-  <h2 class="countdown-main-title">SUNDAY</h2>
-  <div class="countdown-header">
-    <div class="line"></div>
-    <span class="event-date">8 June 2025</span>
-    <div class="line"></div>
-  </div>
-  <p class="countdown-invite">
-    Please join us in celebrating a beautiful journey of love as we count down to our wedding day.
-  </p>
-  <div class="countdown">
-    <div class="unit"><div class="box"><span id="days" class="number">0</span></div><div class="label">วัน</div></div>
-    <div class="unit"><div class="box"><span id="hours" class="number">00</span></div><div class="label">ชั่วโมง</div></div>
-    <div class="unit"><div class="box"><span id="minutes" class="number">00</span></div><div class="label">นาที</div></div>
-    <div class="unit"><div class="box"><span id="seconds" class="number">00</span></div><div class="label">วินาที</div></div>
-  </div>
-</section>
+    <!-- 4. Countdown -->
+    <section id="countdownSection" class="countdown-section container">
+      <h2 class="countdown-main-title">SUNDAY</h2>
+      <div class="countdown-header">
+        <div class="line"></div>
+        <span class="event-date">8 June 2025</span>
+        <div class="line"></div>
+      </div>
+      <p class="countdown-invite">
+        Please join us in celebrating a beautiful journey of love as we count down to our wedding day.
+      </p>
+      <div class="countdown">
+        <div class="unit"><div class="box"><span id="days" class="number">0</span></div><div class="label">วัน</div></div>
+        <div class="unit"><div class="box"><span id="hours" class="number">00</span></div><div class="label">ชั่วโมง</div></div>
+        <div class="unit"><div class="box"><span id="minutes" class="number">00</span></div><div class="label">นาที</div></div>
+        <div class="unit"><div class="box"><span id="seconds" class="number">00</span></div><div class="label">วินาที</div></div>
+      </div>
+    </section>
 
-<!-- 5. BEST MOMENT Section -->
-<section id="momentSection" class="gallery-section section-frame container">
-  <h2 class="section-main-title">BEST MOMENT</h2>
-  <div class="section-header">
-    <div class="line"></div>
-    <span class="section-label">TUCK & TAN</span>
-    <div class="line"></div>
-  </div>
-  <div class="gallery">
-    <button class="prev" aria-label="Previous"><svg viewBox="0 0 24 24"><polygon points="15,4 7,12 15,20"/></svg></button>
-    <div class="slides">
-      <div class="slide"><a href="https://i.postimg.cc/SsTCWWJw/DSC-7529-19944.jpg" class="glightbox"><img src="https://i.postimg.cc/SsTCWWJw/DSC-7529-19944.jpg" alt=""></a></div>
-      <div class="slide"><a href="https://i.postimg.cc/02vVmwcN/DSC-0160.jpg" class="glightbox"><img src="https://i.postimg.cc/02vVmwcN/DSC-0160.jpg" alt=""></a></div>
-      <div class="slide"><a href="https://i.postimg.cc/cCRT2x4Z/DSC-7266-19681.jpg" class="glightbox"><img src="https://i.postimg.cc/cCRT2x4Z/DSC-7266-19681.jpg" alt=""></a></div>
-    </div>
-    <button class="next" aria-label="Next"><svg viewBox="0 0 24 24"><polygon points="9,4 17,12 9,20"/></svg></button>
-  </div>
-  <div class="dot-container"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-  <p class="gallery-tagline">จากนี้และตลอดไป<br>“From this day forward, and forever.”</p>
-</section>
-```
+    <!-- 5. BEST MOMENT Section -->
+    <section id="momentSection" class="gallery-section section-frame container">
+      <h2 class="section-main-title">BEST MOMENT</h2>
+      <div class="section-header">
+        <div class="line"></div>
+        <span class="section-label">TUCK & TAN</span>
+        <div class="line"></div>
+      </div>
+      <div class="gallery">
+        <button class="prev" aria-label="Previous"><svg viewBox="0 0 24 24"><polygon points="15,4 7,12 15,20"/></svg></button>
+        <div class="slides">
+          <div class="slide"><a href="https://i.postimg.cc/SsTCWWJw/DSC-7529-19944.jpg" class="glightbox"><img src="https://i.postimg.cc/SsTCWWJw/DSC-7529-19944.jpg" alt=""></a></div>
+          <div class="slide"><a href="https://i.postimg.cc/02vVmwcN/DSC-0160.jpg" class="glightbox"><img src="https://i.postimg.cc/02vVmwcN/DSC-0160.jpg" alt=""></a></div>
+          <div class="slide"><a href="https://i.postimg.cc/cCRT2x4Z/DSC-7266-19681.jpg" class="glightbox"><img src="https://i.postimg.cc/cCRT2x4Z/DSC-7266-19681.jpg" alt=""></a></div>
+        </div>
+        <button class="next" aria-label="Next"><svg viewBox="0 0 24 24"><polygon points="9,4 17,12 9,20"/></svg></button>
+      </div>
+      <div class="dot-container">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+      <p class="gallery-tagline">
+        จากนี้และตลอดไป<br>“From this day forward, and forever.”
+      </p>
+    </section>
 
-<!-- 6. Couple Full-Width Photo with Fancy Animation -->
-
-<section id="coupleSection" class="couple-section">
-  <img class="couple-full animate-fancy" src="https://i.postimg.cc/2yR20bY2/DSC08741-1.jpg" alt="PANNITA & NATIPHOL">
-</section>
-
-  <!-- GLightbox & Scripts -->
+    <!-- 6. Couple Full-Width Photo with Fancy Animation -->
+    <section id="coupleSection" class="couple-section">
+      <img class="couple-full animate-fancy" src="https://i.postimg.cc/2yR20bY2/DSC08741-1.jpg" alt="PANNITA & NATIPHOL">
+    </section>
+  </main>
 
   <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       // Hero → Prompt & Audio reveal
       const heroImg = document.getElementById('animatedImage');
       const indicator = document.getElementById('indicator');
       const audioPlayer = document.getElementById('audioPlayer');
-      const ioHero = new IntersectionObserver((entries, obs) => {
+      new IntersectionObserver((entries, obs) => {
         entries.forEach(e => {
           if (e.isIntersecting) {
             heroImg.classList.add('visible');
             indicator.classList.add('visible');
             audioPlayer.classList.add('visible');
-            obs.unobserve(heroImg);
+            obs.unobserve(e.target);
           }
         });
-      }, { threshold: 0.1 });
-      ioHero.observe(heroImg);
+      }, { threshold: 0.1 }).observe(heroImg);
 
-      // Reveal other sections (รวม Section 6)
+      // Reveal other sections
       const toReveal = [
         document.getElementById('messageSection'),
         document.getElementById('countdownSection'),
@@ -388,10 +541,10 @@ kenburns 25s ease-out 0.5s infinite alternate;
       playBtn.addEventListener('click', () => {
         if (audio.paused) {
           audio.play();
-          playBtn.innerHTML = `<svg viewBox="0 0 64 64"><rect x="16" y="8" width="12" height="48"/><rect x="36" y="8" width="12" height="48"/></svg>`;
+          playBtn.innerHTML = '<svg viewBox="0 0 64 64"><rect x="16" y="8" width="12" height="48"/><rect x="36" y="8" width="12" height="48"/></svg>';
         } else {
           audio.pause();
-          playBtn.innerHTML = `<svg viewBox="0 0 64 64"><polygon points="16,8 56,32 16,56"/></svg>`;
+          playBtn.innerHTML = '<svg viewBox="0 0 64 64"><polygon points="16,8 56,32 16,56"/></svg>';
         }
       });
       audio.addEventListener('loadedmetadata', () => dur.textContent = formatTime(audio.duration));
@@ -404,49 +557,47 @@ kenburns 25s ease-out 0.5s infinite alternate;
         audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
       });
       function formatTime(t) {
-        const m = Math.floor(t/60), s = Math.floor(t%60);
-        return String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+        const m = Math.floor(t / 60), s = Math.floor(t % 60);
+        return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
       }
 
       // Countdown
-      const target = new Date(2025,5,8).getTime();
-      const ids = ['days','hours','minutes','seconds'];
+      const target = new Date(2025, 5, 8).getTime();
+      const ids = ['days', 'hours', 'minutes', 'seconds'];
       function updateCountdown() {
-        let diff = Math.max(target - Date.now(), 0);
+        const diff = Math.max(target - Date.now(), 0);
         const vals = [
-          Math.floor(diff/(1000*60*60*24)),
-          Math.floor((diff%(1000*60*60*24))/(1000*60*60)),
-          Math.floor((diff%(1000*60*60))/(1000*60)),
-          Math.floor((diff%60000)/1000)
+          Math.floor(diff / (1000 * 60 * 60 * 24)),
+          Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
+          Math.floor((diff % 60000) / 1000)
         ];
-        vals.forEach((v,i) => {
+        vals.forEach((v, i) => {
           const el = document.getElementById(ids[i]);
-          el.textContent = String(v).padStart(i>0?2:1,'0');
+          el.textContent = String(v).padStart(i > 0 ? 2 : 1, '0');
           el.classList.add('animate');
           setTimeout(() => el.classList.remove('animate'), 800);
         });
       }
-      updateCountdown(); setInterval(updateCountdown,1000);
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
 
       // Gallery slider
       const slides = document.querySelectorAll('.slide');
       const dots   = document.querySelectorAll('.dot');
       const slider = document.querySelector('.slides');
-      const prev   = document.querySelector('.prev');
-      const next   = document.querySelector('.next');
       let idx = 0;
       function showSlide(i) {
         idx = (i + slides.length) % slides.length;
         slider.style.transform = `translateX(-${idx*100}%)`;
         dots.forEach((d,j) => d.classList.toggle('active', j===idx));
       }
-      prev.addEventListener('click', () => showSlide(idx-1));
-      next.addEventListener('click', () => showSlide(idx+1));
+      document.querySelector('.prev').addEventListener('click', () => showSlide(idx-1));
+      document.querySelector('.next').addEventListener('click', () => showSlide(idx+1));
       dots.forEach((d,i) => d.addEventListener('click', () => showSlide(i)));
       let startX = 0;
-      const gallery = document.querySelector('.gallery');
-      gallery.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-      gallery.addEventListener('touchend', e => {
+      document.querySelector('.gallery').addEventListener('touchstart', e => startX = e.touches[0].clientX);
+      document.querySelector('.gallery').addEventListener('touchend', e => {
         const endX = e.changedTouches[0].clientX;
         if (startX - endX > 50) showSlide(idx+1);
         if (endX - startX > 50) showSlide(idx-1);
@@ -457,6 +608,5 @@ kenburns 25s ease-out 0.5s infinite alternate;
       GLightbox({ selector: '.glightbox', loop: true, touchNavigation: true });
     });
   </script>
-
 </body>
 </html>
