@@ -13,10 +13,7 @@
   
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=IBM+Plex+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet">
-  <!-- ฟอนต์ชื่อคู่บ่าวสาว: Yellowtail -->
-<link href="https://fonts.googleapis.com/css2?family=Yellowtail&display=swap" rel="stylesheet">
-<!-- ฟอนต์ตัวเชื่อม & ยังคงใช้ Great Vibes -->
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
 
 
   
@@ -203,44 +200,6 @@
       opacity:1; transform:translateY(0);
     }
 
-/* Section 6: คู่บ่าวสาว (อัพเดต) */
-/* ชื่อคู่บ่าวสาวใช้ฟอนต์ Yellowtail */
-.name-left, .name-right {
-  font-family: 'Yellowtail', cursive;
-  font-size: 2.6rem;
-  color: var(--dark-blue);
-  margin: 0;
-  text-transform: none; /* ปล่อยตัวพิมพ์ตามต้นฉบับ */
-}
-
-/* ตัวเชื่อม & ใช้ Great Vibes */
-.connector {
-  font-family: 'Great Vibes', cursive;
-  font-size: 3rem;
-  color: var(--gold);
-  opacity: 0;
-  animation: fadeInConnector 1s ease-out forwards 0.5s;
-}
-
-@keyframes fadeInConnector {
-  from { opacity: 0; transform: scale(0.8); }
-  to   { opacity: 1; transform: scale(1); }
-}
-
-/* เลเอาต์ */
-.names {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-}
-
-/* Responsive บนอุปกรณ์เล็ก */
-@media (max-width: 480px) {
-  .names { flex-direction: column; }
-  .connector { margin: 0.5rem 0; }
-  .name-left, .name-right { font-size: 2.2rem; }
-}
 
 
   </style>
@@ -314,16 +273,6 @@
       <p class="gallery-tagline">จากนี้และตลอดไป<br>“From this day forward, and forever.”</p>
     </section>
 
-<!-- 6. Couple Section (ปรับใหม่: ใช้ & สไตล์ลายมือ) -->
-<section id="coupleSection" class="couple-section container">
-  <div class="couple-frame">
-    <div class="names">
-      <h2 class="name-left">PANNITA</h2>
-      <div class="connector">&amp;</div>
-      <h2 class="name-right">NATIPHOL</h2>
-    </div>
-  </div>
-</section>
 
 
 
