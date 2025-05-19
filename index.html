@@ -204,17 +204,16 @@
     }
 
 /* Section 6: คู่บ่าวสาว (อัพเดต) */
-/* ชื่อคู่บ่าวสาวใช้ Monsieur La Doulaise */
-/* ชื่อคู่บ่าวสาวใช้ Playwrite México Guides */
+/* ชื่อคู่บ่าวสาวใช้ฟอนต์ Yellowtail */
 .name-left, .name-right {
-  font-family: 'Playwrite México Guides', sans-serif;
-  font-size: 2.4rem;
+  font-family: 'Yellowtail', cursive;
+  font-size: 2.6rem;
   color: var(--dark-blue);
   margin: 0;
-  text-transform: uppercase;
+  text-transform: none; /* ปล่อยตัวพิมพ์ตามต้นฉบับ */
 }
 
-/* ตัวเชื่อม & ยังคงใช้ Great Vibes */
+/* ตัวเชื่อม & ใช้ Great Vibes */
 .connector {
   font-family: 'Great Vibes', cursive;
   font-size: 3rem;
@@ -236,11 +235,11 @@
   gap: 1rem;
 }
 
-/* Responsive */
+/* Responsive บนอุปกรณ์เล็ก */
 @media (max-width: 480px) {
   .names { flex-direction: column; }
   .connector { margin: 0.5rem 0; }
-  .name-left, .name-right { font-size: 2rem; }
+  .name-left, .name-right { font-size: 2.2rem; }
 }
 
 
