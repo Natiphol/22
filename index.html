@@ -199,48 +199,38 @@
     .gallery-section.visible .gallery-tagline {
       opacity:1; transform:translateY(0);
     }
-    /* Section 6: เฟรมกรอบ + รูปอนิเมชั่น */
+    /* Section 6: รูปเต็มแผ่น + อนิเมชั่น */
 .couple-section {
-  padding: 2rem 0;
-}
-.couple-frame {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(8px);
-  border-radius: 24px;
-  padding: 1.5rem;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  width: 100%;
   overflow: hidden;
-  animation: frameFadeIn 0.8s ease-out both;
+  /* ถ้าต้องการเว้นขอบบน-ล่าง ให้ปรับ padding */
+  padding: 0;
+  animation: sectionFadeIn 0.8s ease-out both;
 }
-.couple-anim {
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
+.couple-full {
+  display: block;
+  width: 100%;
+  height: auto;
   object-fit: cover;
-  border: 4px solid var(--gold);
-  animation: photoBounce 1s ease-out both;
+  transform: translateY(20px);
+  opacity: 0;
+  animation: imageSlideUp 1s ease-out forwards 0.3s;
 }
 
-/* กรอบค่อยๆ ปรากฏ */
-@keyframes frameFadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+/* เฟรมค่อยๆ ปรากฏ */
+@keyframes sectionFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
-/* รูปเด้งและหมุนเล็กน้อย */
-@keyframes photoBounce {
-  0%   { transform: scale(0.5) rotate(-15deg); opacity: 0; }
-  60%  { transform: scale(1.1) rotate(5deg); opacity: 1; }
-  100% { transform: scale(1) rotate(0); }
-}
-
-/* ปรับขนาดบนมือถือ */
-@media (max-width: 480px) {
-  .couple-anim {
-    width: 120px;
-    height: 120px;
+/* รูปเลื่อนขึ้นพร้อมจางเข้ามา */
+@keyframes imageSlideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 
@@ -318,13 +308,10 @@
       <p class="gallery-tagline">จากนี้และตลอดไป<br>“From this day forward, and forever.”</p>
     </section>
     
-<!-- 6. Couple Photo Only -->
-<section id="coupleSection" class="couple-section container">
-  <div class="couple-frame">
-    <img class="couple-anim" src="https://i.postimg.cc/2yR20bY2/DSC08741-1.jpg" alt="PANNITA & NATIPHOL" />
-  </div>
+<!-- 6. Couple Full-Width Photo -->
+<section id="coupleSection" class="couple-section">
+  <img class="couple-full" src="https://i.postimg.cc/2yR20bY2/DSC08741-1.jpg" alt="PANNITA & NATIPHOL">
 </section>
-
 
 
 
