@@ -66,7 +66,7 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
-    /* Hero Image + Animation */
+    /* 1. Hero Image + Animation */
     .hero {
       width:100%;
       margin-top: var(--spacing);
@@ -82,7 +82,7 @@
       transform: translateY(0);
     }
 
-    /* Prompt (with small framed border) */
+    /* 2. Prompt */
     .prompt-container {
       position: relative;
       overflow: hidden;
@@ -107,7 +107,7 @@
       opacity:1;
     }
 
-    /* Audio player slide-in */
+    /* 3. Audio player slide-in */
     .audio-player {
       background: var(--bg-alpha);
       border-radius: var(--radius);
@@ -143,14 +143,41 @@
     .progress { width:0%; height:100%; background: var(--teal) }
     .time { font-size:0.9rem; color: var(--dark-blue) }
 
-    /* Personal Message */
+    /* 4. Personal Message Animations */
     .message {
-      font-size:1rem;
-      line-height:1.6;
-      padding: 0 var(--spacing);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+    .message.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .message p {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .message.visible p:nth-child(1) {
+      opacity:1;
+      transform: translateY(0);
+      transition-delay: 0.2s;
+    }
+    .message.visible p:nth-child(2) {
+      opacity:1;
+      transform: translateY(0);
+      transition-delay: 0.4s;
     }
 
-    /* Countdown (smaller) */
+    /* 5. Countdown (emphasize + pulse) */
+    @keyframes fadeInDown {
+      from { opacity:0; transform: translateY(-10px) }
+      to   { opacity:1; transform: translateY(0) }
+    }
+    @keyframes pulse {
+      0%,100% { transform: scale(1); }
+      50%     { transform: scale(1.05); }
+    }
     .countdown-section {
       width:100%;
       max-width:420px;
@@ -163,15 +190,14 @@
       transform: translateY(0);
     }
     .countdown-title {
-      font-family: serif;
-      font-size:1.8rem;
+      font-family: 'Playfair Display', serif;
+      font-size:2rem;
       margin-bottom: var(--spacing);
       color: var(--dark-blue);
-      animation: fadeInDown 1s ease-out both;
+      opacity: 0;
     }
-    @keyframes fadeInDown {
-      from { opacity:0; transform: translateY(-10px) }
-      to   { opacity:1; transform: translateY(0) }
+    .countdown-section.visible .countdown-title {
+      animation: fadeInDown 1s ease-out both, pulse 2s ease-in-out 1s infinite;
     }
     .countdown {
       display:flex;
@@ -187,16 +213,16 @@
       border-radius: var(--radius);
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
+    @keyframes fadeInUp {
+      from { opacity:0; transform: translateY(10px) }
+      to   { opacity:1; transform: translateY(0) }
+    }
     .number {
       font-size:2rem;
       font-weight:700;
       color: var(--dark-blue);
       display:inline-block;
       animation: fadeInUp 0.8s ease both;
-    }
-    @keyframes fadeInUp {
-      from { opacity:0; transform: translateY(10px) }
-      to   { opacity:1; transform: translateY(0) }
     }
     .label {
       margin-top:0.3rem;
@@ -205,18 +231,36 @@
       color: var(--dark-blue);
     }
 
+    /* 6. momentAlway header */
+    .moment-container {
+      opacity:0;
+      transform: translateY(20px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+    .moment-container.visible {
+      opacity:1;
+      transform: translateY(0);
+    }
+    .moment-header {
+      font-family: 'Playfair Display', serif;
+      font-size:1.8rem;
+      color: var(--dark-blue);
+      margin-bottom: var(--spacing);
+    }
+
     /* Minor mobile tweak */
     @media(min-width:480px) {
       .play-btn { width:64px; height:64px }
       .play-btn svg { width:30px; height:30px }
-      .countdown-title { font-size:2rem }
+      .countdown-title { font-size:2.2rem }
+      .moment-header { font-size:2rem }
     }
   </style>
 </head>
 <body>
   <header><nav class="main-nav"></nav></header>
   <main>
-    <!-- Hero Image -->
+    <!-- 1. Hero Image -->
     <section class="hero">
       <img
         id="animatedImage"
@@ -225,7 +269,7 @@
       />
     </section>
 
-    <!-- Prompt & Audio -->
+    <!-- 2. Prompt & Audio -->
     <section class="prompt-container container">
       <div id="indicator" class="scroll-indicator">
         กรุณากดเล่นเพลงก่อน แล้วเลื่อนลงดูรายละเอียด
@@ -245,14 +289,14 @@
       </div>
     </section>
 
-    <!-- Personal Message -->
-    <section class="message container">
+    <!-- 3. Personal Message -->
+    <section id="messageSection" class="message container">
       <p>เราสองคนกำลังจะเริ่มต้นบทใหม่ของชีวิตและอยากให้คุณเป็นส่วนหนึ่งในความทรงจำที่สวยงามครั้งนี้</p>
       <p>Our journey begins with love, and it becomes more meaningful with your support.<br>
       Please join us as we celebrate the beginning of our forever.</p>
     </section>
 
-    <!-- Countdown -->
+    <!-- 4. Countdown -->
     <section id="countdownSection" class="countdown-section container">
       <div class="countdown-title">Countdown to Wedding</div>
       <div class="countdown">
@@ -274,6 +318,11 @@
         </div>
       </div>
     </section>
+
+    <!-- 5. momentAlway Header -->
+    <section id="momentSection" class="moment-container container">
+      <h2 class="moment-header">momentAlway</h2>
+    </section>
   </main>
 
   <script>
@@ -281,23 +330,36 @@
       const img = document.getElementById('animatedImage');
       const indicator = document.getElementById('indicator');
       const audioPlayer = document.getElementById('audioPlayer');
+      const messageSection = document.getElementById('messageSection');
       const countdownSection = document.getElementById('countdownSection');
-      const io = new IntersectionObserver(entries => {
+      const momentSection = document.getElementById('momentSection');
+
+      const io = new IntersectionObserver((entries, obs) => {
         entries.forEach(e => {
-          if (e.isIntersecting && e.target === img) {
-            img.classList.add('visible');
-            indicator.classList.add('visible');
-            audioPlayer.classList.add('visible');
-            io.unobserve(img);
-          }
-          if (e.isIntersecting && e.target === countdownSection) {
-            countdownSection.classList.add('visible');
-            io.unobserve(countdownSection);
+          if (e.isIntersecting) {
+            if (e.target === img) {
+              img.classList.add('visible');
+              indicator.classList.add('visible');
+              audioPlayer.classList.add('visible');
+              obs.unobserve(img);
+            }
+            if (e.target === messageSection) {
+              messageSection.classList.add('visible');
+              obs.unobserve(messageSection);
+            }
+            if (e.target === countdownSection) {
+              countdownSection.classList.add('visible');
+              obs.unobserve(countdownSection);
+            }
+            if (e.target === momentSection) {
+              momentSection.classList.add('visible');
+              obs.unobserve(momentSection);
+            }
           }
         });
       }, { threshold: 0.2 });
-      io.observe(img);
-      io.observe(countdownSection);
+
+      [img, messageSection, countdownSection, momentSection].forEach(el => io.observe(el));
 
       // Audio controls
       const audio = document.getElementById('audio');
@@ -331,7 +393,7 @@
       });
       function formatTime(t){const m=Math.floor(t/60),s=Math.floor(t%60);return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');}
 
-      // Countdown
+      // Countdown logic
       const target = new Date(2025,5,8).getTime();
       const els = {
         days:    document.getElementById('days'),
