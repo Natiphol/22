@@ -9,10 +9,7 @@
   <meta name="format-detection" content="telephone=no" />
 
   <!-- GLightbox CSS -->
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"
-  />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
 
   <title>Wedding Invitation – Mobile UX</title>
   <style>
@@ -25,8 +22,6 @@
       --radius:     12px;
       --spacing:    1rem;
     }
-
-    /* Reset & Base */
     * { margin:0; padding:0; box-sizing:border-box }
     html, body {
       height:100%;
@@ -69,7 +64,7 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
-    /* Hero Image + Animation */
+    /* 1. Hero Image + Animation */
     .hero {
       width:100%;
       margin-top: var(--spacing);
@@ -85,7 +80,7 @@
       transform: translateY(0);
     }
 
-    /* Prompt & Audio */
+    /* 2. Prompt & Audio slide-in */
     .prompt-container {
       position: relative;
       overflow: hidden;
@@ -144,7 +139,7 @@
     .progress { width:0%; height:100%; background: var(--teal) }
     .time { font-size:0.9rem; color: var(--dark-blue) }
 
-    /* Personal Message Animations */
+    /* 3. Personal Message Animations */
     .message {
       opacity: 0;
       transform: translateY(20px);
@@ -160,17 +155,13 @@
       transition: opacity 0.6s ease-out, transform 0.6s ease-out;
     }
     .message.visible p:nth-child(1) {
-      opacity:1;
-      transform: translateY(0);
-      transition-delay: 0.2s;
+      opacity:1; transform: translateY(0); transition-delay: 0.2s;
     }
     .message.visible p:nth-child(2) {
-      opacity:1;
-      transform: translateY(0);
-      transition-delay: 0.4s;
+      opacity:1; transform: translateY(0); transition-delay: 0.4s;
     }
 
-    /* Countdown (emphasize + pulse) */
+    /* 4. Countdown (emphasize + pulse) */
     @keyframes fadeInDown {
       from { opacity:0; transform: translateY(-10px) }
       to   { opacity:1; transform: translateY(0) }
@@ -220,10 +211,8 @@
       to   { opacity:1; transform: translateY(0) }
     }
     .number {
-      font-size:2rem;
-      font-weight:700;
+      font-size:2rem; font-weight:700;
       color: var(--dark-blue);
-      display:inline-block;
       animation: fadeInUp 0.8s ease both;
     }
     .label {
@@ -233,7 +222,7 @@
       color: var(--dark-blue);
     }
 
-    /* momentAlway Gallery Frame */
+    /* 5. momentAlway Gallery Frame */
     .section-frame {
       background: var(--cream);
       border: 2px solid var(--teal);
@@ -244,7 +233,7 @@
       box-shadow: 0 4px 16px rgba(0,0,0,0.1);
       text-align: center;
     }
-    .section-frame .section-title {
+    .section-title {
       font-family: 'Playfair Display', serif;
       font-size: 1.8rem;
       color: var(--dark-blue);
@@ -263,8 +252,8 @@
     }
     .slide {
       min-width: 100%;
-      box-sizing: border-box;
       padding: 0 var(--spacing);
+      box-sizing: border-box;
     }
     .slide img {
       width: 100%;
@@ -274,8 +263,7 @@
     }
     .prev, .next {
       position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
+      top: 50%; transform: translateY(-50%);
       background: var(--bg-alpha);
       border: none;
       width: 36px; height: 36px;
@@ -287,14 +275,11 @@
     .prev { left: 8px; }
     .next { right: 8px; }
     .prev svg, .next svg {
-      width: 18px; height: 18px;
-      fill: var(--dark-blue);
+      width: 18px; height: 18px; fill: var(--dark-blue);
     }
     .dot-container {
-      display: flex;
-      justify-content: center;
-      gap: 6px;
-      margin-top: var(--spacing);
+      display: flex; justify-content: center;
+      gap: 6px; margin-top: var(--spacing);
     }
     .dot {
       width: 10px; height: 10px;
@@ -309,33 +294,28 @@
       background: var(--dark-blue);
     }
 
-    /* Minor mobile tweak */
     @media(min-width:480px) {
       .play-btn { width:64px; height:64px }
       .play-btn svg { width:30px; height:30px }
       .countdown-title { font-size:2.2rem }
-      .section-frame .section-title { font-size:2rem }
+      .section-title { font-size:2rem }
     }
   </style>
 </head>
 <body>
   <header><nav class="main-nav"></nav></header>
   <main>
-    <!-- Hero -->
+    <!-- 1. Hero -->
     <section class="hero">
-      <img
-        id="animatedImage"
-        src="https://i.postimg.cc/6QGx2SKg/DSC087422-1.jpg"
-        alt="Wedding background"
-      />
+      <img id="animatedImage" src="https://i.postimg.cc/6QGx2SKg/DSC087422-1.jpg" alt="Wedding background" />
     </section>
 
-    <!-- Prompt & Audio -->
+    <!-- 2. Prompt & Audio -->
     <section class="prompt-container container">
       <div id="indicator" class="scroll-indicator">
         กรุณากดเล่นเพลงก่อน แล้วเลื่อนลงดูรายละเอียด
       </div>
-      <div class="audio-player" id="audioPlayer">
+      <div id="audioPlayer" class="audio-player">
         <audio id="audio" src="https://natiphol.github.io/mp3/No.mp3"></audio>
         <button id="playBtn" class="play-btn" aria-label="Play">
           <svg viewBox="0 0 64 64"><polygon points="16,8 56,32 16,56"/></svg>
@@ -350,87 +330,68 @@
       </div>
     </section>
 
-    <!-- Personal Message -->
+    <!-- 3. Personal Message -->
     <section id="messageSection" class="message container">
       <p>เราสองคนกำลังจะเริ่มต้นบทใหม่ของชีวิตและอยากให้คุณเป็นส่วนหนึ่งในความทรงจำที่สวยงามครั้งนี้</p>
       <p>Our journey begins with love, and it becomes more meaningful with your support.<br>
       Please join us as we celebrate the beginning of our forever.</p>
     </section>
 
-    <!-- Countdown -->
+    <!-- 4. Countdown -->
     <section id="countdownSection" class="countdown-section container">
-      <div class="countdown-title">Countdown to Wedding</div>
+      <div class="countdown-title">COUNTDOWN TO WEDDING</div>
       <div class="countdown">
-        <div class="unit">
-          <div class="box"><span id="days" class="number">0</span></div>
-          <div class="label">วัน</div>
-        </div>
-        <div class="unit">
-          <div class="box"><span id="hours" class="number">00</span></div>
-          <div class="label">ชั่วโมง</div>
-        </div>
-        <div class="unit">
-          <div class="box"><span id="minutes" class="number">00</span></div>
-          <div class="label">นาที</div>
-        </div>
-        <div class="unit">
-          <div class="box"><span id="seconds" class="number">00</span></div>
-          <div class="label">วินาที</div>
-        </div>
+        <div class="unit"><div class="box"><span id="days" class="number">0</span></div><div class="label">วัน</div></div>
+        <div class="unit"><div class="box"><span id="hours" class="number">00</span></div><div class="label">ชั่วโมง</div></div>
+        <div class="unit"><div class="box"><span id="minutes" class="number">00</span></div><div class="label">นาที</div></div>
+        <div class="unit"><div class="box"><span id="seconds" class="number">00</span></div><div class="label">วินาที</div></div>
       </div>
     </section>
 
-    <!-- momentAlway Gallery -->
-    <section id="momentSection" class="moment-section section-frame container">
+    <!-- 5. MOMENTALWAY Gallery -->
+    <section id="momentSection" class="section-frame container">
       <div class="section-title">MOMENTALWAY</div>
       <div class="gallery">
-        <button class="prev" aria-label="Previous">
-          <svg viewBox="0 0 24 24"><polygon points="15,4 7,12 15,20"/></svg>
-        </button>
+        <button class="prev" aria-label="Previous"><svg viewBox="0 0 24 24"><polygon points="15,4 7,12 15,20"/></svg></button>
         <div class="slides">
-          <div class="slide">
-            <a href="https://i.postimg.cc/SsTCWWJw/DSC-7529-19944.jpg" class="glightbox">
-              <img src="https://i.postimg.cc/SsTCWWJw/DSC-7529-19944.jpg" alt="Moment 1">
-            </a>
-          </div>
-          <div class="slide">
-            <a href="https://i.postimg.cc/02vVmwcN/DSC-0160.jpg" class="glightbox">
-              <img src="https://i.postimg.cc/02vVmwcN/DSC-0160.jpg" alt="Moment 2">
-            </a>
-          </div>
-          <div class="slide">
-            <a href="https://i.postimg.cc/cCRT2x4Z/DSC-7266-19681.jpg" class="glightbox">
-              <img src="https://i.postimg.cc/cCRT2x4Z/DSC-7266-19681.jpg" alt="Moment 3">
-            </a>
-          </div>
-          <!-- เติม <div class="slide">…</div> ได้ถึง 10 รูป -->
+          <div class="slide"><a href="https://i.postimg.cc/SsTCWWJw/DSC-7529-19944.jpg" class="glightbox"><img src="https://i.postimg.cc/SsTCWWJw/DSC-7529-19944.jpg" alt=""></a></div>
+          <div class="slide"><a href="https://i.postimg.cc/02vVmwcN/DSC-0160.jpg" class="glightbox"><img src="https://i.postimg.cc/02vVmwcN/DSC-0160.jpg" alt=""></a></div>
+          <div class="slide"><a href="https://i.postimg.cc/cCRT2x4Z/DSC-7266-19681.jpg" class="glightbox"><img src="https://i.postimg.cc/cCRT2x4Z/DSC-7266-19681.jpg" alt=""></a></div>
+          <!-- เพิ่มได้ถึง 10 รูป -->
         </div>
-        <button class="next" aria-label="Next">
-          <svg viewBox="0 0 24 24"><polygon points="9,4 17,12 9,20"/></svg>
-        </button>
+        <button class="next" aria-label="Next"><svg viewBox="0 0 24 24"><polygon points="9,4 17,12 9,20"/></svg></button>
       </div>
       <div class="dot-container">
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <!-- เพิ่ม .dot ให้ตรงกับจำนวน .slide -->
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
       </div>
     </section>
   </main>
 
-  <!-- GLightbox JS -->
+  <!-- GLightbox & Script -->
   <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Intersection Observer for animations
-      const targets = [
-        '#animatedImage',
-        '#indicator',
-        '#audioPlayer',
-        '#messageSection',
-        '#countdownSection',
-        '#momentSection'
-      ];
+      const heroImg = document.getElementById('animatedImage');
+      const indicator = document.getElementById('indicator');
+      const audioPlayer = document.getElementById('audioPlayer');
+      const messageSection = document.getElementById('messageSection');
+      const countdownSection = document.getElementById('countdownSection');
+      const momentSection = document.getElementById('momentSection');
+
+      // 1. Hero → Prompt & Audio
+      const ioHero = new IntersectionObserver((entries, obs) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            heroImg.classList.add('visible');
+            indicator.classList.add('visible');
+            audioPlayer.classList.add('visible');
+            obs.unobserve(heroImg);
+          }
+        });
+      }, { threshold: 0.1 });
+      ioHero.observe(heroImg);
+
+      // 2. Other reveal
       const io = new IntersectionObserver((entries, obs) => {
         entries.forEach(e => {
           if (e.isIntersecting) {
@@ -439,44 +400,42 @@
           }
         });
       }, { threshold: 0.2 });
-      targets.forEach(sel => io.observe(document.querySelector(sel)));
+      io.observe(messageSection);
+      io.observe(countdownSection);
+      io.observe(momentSection);
 
       // Audio controls
       const audio = document.getElementById('audio');
       const playBtn = document.getElementById('playBtn');
       const progress = document.getElementById('progress');
-      const progressContainer = document.getElementById('progressContainer');
-      const currentTimeEl = document.getElementById('currentTime');
-      const durationEl = document.getElementById('duration');
-
+      const progCont = document.getElementById('progressContainer');
+      const cur = document.getElementById('currentTime');
+      const dur = document.getElementById('duration');
       playBtn.addEventListener('click', () => {
         if (audio.paused) {
-          audio.play();
-          playBtn.innerHTML = `<svg viewBox="0 0 64 64"><rect x="16" y="8" width="12" height="48"/><rect x="36" y="8" width="12" height="48"/></svg>`;
-          playBtn.setAttribute('aria-label','Pause');
+          audio.play(); playBtn.innerHTML = `<svg viewBox="0 0 64 64"><rect x="16" y="8" width="12" height="48"/><rect x="36" y="8" width="12" height="48"/></svg>`;
         } else {
-          audio.pause();
-          playBtn.innerHTML = `<svg viewBox="0 0 64 64"><polygon points="16,8 56,32 16,56"/></svg>`;
-          playBtn.setAttribute('aria-label','Play');
+          audio.pause(); playBtn.innerHTML = `<svg viewBox="0 0 64 64"><polygon points="16,8 56,32 16,56"/></svg>`;
         }
       });
-      audio.addEventListener('loadedmetadata', () => {
-        durationEl.textContent = formatTime(audio.duration);
-      });
+      audio.addEventListener('loadedmetadata', () => dur.textContent = formatTime(audio.duration));
       audio.addEventListener('timeupdate', () => {
-        currentTimeEl.textContent = formatTime(audio.currentTime);
+        cur.textContent = formatTime(audio.currentTime);
         progress.style.width = (audio.currentTime / audio.duration) * 100 + '%';
       });
-      progressContainer.addEventListener('click', e => {
-        const rect = progressContainer.getBoundingClientRect();
+      progCont.addEventListener('click', e => {
+        const rect = progCont.getBoundingClientRect();
         audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
       });
-      function formatTime(t){const m=Math.floor(t/60),s=Math.floor(t%60);return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');}
+      function formatTime(t) {
+        const m = Math.floor(t/60), s = Math.floor(t%60);
+        return String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+      }
 
-      // Countdown logic
+      // Countdown
       const target = new Date(2025,5,8).getTime();
       const ids = ['days','hours','minutes','seconds'];
-      function updateCountdown(){
+      function updateCountdown() {
         let diff = Math.max(target - Date.now(), 0);
         const vals = [
           Math.floor(diff/(1000*60*60*24)),
@@ -491,36 +450,34 @@
           setTimeout(() => el.classList.remove('animate'), 800);
         });
       }
-      updateCountdown();
-      setInterval(updateCountdown,1000);
+      updateCountdown(); setInterval(updateCountdown,1000);
 
-      // Gallery slider & dots
+      // Gallery slider
       const slides = document.querySelectorAll('.slide');
       const dots   = document.querySelectorAll('.dot');
       const slider = document.querySelector('.slides');
       const prev   = document.querySelector('.prev');
       const next   = document.querySelector('.next');
       let idx = 0;
-      function show(i){
+      function showSlide(i) {
         idx = (i + slides.length) % slides.length;
         slider.style.transform = `translateX(-${idx*100}%)`;
         dots.forEach((d,j) => d.classList.toggle('active', j===idx));
       }
-      prev.addEventListener('click', () => show(idx-1));
-      next.addEventListener('click', () => show(idx+1));
-      dots.forEach((d,i) => d.addEventListener('click', () => show(i)));
-      // swipe
-      let startX=0;
-      const gal = document.querySelector('.gallery');
-      gal.addEventListener('touchstart', e => startX=e.touches[0].clientX);
-      gal.addEventListener('touchend', e => {
+      prev.addEventListener('click', () => showSlide(idx-1));
+      next.addEventListener('click', () => showSlide(idx+1));
+      dots.forEach((d,i) => d.addEventListener('click', () => showSlide(i)));
+      let startX = 0;
+      const gallery = document.querySelector('.gallery');
+      gallery.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+      gallery.addEventListener('touchend', e => {
         const endX = e.changedTouches[0].clientX;
-        if (startX-endX>50) show(idx+1);
-        if (endX-startX>50) show(idx-1);
+        if (startX - endX > 50) showSlide(idx+1);
+        if (endX - startX > 50) showSlide(idx-1);
       });
-      show(0);
+      showSlide(0);
 
-      // GLightbox init
+      // GLightbox
       GLightbox({ selector: '.glightbox', loop: true, touchNavigation: true });
     });
   </script>
