@@ -326,10 +326,10 @@
       playBtn.addEventListener('click', () => {
         if (audio.paused) {
           audio.play();
-          playBtn.innerHTML = <svg viewBox="0 0 64 64"><rect x="16" y="8" width="12" height="48"/><rect x="36" y="8" width="12" height="48"/></svg>;
+          playBtn.innerHTML = `<svg viewBox="0 0 64 64"><rect x="16" y="8" width="12" height="48"/><rect x="36" y="8" width="12" height="48"/></svg>`;
         } else {
           audio.pause();
-          playBtn.innerHTML = <svg viewBox="0 0 64 64"><polygon points="16,8 56,32 16,56"/></svg>;
+          playBtn.innerHTML = `<svg viewBox="0 0 64 64"><polygon points="16,8 56,32 16,56"/></svg>`;
         }
       });
       audio.addEventListener('loadedmetadata', () => dur.textContent = formatTime(audio.duration));
@@ -375,7 +375,7 @@
       let idx = 0;
       function showSlide(i) {
         idx = (i + slides.length) % slides.length;
-        slider.style.transform = translateX(-${idx*100}%);
+        slider.style.transform = `translateX(-${idx*100}%)`;
         dots.forEach((d,j) => d.classList.toggle('active', j===idx));
       }
       prev.addEventListener('click', () => showSlide(idx-1));
@@ -397,5 +397,3 @@
   </script>
 </body>
 </html>
-
-
