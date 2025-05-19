@@ -43,6 +43,7 @@
       color: var(--dark-blue);
       line-height: 1.5;
       text-align: center;
+      overflow-x: hidden; /* ป้องกันสีแถบ overflow ด้านข้าง */
     }
     a, button {
       touch-action: manipulation;
@@ -55,7 +56,6 @@
       background: var(--ivory);
       z-index: 1000;
     }
-
     main {
       display: flex;
       flex-direction: column;
@@ -131,360 +131,248 @@
       opacity: 1;
     }
     .play-btn {
-      width: 56px;
-      height: 56px;
-      border: none;
-      border-radius: 50%;
+      width: 56px; height: 56px; border: none; border-radius: 50%;
       background: linear-gradient(135deg, var(--teal), var(--blue));
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform .2s;
-      cursor: pointer;
-      margin-bottom: var(--spacing);
+      display: inline-flex; align-items: center; justify-content: center;
+      transition: transform .2s; cursor: pointer; margin-bottom: var(--spacing);
     }
-    .play-btn:active {
-      transform: scale(.95);
-    }
-    .play-btn svg {
-      width: 24px;
-      height: 24px;
-      fill: #fff;
-    }
+    .play-btn:active { transform: scale(.95) }
+    .play-btn svg { width: 24px; height: 24px; fill: #fff }
     .progress-container {
-      width: 100%;
-      height: 6px;
-      background: #eee;
-      border-radius: 3px;
-      margin: var(--spacing) 0;
-      overflow: hidden;
-      cursor: pointer;
+      width: 100%; height: 6px; background: #eee; border-radius: 3px;
+      margin: var(--spacing) 0; overflow: hidden; cursor: pointer;
     }
-    .progress {
-      width: 0%;
-      height: 100%;
-      background: var(--teal);
-    }
-    .time {
-      font-size: .9rem;
-      color: var(--dark-blue);
-    }
+    .progress { width: 0%; height: 100%; background: var(--teal) }
+    .time { font-size: .9rem; color: var(--dark-blue) }
 
     /* 3. Personal Message */
     .message {
-      opacity: 0;
-      transform: translateY(20px);
+      opacity: 0; transform: translateY(20px);
       transition: opacity 1s, transform 1s;
       padding: var(--spacing) 0;
     }
     .message.visible {
-      opacity: 1;
-      transform: translateY(0);
+      opacity:1; transform:translateY(0);
     }
     .message p {
-      opacity: 0;
-      transform: translateY(20px) scale(.9);
-      transition: opacity .6s, transform .6s;
+      opacity:0; transform:translateY(20px) scale(.9);
+      transition:opacity .6s, transform .6s;
     }
-    .message.visible p:nth-child(1) {
-      transition-delay: .2s;
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-    .message.visible p:nth-child(2) {
-      transition-delay: .4s;
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
+    .message.visible p:nth-child(1) { transition-delay:.2s; opacity:1; transform:translateY(0) scale(1) }
+    .message.visible p:nth-child(2) { transition-delay:.4s; opacity:1; transform:translateY(0) scale(1) }
 
     /* 4. Countdown */
-    .countdown-section {
-      padding: var(--spacing) 0;
-    }
+    .countdown-section { padding: var(--spacing) 0 }
     .countdown-main-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 3.6rem;
-      text-transform: uppercase;
-      margin-bottom: 0.75rem;
-      animation: fadeInDown 1s ease-out both, pulse 2s ease-in-out 1s infinite;
+      font-family:'Playfair Display', serif;
+      font-size:3.6rem; text-transform:uppercase; margin-bottom:.75rem;
+      animation:fadeInDown 1s ease-out both, pulse 2s ease-in-out 1s infinite;
     }
     .countdown-header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.75rem;
-      margin-bottom: var(--spacing);
+      display:flex; align-items:center; justify-content:center;
+      gap:.75rem; margin-bottom:var(--spacing);
     }
     .countdown-header .line {
-      flex-grow: 1;
-      height: 2px;
-      background: var(--dark-blue);
+      flex-grow:1; height:2px; background:var(--dark-blue);
     }
     .event-date {
-      font-family: 'IBM Plex Sans Thai', sans-serif;
-      font-size: 1rem;
-      font-weight: 500;
-      text-transform: uppercase;
+      font-family:'IBM Plex Sans Thai'; font-size:1rem; font-weight:500;
+      text-transform:uppercase;
     }
     .countdown-invite {
-      font-size: .95rem;
-      margin-bottom: var(--spacing);
-      color: var(--dark-blue);
+      font-size:.95rem; margin-bottom:var(--spacing); color:var(--dark-blue);
     }
     .countdown {
-      display: flex;
-      justify-content: space-around;
-      gap: var(--spacing);
+      display:flex; justify-content:space-around; gap:var(--spacing);
     }
-    .unit {
-      text-align: center;
-    }
+    .unit { text-align:center }
     .box {
-      background: var(--cream);
-      border: 1px solid var(--teal);
-      padding: .75rem;
-      min-width: 70px;
-      border-radius: var(--radius);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      background:var(--cream); border:1px solid var(--teal);
+      padding:.75rem; min-width:70px; border-radius:var(--radius);
+      box-shadow:0 4px 12px rgba(0,0,0,0.05);
     }
     .number {
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--dark-blue);
-      animation: fadeInDown .8s both;
+      font-size:2rem; font-weight:700; color:var(--dark-blue);
+      animation:fadeInDown .8s both;
     }
     .label {
-      margin-top: .3rem;
-      font-size: .85rem;
-      font-weight: 500;
-      color: var(--dark-blue);
+      margin-top:.3rem; font-size:.85rem; font-weight:500;
+      color:var(--dark-blue);
     }
 
     /* 5. BEST MOMENT Section */
     .section-main-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.4rem;
-      text-transform: uppercase;
-      margin-bottom: 0.75rem;
+      font-family:'Playfair Display'; font-size:2.4rem;
+      text-transform:uppercase; margin-bottom:.75rem;
     }
     .section-header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.75rem;
-      margin-bottom: var(--spacing);
+      display:flex; align-items:center; justify-content:center;
+      gap:.75rem; margin-bottom:var(--spacing);
     }
     .section-header .line {
-      flex-grow: 1;
-      height: 2px;
-      background: var(--dark-blue);
+      flex-grow:1; height:2px; background:var(--dark-blue);
     }
     .section-label {
-      font-family: 'IBM Plex Sans Thai', sans-serif;
-      font-size: 1rem;
-      font-weight: 500;
-      text-transform: uppercase;
+      font-family:'IBM Plex Sans Thai'; font-size:1rem;
+      font-weight:500; text-transform:uppercase;
     }
-    .gallery-section {
-      width: 100%;
-      margin: var(--spacing) 0;
-    }
+    .gallery-section { width:100%; margin:var(--spacing) 0 }
     .section-frame {
-      background: #fff;
-      border: 2px solid var(--teal);
-      border-radius: var(--radius);
-      padding: calc(var(--spacing) * 1.5);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      background:#fff; border:2px solid var(--teal);
+      border-radius:var(--radius); padding:calc(var(--spacing)*1.5);
+      box-shadow:0 4px 16px rgba(0,0,0,0.1);
     }
     .gallery {
-      position: relative;
-      overflow: hidden;
-      padding: 0 var(--spacing);
+      position:relative; overflow:hidden; padding:0 var(--spacing);
     }
-    .slides {
-      display: flex;
-      transition: transform .5s ease;
-    }
-    .slide {
-      min-width: 100%;
-      padding: 0 var(--spacing);
-    }
+    .slides { display:flex; transition:transform .5s ease }
+    .slide { min-width:100%; padding:0 var(--spacing) }
     .slide img {
-      width: 100%;
-      border-radius: var(--radius);
-      cursor: pointer;
-      margin: 0 auto;
+      width:100%; border-radius:var(--radius); cursor:pointer;
+      margin:0 auto;
     }
     .prev, .next {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: var(--bg-alpha);
-      border: none;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-      cursor: pointer;
+      position:absolute; top:50%; transform:translateY(-50%);
+      background:var(--bg-alpha); border:none; width:36px; height:36px;
+      border-radius:50%; display:flex; align-items:center;
+      justify-content:center; box-shadow:0 2px 8px rgba(0,0,0,0.2);
+      cursor:pointer;
     }
-    .prev { left: 8px; }
-    .next { right: 8px; }
-    .prev svg, .next svg {
-      width: 18px;
-      height: 18px;
-      fill: var(--dark-blue);
-    }
+    .prev { left:8px } .next { right:8px }
+    .prev svg, .next svg { width:18px; height:18px; fill:var(--dark-blue) }
     .dot-container {
-      display: flex;
-      justify-content: center;
-      gap: 6px;
-      margin-top: var(--spacing);
+      display:flex; justify-content:center; gap:6px;
+      margin-top:var(--spacing);
     }
     .dot {
-      width: 10px;
-      height: 10px;
-      background: var(--teal);
-      border-radius: 50%;
-      opacity: .5;
-      cursor: pointer;
-      transition: opacity .3s;
+      width:10px; height:10px; background:var(--teal);
+      border-radius:50%; opacity:.5; cursor:pointer;
+      transition:opacity .3s;
     }
-    .dot.active {
-      opacity: 1;
-      background: var(--dark-blue);
-    }
+    .dot.active { opacity:1; background:var(--dark-blue) }
     .gallery-tagline {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 1s, transform 1s;
-      font-style: italic;
-      margin-top: var(--spacing);
+      opacity:0; transform:translateY(20px);
+      transition:opacity 1s, transform 1s; font-style:italic;
+      margin-top:var(--spacing);
     }
     .gallery-section.visible .gallery-tagline {
-      opacity: 1;
-      transform: translateY(0);
+      opacity:1; transform:translateY(0);
     }
 
     /* 6. Couple Full-Width Photo with Fancy Animation */
-    .couple-section {
-      width: 100%;
-      overflow: hidden;
-      position: relative;
-      padding: 0;
-    }
+    .couple-section { width:100%; overflow:hidden; position:relative; padding:0 }
     .couple-full {
-      display: block;
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-      transform-origin: center center;
-      opacity: 0;
-      margin: 0 auto;
+      display:block; width:100%; height:auto; object-fit:cover;
+      transform-origin:center center; opacity:0; margin:0 auto;
     }
     .animate-fancy {
-      animation:
-        slideFadeIn 1s ease-out forwards,
-        kenburns 20s ease-out 0.5s infinite alternate;
+      animation:slideFadeIn 1s ease-out forwards,
+                kenburns 20s ease-out 0.5s infinite alternate;
     }
     @keyframes slideFadeIn {
-      from { transform: translateY(30px) scale(1.05); opacity: 0; }
-      to   { transform: translateY(0) scale(1);    opacity: 1; }
+      from { transform:translateY(30px) scale(1.05); opacity:0 }
+      to   { transform:translateY(0) scale(1); opacity:1 }
     }
     @keyframes kenburns {
-      0%   { transform: scale(1) rotate(0deg); }
-      50%  { transform: scale(1.1) rotate(0.5deg); }
-      100% { transform: scale(1) rotate(0deg); }
+      0%   { transform: scale(1) rotate(0deg) }
+      50%  { transform: scale(1.1) rotate(0.5deg) }
+      100% { transform: scale(1) rotate(0deg) }
     }
-    @media (max-width: 480px) {
+    @media (max-width:480px) {
       .animate-fancy {
-        animation:
-          slideFadeIn 1s ease-out forwards,
-          kenburns 25s ease-out 0.5s infinite alternate;
+        animation:slideFadeIn 1s ease-out forwards,
+                  kenburns 25s ease-out 0.5s infinite alternate;
       }
     }
 
-   /* ————— Section 7: Wedding Schedule ————— */
-.schedule-section .divider {
-  width: 100%;
-  height: 2px;
-  background: var(--dark-blue);
-  margin: var(--spacing) auto;
-}
+    /* 7. Wedding Schedule */
+    .schedule-section .divider {
+      width:100%; height:2px; background:var(--dark-blue);
+      margin:var(--spacing) auto;
+    }
+    .schedule-title {
+      font-family:'Playfair Display'; font-size:2rem;
+      text-transform:uppercase; line-height:1.2;
+      animation:fadeInDown 1s ease-out both;
+      margin-bottom:var(--spacing);
+    }
+    .schedule-date {
+      font-size:1rem; font-weight:500; margin-bottom:var(--spacing);
+    }
+    .schedule-list {
+      list-style:none; padding:0; margin:0;
+    }
+    .schedule-item {
+      text-align:center; margin-bottom:calc(var(--spacing)*1.5);
+      opacity:0; transform:translateY(20px);
+      transition:opacity 1s ease-out, transform 1s ease-out;
+    }
+    .schedule-item:nth-child(1) { transition-delay:0.2s }
+    .schedule-item:nth-child(2) { transition-delay:0.4s }
+    .schedule-item:nth-child(3) { transition-delay:0.6s }
+    .schedule-item:nth-child(4) { transition-delay:0.8s }
+    .schedule-item.visible {
+      opacity:1; transform:translateY(0);
+    }
+    .schedule-item ion-icon {
+      display:block; margin:0 auto .5rem;
+      font-size:40px; color:var(--gold);
+    }
+    .schedule-item .time {
+      font-weight:700; font-size:1.1rem;
+      display:block; margin-bottom:.25rem;
+    }
+    .schedule-item .desc { font-size:1rem }
 
-.schedule-title {
-  /* หัวข้อ WEDDING SCHEDULE */
-  font-family: 'Playfair Display', serif;
-  font-size: 2rem;
-  text-transform: uppercase;
-  line-height: 1.2;
-  animation: fadeInDown 1s ease-out both;
-  margin-bottom: var(--spacing);
-}
-
-/* วันที่ */
-.schedule-date {
-  font-size: 1rem;
-  font-weight: 500;
-  margin-bottom: var(--spacing);
-}
-
-/* รายการพิธี */
-.schedule-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.schedule-item {
-  text-align: center;
-  margin-bottom: calc(var(--spacing) * 1.5);
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 1s ease-out, transform 1s ease-out;
-}
-/* ไล่ delay ทีละไอเท็ม */
-.schedule-item:nth-child(1) { transition-delay: 0.2s; }
-.schedule-item:nth-child(2) { transition-delay: 0.4s; }
-.schedule-item:nth-child(3) { transition-delay: 0.6s; }
-.schedule-item:nth-child(4) { transition-delay: 0.8s; }
-.schedule-item.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ไอคอนอยู่ตรงกลางบนเวลา */
-.schedule-item ion-icon {
-  display: block;
-  margin: 0 auto 0.5rem;
-  font-size: 40px;
-  color: var(--gold);
-}
-
-/* เวลา */
-.schedule-item .time {
-  font-weight: 700;
-  font-size: 1.1rem;
-  display: block;
-  margin-bottom: 0.25rem;
-}
-/* คำบรรยาย */
-.schedule-item .desc {
-  font-size: 1rem;
-}
-
-   
-
+    /* 8. Theme Colors */
+    .theme-section {
+      padding: var(--spacing) 0;
+      overflow: hidden; /* ซ่อน overflow ด้านข้าง */
+    }
+    .theme-title {
+      font-family:'Playfair Display'; font-size:2rem;
+      text-transform:uppercase;
+      animation:fadeInDown 1s ease-out both;
+      margin-bottom:var(--spacing);
+    }
+    .divider {
+      width:100%; height:2px; background:var(--dark-blue);
+      margin:var(--spacing) auto;
+    }
+    .color-circles {
+      display:flex; justify-content:center;
+      gap:var(--spacing); margin-bottom:var(--spacing);
+    }
+    .color-circle {
+      width:32px; height:32px; border-radius:50%;
+    }
+    .color-circle.blue  { background:var(--blue) }
+    .color-circle.cream { background:var(--cream) }
+    .color-circle.green { background:var(--teal) }
+    .bar-container {
+      display:flex; flex-direction:column;
+      gap:calc(var(--spacing)*0.5);
+      overflow:hidden; /* ซ่อน overflow ด้านข้าง */
+    }
+    .color-bar {
+      width:100%; height:60px;
+      transform:translateX(-100%);
+      transition:transform 1.2s ease-out;
+    }
+    .color-bar.blue-bar  { background:var(--blue);  transition-delay:0s }
+    .color-bar.cream-bar { background:var(--cream); transition-delay:0.2s }
+    .color-bar.green-bar{ background:var(--teal);  transition-delay:0.4s }
+    .color-bar.visible {
+      transform:translateX(0);
+    }
   </style>
-
 </head>
 <body>
   <header><nav class="main-nav"></nav></header>
   <main>
     <!-- 1. Hero -->
     <section class="hero container">
-      <img id="animatedImage" src="https://i.postimg.cc/6QGx2SKg/DSC087422-1.jpg" alt="Wedding background" />
+      <img id="animatedImage" src="https://i.postimg.cc/6QGx2SKg/DSC087422-1.jpg" alt="Wedding background"/>
     </section>
 
     <!-- 2. Prompt & Audio -->
@@ -545,200 +433,211 @@
       <div class="gallery">
         <button class="prev" aria-label="Previous"><svg viewBox="0 0 24 24"><polygon points="15,4 7,12 15,20"/></svg></button>
         <div class="slides">
-          <div class="slide"><a href="https://i.postimg.cc/SsTCWWJw/DSC-7529-19944.jpg" class="glightbox"><img src="https://i.postimg.cc/SsTCWWJw/DSC-7529-19944.jpg" alt=""></a></div>
-          <div class="slide"><a href="https://i.postimg.cc/02vVmwcN/DSC-0160.jpg" class="glightbox"><img src="https://i.postimg.cc/02vVmwcN/DSC-0160.jpg" alt=""></a></div>
-          <div class="slide"><a href="https://i.postimg.cc/cCRT2x4Z/DSC-7266-19681.jpg" class="glightbox"><img src="https://i.postimg.cc/cCRT2x4Z/DSC-7266-19681.jpg" alt=""></a></div>
+          <div class="slide"><a href="https://i.postimg.cc/SsTCWWJw/DSC-7529-19944.jpg" class="glightbox"><img src="https://i.postimg.cc/SsTCWWJw/DSC-7529-19944.jpg" alt=""/></a></div>
+          <div class="slide"><a href="https://i.postimg.cc/02vVmwcN/DSC-0160.jpg" class="glightbox"><img src="https://i.postimg.cc/02vVmwcN/DSC-0160.jpg" alt=""/></a></div>
+          <div class="slide"><a href="https://i.postimg.cc/cCRT2x4Z/DSC-7266-19681.jpg" class="glightbox"><img src="https://i.postimg.cc/cCRT2x4Z/DSC-7266-19681.jpg" alt=""/></a></div>
         </div>
         <button class="next" aria-label="Next"><svg viewBox="0 0 24 24"><polygon points="9,4 17,12 9,20"/></svg></button>
       </div>
       <div class="dot-container">
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
       </div>
-      <p class="gallery-tagline">
-        จากนี้และตลอดไป<br>“From this day forward, and forever.”
-      </p>
+      <p class="gallery-tagline">จากนี้และตลอดไป<br>“From this day forward, and forever.”</p>
     </section>
 
     <!-- 6. Couple Full-Width Photo with Fancy Animation -->
     <section id="coupleSection" class="couple-section">
-      <img class="couple-full animate-fancy" src="https://i.postimg.cc/2yR20bY2/DSC08741-1.jpg" alt="PANNITA & NATIPHOL">
+      <img class="couple-full animate-fancy" src="https://i.postimg.cc/2yR20bY2/DSC08741-1.jpg" alt="PANNITA & NATIPHOL"/>
     </section>
 
-   <!-- Section 7: Wedding Schedule -->
-<section id="scheduleSection" class="schedule-section container">
-  <h2 class="schedule-title">
-    WEDDING SCHEDULE<br> กำหนดการ
-  </h2>
+    <!-- 7. Wedding Schedule -->
+    <section id="scheduleSection" class="schedule-section container">
+      <h2 class="schedule-title">WEDDING SCHEDULE<br>กำหนดการ</h2>
+      <div class="divider"></div>
+      <div class="schedule-date">
+        <span class="day-en">SUNDAY  8 June 2025</span><br>
+        <span class="day-th">วันอาทิตย์ 8 มิถุนายน 2568</span>
+      </div>
+      <div class="divider"></div>
+      <ul class="schedule-list">
+        <li class="schedule-item">
+          <ion-icon name="walk-outline"></ion-icon>
+          <span class="time">15.30 น.</span>
+          <span class="desc">พิธีแห่ขันหมาก</span>
+        </li>
+        <li class="schedule-item">
+          <ion-icon name="diamond-outline"></ion-icon>
+          <span class="time">16.09 น.</span>
+          <span class="desc">พิธีสวมแหวน</span>
+        </li>
+        <li class="schedule-item">
+          <ion-icon name="water-outline"></ion-icon>
+          <span class="time">17.29 น.</span>
+          <span class="desc">พิธีรดน้ำสังข์</span>
+        </li>
+        <li class="schedule-item">
+          <ion-icon name="restaurant-outline"></ion-icon>
+          <span class="time">18.30 น.</span>
+          <span class="desc">งานเลี้ยงฉลองมงคลสมรส</span>
+        </li>
+      </ul>
+    </section>
 
-  <!-- ขีดกั้นใต้หัวข้อ -->
-  <div class="divider"></div>
+    <!-- 8. Theme Colors -->
+    <section id="themeSection" class="theme-section container">
+      <h2 class="theme-title">THEME COLORS</h2>
+      <div class="divider"></div>
+      <div class="color-circles">
+        <div class="color-circle blue"></div>
+        <div class="color-circle cream"></div>
+        <div class="color-circle green"></div>
+      </div>
+      <div class="bar-container">
+        <div class="color-bar blue-bar"></div>
+        <div class="color-bar cream-bar"></div>
+        <div class="color-bar green-bar"></div>
+      </div>
+    </section>
+  </main>
 
-  <div class="schedule-date">
-    <span class="day-en">SUNDAY  8 June 2025</span><br>
-    <span class="day-th">วันอาทิตย์ 8 มิถุนายน 2568</span>
-  </div>
+  <!-- GLightbox & Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Hero → Prompt & Audio reveal
+      const heroImg = document.getElementById('animatedImage');
+      const indicator = document.getElementById('indicator');
+      const audioPlayer = document.getElementById('audioPlayer');
+      new IntersectionObserver((entries, obs) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            heroImg.classList.add('visible');
+            indicator.classList.add('visible');
+            audioPlayer.classList.add('visible');
+            obs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.1 }).observe(heroImg);
 
-  <!-- ขีดกั้นใต้วันที่ -->
-  <div class="divider"></div>
-
-  <ul class="schedule-list">
-    <li class="schedule-item">
-      <ion-icon name="walk-outline"></ion-icon>
-      <span class="time">15.30 น.</span>
-      <span class="desc">พิธีแห่ขันหมาก</span>
-    </li>
-    <li class="schedule-item">
-      <ion-icon name="diamond-outline"></ion-icon>
-      <span class="time">16.09 น.</span>
-      <span class="desc">พิธีสวมแหวน</span>
-    </li>
-    <li class="schedule-item">
-      <ion-icon name="water-outline"></ion-icon>
-      <span class="time">17.29 น.</span>
-      <span class="desc">พิธีรดน้ำสังข์</span>
-    </li>
-    <li class="schedule-item">
-      <ion-icon name="restaurant-outline"></ion-icon>
-      <span class="time">18.30 น.</span>
-      <span class="desc">งานเลี้ยงฉลองมงคลสมรส</span>
-    </li>
-  </ul>
-</section>
-
-
-<!-- GLightbox & Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // Hero → Prompt & Audio reveal
-    const heroImg = document.getElementById('animatedImage');
-    const indicator = document.getElementById('indicator');
-    const audioPlayer = document.getElementById('audioPlayer');
-    new IntersectionObserver((entries, obs) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          heroImg.classList.add('visible');
-          indicator.classList.add('visible');
-          audioPlayer.classList.add('visible');
-          obs.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.1 }).observe(heroImg);
-
-    // Reveal other sections
-    const toReveal = [
-      document.getElementById('messageSection'),
-      document.getElementById('countdownSection'),
-      document.getElementById('momentSection'),
-      document.getElementById('coupleSection'),
-      document.getElementById('scheduleSection'),
-      document.getElementById('themeSection')
-    ];
-    const io = new IntersectionObserver((entries, obs) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          obs.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.2 });
-    toReveal.forEach(el => io.observe(el));
-
-    // Schedule items observer
-    const scheduleItems = document.querySelectorAll('.schedule-item');
-    const ioSchedule = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          obs.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.2 });
-    scheduleItems.forEach(item => ioSchedule.observe(item));
-
-
-
-    // Audio controls
-    const audio = document.getElementById('audio');
-    const playBtn = document.getElementById('playBtn');
-    const progress = document.getElementById('progress');
-    const progCont = document.getElementById('progressContainer');
-    const cur = document.getElementById('currentTime');
-    const dur = document.getElementById('duration');
-    playBtn.addEventListener('click', () => {
-      if (audio.paused) {
-        audio.play();
-        playBtn.innerHTML = '<svg viewBox="0 0 64 64"><rect x="16" y="8" width="12" height="48"/><rect x="36" y="8" width="12" height="48"/></svg>';
-      } else {
-        audio.pause();
-        playBtn.innerHTML = '<svg viewBox="0 0 64 64"><polygon points="16,8 56,32 16,56"/></svg>';
-      }
-    });
-    audio.addEventListener('loadedmetadata', () => dur.textContent = formatTime(audio.duration));
-    audio.addEventListener('timeupdate', () => {
-      cur.textContent = formatTime(audio.currentTime);
-      progress.style.width = (audio.currentTime / audio.duration) * 100 + '%';
-    });
-    progCont.addEventListener('click', e => {
-      const rect = progCont.getBoundingClientRect();
-      audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
-    });
-    function formatTime(t) {
-      const m = Math.floor(t / 60), s = Math.floor(t % 60);
-      return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
-    }
-
-    // Countdown
-    const target = new Date(2025, 5, 8).getTime();
-    const ids = ['days', 'hours', 'minutes', 'seconds'];
-    function updateCountdown() {
-      const diff = Math.max(target - Date.now(), 0);
-      const vals = [
-        Math.floor(diff / (1000 * 60 * 60 * 24)),
-        Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-        Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
-        Math.floor((diff % 60000) / 1000)
+      // Reveal other sections
+      const toReveal = [
+        document.getElementById('messageSection'),
+        document.getElementById('countdownSection'),
+        document.getElementById('momentSection'),
+        document.getElementById('coupleSection'),
+        document.getElementById('scheduleSection'),
+        document.getElementById('themeSection')
       ];
-      vals.forEach((v, i) => {
-        const el = document.getElementById(ids[i]);
-        el.textContent = String(v).padStart(i > 0 ? 2 : 1, '0');
-        el.classList.add('animate');
-        setTimeout(() => el.classList.remove('animate'), 800);
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            obs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      toReveal.forEach(el => io.observe(el));
+
+      // Schedule items observer
+      const scheduleItems = document.querySelectorAll('.schedule-item');
+      const ioSchedule = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      scheduleItems.forEach(item => ioSchedule.observe(item));
+
+      // Theme colors bars (parallax effect)
+      const bars = document.querySelectorAll('.color-bar');
+      const ioBars = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      bars.forEach(bar => ioBars.observe(bar));
+
+      // Audio controls
+      const audio = document.getElementById('audio');
+      const playBtn = document.getElementById('playBtn');
+      const progress = document.getElementById('progress');
+      const progCont = document.getElementById('progressContainer');
+      const cur = document.getElementById('currentTime');
+      const dur = document.getElementById('duration');
+      playBtn.addEventListener('click', () => {
+        if (audio.paused) {
+          audio.play();
+          playBtn.innerHTML = '<svg viewBox="0 0 64 64"><rect x="16" y="8" width="12" height="48"/><rect x="36" y="8" width="12" height="48"/></svg>';
+        } else {
+          audio.pause();
+          playBtn.innerHTML = '<svg viewBox="0 0 64 64"><polygon points="16,8 56,32 16,56"/></svg>';
+        }
       });
-    }
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
+      audio.addEventListener('loadedmetadata', () => dur.textContent = formatTime(audio.duration));
+      audio.addEventListener('timeupdate', () => {
+        cur.textContent = formatTime(audio.currentTime);
+        progress.style.width = (audio.currentTime / audio.duration) * 100 + '%';
+      });
+      progCont.addEventListener('click', e => {
+        const rect = progCont.getBoundingClientRect();
+        audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
+      });
+      function formatTime(t) {
+        const m = Math.floor(t / 60), s = Math.floor(t % 60);
+        return String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+      }
 
-    // Gallery slider
-    const slides = document.querySelectorAll('.slide');
-    const dots   = document.querySelectorAll('.dot');
-    const slider = document.querySelector('.slides');
-    let idx = 0;
-    function showSlide(i) {
-      idx = (i + slides.length) % slides.length;
-      slider.style.transform = `translateX(-${idx*100}%)`;
-      dots.forEach((d,j) => d.classList.toggle('active', j===idx));
-    }
-    document.querySelector('.prev').addEventListener('click', () => showSlide(idx-1));
-    document.querySelector('.next').addEventListener('click', () => showSlide(idx+1));
-    dots.forEach((d,i) => d.addEventListener('click', () => showSlide(i)));
-    let startX = 0;
-    document.querySelector('.gallery').addEventListener('touchstart', e => startX = e.touches[0].clientX);
-    document.querySelector('.gallery').addEventListener('touchend', e => {
-      const endX = e.changedTouches[0].clientX;
-      if (startX - endX > 50) showSlide(idx+1);
-      if (endX - startX > 50) showSlide(idx-1);
+      // Countdown
+      const target = new Date(2025,5,8).getTime();
+      const ids = ['days','hours','minutes','seconds'];
+      function updateCountdown() {
+        const diff = Math.max(target - Date.now(), 0);
+        const vals = [
+          Math.floor(diff/(1000*60*60*24)),
+          Math.floor((diff%(1000*60*60*24))/(1000*60*60)),
+          Math.floor((diff%(1000*60*60))/(1000*60)),
+          Math.floor((diff%60000)/1000)
+        ];
+        vals.forEach((v,i) => {
+          const el = document.getElementById(ids[i]);
+          el.textContent = String(v).padStart(i>0?2:1,'0');
+          el.classList.add('animate');
+          setTimeout(() => el.classList.remove('animate'), 800);
+        });
+      }
+      updateCountdown();
+      setInterval(updateCountdown,1000);
+
+      // Gallery slider
+      const slides = document.querySelectorAll('.slide');
+      const dots   = document.querySelectorAll('.dot');
+      const slider = document.querySelector('.slides');
+      let idx = 0;
+      function showSlide(i) {
+        idx = (i + slides.length) % slides.length;
+        slider.style.transform = `translateX(-${idx*100}%)`;
+        dots.forEach((d,j) => d.classList.toggle('active', j===idx));
+      }
+      document.querySelector('.prev').addEventListener('click', () => showSlide(idx-1));
+      document.querySelector('.next').addEventListener('click', () => showSlide(idx+1));
+      dots.forEach((d,i) => d.addEventListener('click', () => showSlide(i)));
+      let startX = 0;
+      document.querySelector('.gallery').addEventListener('touchstart', e => startX = e.touches[0].clientX);
+      document.querySelector('.gallery').addEventListener('touchend', e => {
+        const endX = e.changedTouches[0].clientX;
+        if (startX - endX > 50) showSlide(idx+1);
+        if (endX - startX > 50) showSlide(idx-1);
+      });
+      showSlide(0);
+
+      // GLightbox
+      GLightbox({ selector: '.glightbox', loop: true, touchNavigation: true });
     });
-    showSlide(0);
-
-    // GLightbox
-    GLightbox({ selector: '.glightbox', loop: true, touchNavigation: true });
-  });
-</script>
-
-
-
+  </script>
 </body>
 </html>
