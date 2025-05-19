@@ -94,24 +94,59 @@
     .message.visible p:nth-child(1) { transition-delay:.2s; opacity:1; transform:translateY(0) scale(1); }
     .message.visible p:nth-child(2) { transition-delay:.4s; opacity:1; transform:translateY(0) scale(1); }
 
-    /* 4. Countdown */
-    @keyframes fadeInDown { from{opacity:0;transform:translateY(-10px)} to{opacity:1;transform:translateY(0)} }
-    @keyframes pulse { 0%,100%{transform:scale(1)}50%{transform:scale(1.05)} }
-    .countdown-section { opacity:0; transform:translateY(20px); transition:transform 1s,opacity 1s; padding:var(--spacing) 0; }
-    .countdown-section.visible { opacity:1; transform:translateY(0); }
-    .countdown-title {
-      font-family:'Playfair Display',serif; font-size:2rem;
-      text-transform:uppercase; opacity:0; margin-bottom:var(--spacing);
-      animation: fadeInDown 1s ease-out both, pulse 2s ease-in-out 1s infinite;
+    /* 4. Countdown (modified) */
+    @keyframes fadeInUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+    .countdown-section {
+      opacity:0; transform:translateY(20px);
+      transition:transform 1s, opacity 1s;
+      padding:var(--spacing) 0;
+      text-align: center;
     }
-    .countdown { display:flex; justify-content:space-around; gap:var(--spacing) }
+    .countdown-section.visible {
+      opacity:1; transform:translateY(0);
+    }
+    .countdown-main-title,
+    .countdown-header,
+    .countdown-invite {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .countdown-section.visible .countdown-main-title {
+      opacity: 1; transform: translateY(0); transition-delay: 0.2s;
+      font-family:'Playfair Display',serif;
+      font-size:2.4rem;
+      text-transform:uppercase;
+      margin-bottom:0.5rem;
+    }
+    .countdown-section.visible .countdown-header {
+      opacity: 1; transform: translateY(0); transition-delay: 0.4s;
+    }
+    .countdown-section.visible .countdown-invite {
+      opacity: 1; transform: translateY(0); transition-delay: 0.6s;
+    }
+    .countdown-header {
+      display:flex; align-items:center; justify-content:center;
+      gap:0.5rem;
+      font-family:'IBM Plex Sans Thai',sans-serif;
+      font-size:1rem; text-transform:uppercase;
+      margin-bottom:0.75rem;
+    }
+    .countdown-header .dash { line-height:1; }
+    .event-date { font-weight:500; }
+    .countdown-invite {
+      font-size:0.95rem; margin-bottom:var(--spacing);
+      color:var(--dark-blue);
+    }
+    .countdown {
+      display:flex; justify-content:space-around; gap:var(--spacing);
+    }
     .unit { text-align:center }
     .box {
       background:var(--cream); border:1px solid var(--teal);
       padding:.75rem; min-width:70px; border-radius:var(--radius);
       box-shadow:0 4px 12px rgba(0,0,0,0.05);
     }
-    @keyframes fadeInUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
     .number {
       font-size:2rem; font-weight:700; color:var(--dark-blue);
       animation:fadeInUp .8s both;
@@ -186,7 +221,7 @@
     .invite-text { font-weight:500;font-size:1rem;text-align:center; }
 
     @media(min-width:480px) {
-      .countdown-title { font-size:2.2rem; }
+      .countdown-main-title { font-size:2.6rem; }
       .section-title, #familySection .section-title { font-size:2rem; }
       .play-btn { width:64px;height:64px; }
       .play-btn svg { width:30px;height:30px; }
@@ -195,6 +230,7 @@
 </head>
 <body>
   <header><nav class="main-nav"></nav></header>
+
   <main>
     <!-- 1. Hero -->
     <section class="hero container">
@@ -203,14 +239,20 @@
 
     <!-- 2. Prompt & Audio -->
     <section class="prompt-container container">
-      <div id="indicator" class="scroll-indicator">กรุณากดเล่นเพลงก่อน แล้วเลื่อนลงดูรายละเอียด</div>
+      <div id="indicator" class="scroll-indicator">
+        กรุณากดเล่นเพลงก่อน แล้วเลื่อนลงดูรายละเอียด
+      </div>
       <div id="audioPlayer" class="audio-player">
         <audio id="audio" src="https://natiphol.github.io/mp3/No.mp3"></audio>
         <button id="playBtn" class="play-btn" aria-label="Play">
           <svg viewBox="0 0 64 64"><polygon points="16,8 56,32 16,56"/></svg>
         </button>
-        <div id="progressContainer" class="progress-container"><div id="progress" class="progress"></div></div>
-        <div class="time"><span id="currentTime">00:00</span> / <span id="duration">00:00</span></div>
+        <div id="progressContainer" class="progress-container">
+          <div id="progress" class="progress"></div>
+        </div>
+        <div class="time">
+          <span id="currentTime">00:00</span> / <span id="duration">00:00</span>
+        </div>
       </div>
     </section>
 
@@ -218,17 +260,39 @@
     <section id="messageSection" class="message container">
       <p>เราสองคนกำลังจะเริ่มต้นบทใหม่ของชีวิตและอยากให้คุณเป็นส่วนหนึ่งในความทรงจำที่สวยงามครั้งนี้</p>
       <p>Our journey begins with love, and it becomes more meaningful with your support.<br>
-      Please join us as we celebrate the beginning of our forever.</p>
+         Please join us as we celebrate the beginning of our forever.
+      </p>
     </section>
 
     <!-- 4. Countdown -->
     <section id="countdownSection" class="countdown-section container">
-      <div class="countdown-title">COUNTDOWN TO WEDDING</div>
+      <h2 class="countdown-main-title">COUNTDOWN TO WEDDING</h2>
+      <div class="countdown-header">
+        <span class="day-of-week">SUNDAY</span>
+        <span class="dash">—</span>
+        <span class="event-date">8 June 2025</span>
+        <span class="dash">—</span>
+      </div>
+      <p class="countdown-invite">
+        Please join us in celebrating a beautiful journey of love as we count down to our wedding day.
+      </p>
       <div class="countdown">
-        <div class="unit"><div class="box"><span id="days" class="number">0</span></div><div class="label">วัน</div></div>
-        <div class="unit"><div class="box"><span id="hours" class="number">00</span></div><div class="label">ชั่วโมง</div></div>
-        <div class="unit"><div class="box"><span id="minutes" class="number">00</span></div><div class="label">นาที</div></div>
-        <div class="unit"><div class="box"><span id="seconds" class="number">00</span></div><div class="label">วินาที</div></div>
+        <div class="unit">
+          <div class="box"><span id="days" class="number">0</span></div>
+          <div class="label">วัน</div>
+        </div>
+        <div class="unit">
+          <div class="box"><span id="hours" class="number">00</span></div>
+          <div class="label">ชั่วโมง</div>
+        </div>
+        <div class="unit">
+          <div class="box"><span id="minutes" class="number">00</span></div>
+          <div class="label">นาที</div>
+        </div>
+        <div class="unit">
+          <div class="box"><span id="seconds" class="number">00</span></div>
+          <div class="label">วินาที</div>
+        </div>
       </div>
     </section>
 
@@ -236,13 +300,17 @@
     <section id="momentSection" class="gallery-section section-frame container">
       <div class="section-title">MOMENTALWAY</div>
       <div class="gallery">
-        <button class="prev" aria-label="Previous"><svg viewBox="0 0 24 24"><polygon points="15,4 7,12 15,20"/></svg></button>
+        <button class="prev" aria-label="Previous">
+          <svg viewBox="0 0 24 24"><polygon points="15,4 7,12 15,20"/></svg>
+        </button>
         <div class="slides">
           <div class="slide"><a href="https://i.postimg.cc/SsTCWWJw/DSC-7529-19944.jpg" class="glightbox"><img src="https://i.postimg.cc/SsTCWWJw/DSC-7529-19944.jpg" alt=""></a></div>
           <div class="slide"><a href="https://i.postimg.cc/02vVmwcN/DSC-0160.jpg" class="glightbox"><img src="https://i.postimg.cc/02vVmwcN/DSC-0160.jpg" alt=""></a></div>
           <div class="slide"><a href="https://i.postimg.cc/cCRT2x4Z/DSC-7266-19681.jpg" class="glightbox"><img src="https://i.postimg.cc/cCRT2x4Z/DSC-7266-19681.jpg" alt=""></a></div>
         </div>
-        <button class="next" aria-label="Next"><svg viewBox="0 0 24 24"><polygon points="9,4 17,12 9,20"/></svg></button>
+        <button class="next" aria-label="Next">
+          <svg viewBox="0 0 24 24"><polygon points="9,4 17,12 9,20"/></svg>
+        </button>
       </div>
       <div class="dot-container"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
       <p class="gallery-tagline">จากนี้และตลอดไป<br>“From this day forward, and forever.”</p>
@@ -268,7 +336,7 @@
   <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Hero → Prompt & Audio
+      // Hero → Prompt & Audio reveal
       const heroImg = document.getElementById('animatedImage');
       const indicator = document.getElementById('indicator');
       const audioPlayer = document.getElementById('audioPlayer');
