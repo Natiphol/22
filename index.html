@@ -432,6 +432,23 @@
 }
     
 
+    /* Gallery 2-per-row */
+    .gallery-two {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      padding: var(--spacing) 0;
+    }
+    .gallery-two a {
+      display: block; overflow:hidden; border-radius:var(--radius);
+    }
+    .gallery-two img {
+      width:100%; height:auto; object-fit:cover;
+      transition:transform .3s ease;
+    }
+    .gallery-two img:hover {
+      transform: scale(1.05);
+    }
   </style>
 </head>
 <body>
@@ -547,7 +564,23 @@
   </p>
 </section>
 
-
+<!-- 10. Gallery 2-per-row (Lightbox) -->
+    <section class="gallery-two container">
+      <a href="https://i.postimg.cc/2yR20bY2/DSC08741-1.jpg" class="glightbox" data-gallery="gallery-2up">
+        <img src="https://i.postimg.cc/2yR20bY2/DSC08741-1.jpg" alt="ภาพ 1">
+      </a>
+      <a href="https://i.postimg.cc/ZRywPPGW/DSC08770.jpg" class="glightbox" data-gallery="gallery-2up">
+        <img src="https://i.postimg.cc/ZRywPPGW/DSC08770.jpg" alt="ภาพ 2">
+      </a>
+      <a href="https://i.postimg.cc/wvTDyWTX/DSC-7222-19637.jpg" class="glightbox" data-gallery="gallery-2up">
+        <img src="https://i.postimg.cc/wvTDyWTX/DSC-7222-19637.jpg" alt="ภาพ 3">
+      </a>
+      <a href="https://i.postimg.cc/SRn8VJ9j/DSC-7681-20095.jpg" class="glightbox" data-gallery="gallery-2up">
+        <img src="https://i.postimg.cc/SRn8VJ9j/DSC-7681-20095.jpg" alt="ภาพ 4">
+      </a>
+      <!-- เพิ่มได้สูงสุดถึง 10 รูป ตามรูปแบบด้านบน -->
+    </section>
+  </main>
 
 
 
