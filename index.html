@@ -29,7 +29,7 @@
       --gold:       #D4AF37;
       --bg-alpha:   rgba(255,245,225,0.9);
       --radius:     12px;
-      --spacing:    1.5rem; /* เพิ่มระยะห่างหลัก */
+      --spacing:    1.5rem;
     }
     *, *::before, *::after {
       margin: 0; padding: 0; box-sizing: border-box;
@@ -52,17 +52,13 @@
     }
     main {
       display: flex; flex-direction: column; align-items: center;
-      gap: calc(var(--spacing) * 2); /* เพิ่ม gap ระหว่าง section */
+      gap: calc(var(--spacing) * 2);
       padding: calc(var(--spacing) * 2) 0;
-      text-align: center;
     }
     .container {
       width: 90%; max-width: 420px; margin: 0 auto;
-      text-align: center;
     }
-    img {
-      display: block; width: 100%; border-radius: var(--radius); margin: 0 auto;
-    }
+    img { display: block; width: 100%; border-radius: var(--radius); }
 
     /* 1. Hero */
     .hero { width:100%; margin-top:var(--spacing); overflow:hidden; }
@@ -223,7 +219,7 @@
       opacity:0; transform:translateY(20px);
       transition:opacity 1s,transform 1s;
       font-style:italic; margin-top:var(--spacing);
-    }  
+    }
     .gallery-section.visible .gallery-tagline {
       opacity:1; transform:translateY(0);
     }
@@ -289,195 +285,110 @@
     }
     .schedule-item .desc{font-size:1rem}
 
- /* ——— Section 8: Theme Colors ——— */
-.theme-section {
-  padding: var(--spacing) 0;
-  overflow: hidden;
-}
+    /* 8. Theme Colors */
+    .theme-section {
+      padding: var(--spacing) 0;
+    }
+    .theme-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; text-transform: uppercase;
+      margin-bottom: var(--spacing);
+      animation: fadeInDown 1s ease-out both;
+      color: var(--dark-blue);
+    }
+    .divider {
+      width: 100%; height: 2px; background: var(--dark-blue);
+      margin: var(--spacing) auto;
+    }
+    .theme-desc { margin: var(--spacing) 0; }
+    .color-circles {
+      display: flex; flex-direction: column; align-items: center;
+      gap: var(--spacing); margin-bottom: var(--spacing);
+    }
+    .color-circle {
+      width: 58px; height: 58px; border-radius: 50%;
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+    .color-circle.visible {
+      opacity: 1; transform: translateY(0);
+    }
+    .color-circle.blue  { background: var(--blue); }
+    .color-circle.cream { background: var(--cream); }
+    .color-circle.green { background: var(--teal); }
 
-.theme-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 2rem;
-  text-transform: uppercase;
-  margin-bottom: var(--spacing);
-  animation: fadeInDown 1s ease-out both;
-  color: var(--dark-blue);
-}
+    .bar-container {
+      display: flex; flex-direction: column; gap: calc(var(--spacing) * 0.5);
+      overflow: hidden;
+    }
+    .color-bar {
+      width: 100%; height: 60px; transform: translateX(-100%);
+      transition: transform 1.2s ease-out;
+    }
+    .color-bar.visible { transform: translateX(0); }
+    .color-bar.blue-bar  { background: var(--blue);  transition-delay: 0s; }
+    .color-bar.cream-bar { background: var(--cream); transition-delay: 0.2s; }
+    .color-bar.green-bar{ background: var(--teal);  transition-delay: 0.4s; }
 
-.divider {
-  width: 100%;
-  height: 2px;
-  background: var(--dark-blue);
-  margin: var(--spacing) auto;
-}
+    /* 9. Map */
+    .map-section {
+      padding: var(--spacing) 0; opacity: 0; transform: translateY(20px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+    .map-section.visible {
+      opacity: 1; transform: translateY(0);
+    }
+    .map-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem; text-transform: uppercase;
+      margin-bottom: var(--spacing); color: var(--dark-blue);
+    }
+    .map-wrapper {
+      position: relative; padding-bottom: 56.25%; height: 0;
+      overflow: hidden; border: 2px solid var(--blue);
+      border-radius: var(--radius); margin-bottom: var(--spacing);
+    }
+    .map-wrapper iframe {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%; border: 0;
+    }
+    .map-note { margin-top: var(--spacing); }
+    .map-note a {
+      display: inline-flex; align-items: center;
+      color: var(--blue); font-weight: 500; text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .map-note a:hover { color: var(--dark-blue); }
+    .map-note a ion-icon { font-size: 1.2rem; margin-right: 0.5rem; }
 
-.theme-desc {
-  margin: var(--spacing) 0;
-}
-.theme-desc span {
-  display: block;
-  font-size: 1rem;
-  font-weight: 500;
-  margin: var(--spacing) 0;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 1s ease-out, transform 1s ease-out;
-}
-.theme-desc span:nth-child(1) { transition-delay: 0.2s; }
-.theme-desc span:nth-child(2) { transition-delay: 0.4s; }
-.theme-desc span:nth-child(3) { transition-delay: 0.6s; }
-.theme-desc span.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* วงกลมสี แสดงในแนวตั้ง */
-.color-circles {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--spacing);
-  margin-bottom: var(--spacing);
-}
-.color-circle {
-  width: 58px;
-  height: 58px;
-  border-radius: 50%;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 1s ease-out, transform 1s ease-out;
-}
-.color-circle:nth-child(1) { transition-delay: 0.2s; }
-.color-circle:nth-child(2) { transition-delay: 0.4s; }
-.color-circle:nth-child(3) { transition-delay: 0.6s; }
-.color-circle.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-.color-circle.blue  { background: var(--blue); }
-.color-circle.cream { background: var(--cream); }
-.color-circle.green { background: var(--teal); }
-
-/* แถบสีสไลด์เข้ามา */
-.bar-container {
-  display: flex;
-  flex-direction: column;
-  gap: calc(var(--spacing) * 0.5);
-  overflow: hidden;
-}
-.color-bar {
-  width: 100%;
-  height: 60px;
-  transform: translateX(-100%);
-  transition: transform 1.2s ease-out;
-}
-.color-bar.blue-bar  { background: var(--blue);  transition-delay: 0s; }
-.color-bar.cream-bar { background: var(--cream); transition-delay: 0.2s; }
-.color-bar.green-bar{ background: var(--teal);  transition-delay: 0.4s; }
-.color-bar.visible {
-  transform: translateX(0);
-}
-
-
-
-/* ——— Section 10: Map & Google Maps Link with Slide-Up Animation ——— */
-.map-section {
-  padding: var(--spacing) 0;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 1s ease-out, transform 1s ease-out;
-}
-.map-section.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-.map-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.5rem;
-  text-transform: uppercase;
-  margin-bottom: var(--spacing);
-  color: var(--dark-blue);
-}
-.map-wrapper {
-  position: relative;
-  padding-bottom: 56.25%; /* 16:9 ratio */
-  height: 0;
-  overflow: hidden;
-  border: 2px solid var(--blue);
-  border-radius: var(--radius);
-  margin-bottom: var(--spacing);
-}
-.map-wrapper iframe {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
-.map-note {
-  margin-top: var(--spacing);
-}
-.map-note a {
-  display: inline-flex;
-  align-items: center;
-  color: var(--blue);
-  font-weight: 500;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-.map-note a:hover {
-  color: var(--dark-blue);
-}
-.map-note a ion-icon {
-  font-size: 1.2rem;
-  margin-right: 0.5rem;
-}
-    /* CSS สำหรับ Section 11: gallery2up */
-.gallery2up-section {
-  padding: var(--spacing) 0;
-}
-.gallery2up-section .section-main-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.4rem;
-  text-transform: uppercase;
-  margin-bottom: calc(var(--spacing) * 0.5);
-}
-.gallery2up-section .section-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: .75rem;
-  margin-bottom: var(--spacing);
-}
-.gallery2up-section .section-header .line {
-  flex-grow: 1;
-  height: 2px;
-  background: var(--dark-blue);
-}
-.gallery2up-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--spacing);
-}
-.gallery2up-grid a {
-  display: block;
-  overflow: hidden;
-  border-radius: var(--radius);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-.gallery2up-grid img {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  transition: transform .3s ease;
-}
-.gallery2up-grid a:hover img {
-  transform: scale(1.05);
-}
-    
-
- </style>
+    /* 11. gallery2up */
+    .gallery2up-section { padding: var(--spacing) 0; }
+    .gallery2up-section .section-main-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem; text-transform: uppercase;
+      margin-bottom: calc(var(--spacing) * .5);
+    }
+    .gallery2up-section .section-header {
+      display: flex; align-items: center; justify-content: center;
+      gap: .75rem; margin-bottom: var(--spacing);
+    }
+    .gallery2up-section .section-header .line {
+      flex-grow: 1; height: 2px; background: var(--dark-blue);
+    }
+    .gallery2up-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing);
+    }
+    .gallery2up-grid a {
+      display: block; overflow: hidden; border-radius: var(--radius);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .gallery2up-grid img {
+      width: 100%; height: auto; object-fit: cover;
+      transition: transform .3s ease;
+    }
+    .gallery2up-grid a:hover img { transform: scale(1.05); }
+  </style>
 </head>
 <body>
   <header><nav class="main-nav"></nav></header>
@@ -507,7 +418,7 @@
       <p>เราสองคนกำลังจะเริ่มต้นบทใหม่ของชีวิตและอยากให้คุณเป็นส่วนหนึ่งในความทรงจำที่สวยงามครั้งนี้</p>
       <p>Our journey begins with love, and it becomes more meaningful with your support.<br/>Please join us as we celebrate the beginning of our forever.</p>
     </section>
-    
+
     <!-- 4. Countdown -->
     <section id="countdownSection" class="countdown-section container">
       <h2 class="countdown-main-title">SUNDAY</h2>
@@ -571,71 +482,54 @@
         <div class="color-circle cream"></div>
         <div class="color-circle green"></div>
       </div>
-</section>
+      <div class="bar-container">
+        <div class="color-bar blue-bar"></div>
+        <div class="color-bar cream-bar"></div>
+        <div class="color-bar green-bar"></div>
+      </div>
+    </section>
 
-<!-- 9. Map & Google Maps Link -->
-<section id="mapSection" class="map-section container">
-  <h2 class="map-title">MAP</h2>
-  <div class="map-wrapper">
-    <iframe
-      src="https://maps.google.com/maps?q=13.6959647,100.3413&hl=th&z=17&output=embed"
-      allowfullscreen
-      loading="lazy">
-    </iframe>
-  </div>
-  <p class="map-note">
-    <a href="https://www.google.com/maps/place/เลิฟสตอรี่+(เพชรกาญจน์+81)+สถานที่จัดงาน/@13.6959647,100.3413,17z"
-       target="_blank" rel="noopener">
-      <ion-icon name="map-outline"></ion-icon>
-      คลิกที่แผนที่เพื่อเปิด Google Maps
-    </a>
-  </p>
-</section>
-    
-<!-- 11. Gallery คู่ละสองภาพ -->
-<section id="gallery2up" class="gallery2up-section container">
-  <h2 class="section-main-title">OUR MOMENTS</h2>
-  <div class="section-header">
-    <div class="line"></div>
-    <span class="section-label">TUCK & TAN</span>
-    <div class="line"></div>
-  </div>
-  <div class="gallery2up-grid">
-    <!-- ใส่ได้สูงสุด 10 รูป -->
-    <a href="https://i.postimg.cc/2yR20bY2/DSC08741-1.jpg" class="glightbox" data-gallery="couple">
-      <img src="https://i.postimg.cc/2yR20bY2/DSC08741-1.jpg" alt="Couple 1"/>
-    </a>
-    <a href="https://i.postimg.cc/ZRywPPGW/DSC08770.jpg" class="glightbox" data-gallery="couple">
-      <img src="https://i.postimg.cc/ZRywPPGW/DSC08770.jpg" alt="Couple 2"/>
-    </a>
-    <a href="https://i.postimg.cc/wvTDyWTX/DSC-7222-19637.jpg" class="glightbox" data-gallery="couple">
-      <img src="https://i.postimg.cc/wvTDyWTX/DSC-7222-19637.jpg" alt="Couple 3"/>
-    </a>
-    <a href="https://i.postimg.cc/SRn8VJ9j/DSC-7681-20095.jpg" class="glightbox" data-gallery="couple">
-      <img src="https://i.postimg.cc/SRn8VJ9j/DSC-7681-20095.jpg" alt="Couple 4"/>
-    </a>
-    <!-- ... เพิ่มรูปได้ต่อไปจนถึง 10 รูป ... -->
-  </div>
-</section>
+    <!-- 9. Map & Google Maps Link -->
+    <section id="mapSection" class="map-section container">
+      <h2 class="map-title">MAP</h2>
+      <div class="map-wrapper">
+        <iframe
+          src="https://maps.google.com/maps?q=13.6959647,100.3413&hl=th&z=17&output=embed"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
+      </div>
+      <p class="map-note">
+        <a href="https://www.google.com/maps/place/เลิฟสตอรี่+(เพชรกาญจน์+81)+สถานที่จัดงาน/@13.6959647,100.3413,17z"
+           target="_blank" rel="noopener">
+          <ion-icon name="map-outline"></ion-icon>
+          คลิกที่แผนที่เพื่อเปิด Google Maps
+        </a>
+      </p>
+    </section>
 
-
-
-
+    <!-- 11. Gallery คู่ละสองภาพ -->
+    <section id="gallery2up" class="gallery2up-section container">
+      <h2 class="section-main-title">OUR MOMENTS</h2>
+      <div class="section-header">
+        <div class="line"></div>
+        <span class="section-label">TUCK & TAN</span>
+        <div class="line"></div>
+      </div>
+      <div class="gallery2up-grid">
+        <a href="https://i.postimg.cc/2yR20bY2/DSC08741-1.jpg" class="glightbox" data-gallery="couple"><img src="https://i.postimg.cc/2yR20bY2/DSC08741-1.jpg" alt="Couple 1"/></a>
+        <a href="https://i.postimg.cc/ZRywPPGW/DSC08770.jpg" class="glightbox" data-gallery="couple"><img src="https://i.postimg.cc/ZRywPPGW/DSC08770.jpg" alt="Couple 2"/></a>
+        <a href="https://i.postimg.cc/wvTDyWTX/DSC-7222-19637.jpg" class="glightbox" data-gallery="couple"><img src="https://i.postimg.cc/wvTDyWTX/DSC-7222-19637.jpg" alt="Couple 3"/></a>
+        <a href="https://i.postimg.cc/SRn8VJ9j/DSC-7681-20095.jpg" class="glightbox" data-gallery="couple"><img src="https://i.postimg.cc/SRn8VJ9j/DSC-7681-20095.jpg" alt="Couple 4"/></a>
+        <!-- เพิ่มได้ถึง 10 รูป -->
+      </div>
+    </section>
 
   </main>
 
-<!-- GLightbox JS -->
-<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-
-<!-- เรียกใช้งาน Lightbox สำหรับ gallery2up -->
-<script>
-  const lightbox2up = GLightbox({
-    selector: '.glightbox[data-gallery="couple"]',
-    loop: true,
-    touchNavigation: true,
-    autoplayVideos: false
-  });
-</script>
+  <!-- GLightbox JS -->
+  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+  <script>
     document.addEventListener('DOMContentLoaded', () => {
       // Hero → Prompt & Audio reveal
       const heroImg = document.getElementById('animatedImage');
@@ -660,7 +554,8 @@
         document.getElementById('coupleSection'),
         document.getElementById('scheduleSection'),
         document.getElementById('themeSection'),
-        document.getElementById('mapSection')
+        document.getElementById('mapSection'),
+        document.getElementById('gallery2up')
       ];
       const io = new IntersectionObserver((entries, obs) => {
         entries.forEach(e => {
@@ -672,42 +567,29 @@
       }, { threshold: 0.2 });
       toReveal.forEach(el => io.observe(el));
 
-
       // Schedule items observer
-      const scheduleItems = document.querySelectorAll('.schedule-item');
-      const ioSchedule = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            obs.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.2 });
-      scheduleItems.forEach(item => ioSchedule.observe(item));
+      document.querySelectorAll('.schedule-item').forEach(item => {
+        new IntersectionObserver((entries, obs) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              obs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.2 }).observe(item);
+      });
 
-      // Animation for color circles
-      const circles = document.querySelectorAll('.color-circle');
-      const ioCircles = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            obs.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.2 });
-      circles.forEach(c => ioCircles.observe(c));
-
-      // Color bars observer
-      const bars = document.querySelectorAll('.color-bar');
-      const ioBars = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            obs.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.2 });
-      bars.forEach(bar => ioBars.observe(bar));
+      // Color circles & bars
+      document.querySelectorAll('.color-circle, .color-bar').forEach(el => {
+        new IntersectionObserver((entries, obs) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              obs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.2 }).observe(el);
+      });
 
       // Audio controls
       const audio = document.getElementById('audio');
@@ -753,14 +635,12 @@
         vals.forEach((v,i) => {
           const el = document.getElementById(ids[i]);
           el.textContent = String(v).padStart(i>0?2:1,'0');
-          el.classList.add('animate');
-          setTimeout(() => el.classList.remove('animate'), 800);
         });
       }
       updateCountdown();
       setInterval(updateCountdown,1000);
 
-      // Gallery slider
+      // Slider
       const slides = document.querySelectorAll('.slide');
       const dots   = document.querySelectorAll('.dot');
       const slider = document.querySelector('.slides');
@@ -784,6 +664,12 @@
 
       // GLightbox
       GLightbox({ selector: '.glightbox', loop: true, touchNavigation: true });
+      GLightbox({
+        selector: '.glightbox[data-gallery="couple"]',
+        loop: true,
+        touchNavigation: true,
+        autoplayVideos: false
+      });
     });
   </script>
 </body>
