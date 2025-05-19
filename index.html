@@ -24,6 +24,15 @@
       --radius:     12px;
       --spacing:    1rem;
     }
+    /* Keyframes for animations */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50%      { transform: scale(1.05); }
+    }
     * { margin:0; padding:0; box-sizing:border-box }
     html, body {
       height:100%;
@@ -84,85 +93,51 @@
     .progress { width:0%; height:100%; background:var(--teal) }
     .time { font-size:.9rem; color:var(--dark-blue) }
 
-   /* 3. Message & Tagline */
-.message {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 1s, transform 1s;
-  padding: var(--spacing) 0;
-  text-align: center;            /* กึ่งกลางข้อความ */
-  /* หากอยากใช้ flex ให้ uncomment บรรทัดต่อไปนี้ */
-  /* display: flex;
-     flex-direction: column;
-     align-items: center; */
-}
-.message.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-.message p {
-  opacity: 0;
-  transform: translateY(20px) scale(.9);
-  transition: opacity .6s, transform .6s;
-}
-.message.visible p:nth-child(1) {
-  transition-delay: .2s;
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-.message.visible p:nth-child(2) {
-  transition-delay: .4s;
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
+    /* 3. Message & Tagline */
+    .message {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 1s, transform 1s;
+      padding: var(--spacing) 0;
+      text-align: center;
+    }
+    .message.visible { opacity:1; transform:translateY(0); }
+    .message p {
+      opacity:0; transform:translateY(20px) scale(.9);
+      transition:opacity .6s, transform .6s;
+    }
+    .message.visible p:nth-child(1) { transition-delay:.2s; opacity:1; transform:translateY(0) scale(1); }
+    .message.visible p:nth-child(2) { transition-delay:.4s; opacity:1; transform:translateY(0) scale(1); }
 
-    /* 4. Countdown (modified) */
-    @keyframes fadeInUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
-    /* —— CSS สำหรับ Countdown —— */
-.countdown-section {
-  text-align: center;
-  padding: var(--spacing) 0;
-}
-
-.countdown-main-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 3.6rem;
-  text-transform: uppercase;
-  margin-bottom: 0.75rem;
-}
-
-.countdown-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  margin-bottom: var(--spacing);
-}
-
-.countdown-header .line {
-  flex-grow: 1;
-  height: 2px;
-  background: var(--dark-blue);
-}
-
-.event-date {
-  font-family: 'IBM Plex Sans Thai', sans-serif;
-  font-size: 1rem;
-  font-weight: 500;
-  text-transform: uppercase;
-}
-
-.countdown-invite {
-  font-size: 0.95rem;
-  margin-bottom: var(--spacing);
-  color: var(--dark-blue);
-}
-
-.countdown {
-  display: flex;
-  justify-content: space-around;
-  gap: var(--spacing);
-}
+    /* 4. Countdown */
+    .countdown-section {
+      text-align: center;
+      padding: var(--spacing) 0;
+    }
+    .countdown-main-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.6rem;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      animation: fadeInDown 1s ease-out both, pulse 2s ease-in-out 1s infinite;
+    }
+    .countdown-header {
+      display: flex; align-items: center; justify-content:center;
+      gap: 0.75rem; margin-bottom: var(--spacing);
+    }
+    .countdown-header .line {
+      flex-grow: 1; height: 2px; background: var(--dark-blue);
+    }
+    .event-date {
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      font-size: 1rem; font-weight: 500; text-transform: uppercase;
+    }
+    .countdown-invite {
+      font-size:0.95rem; margin-bottom:var(--spacing);
+      color:var(--dark-blue);
+    }
+    .countdown {
+      display:flex; justify-content:space-around; gap:var(--spacing);
+    }
     .unit { text-align:center }
     .box {
       background:var(--cream); border:1px solid var(--teal);
@@ -171,20 +146,34 @@
     }
     .number {
       font-size:2rem; font-weight:700; color:var(--dark-blue);
-      animation:fadeInUp .8s both;
+      animation: fadeInDown .8s both;
     }
     .label { margin-top:.3rem; font-size:.85rem; font-weight:500; color:var(--dark-blue) }
 
-    /* 5. MOMENTALWAY Gallery */
+    /* 5. BEST MOMENT Section */
+    .section-main-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      text-align: center;
+    }
+    .section-header {
+      display: flex; align-items: center; justify-content:center;
+      gap: 0.75rem; margin-bottom: var(--spacing);
+    }
+    .section-header .line {
+      flex-grow: 1; height: 2px; background: var(--dark-blue);
+    }
+    .section-label {
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      font-size: 1rem; font-weight:500; text-transform: uppercase;
+    }
     .gallery-section { width:100%; margin:var(--spacing) 0; }
     .section-frame {
       background:#fff; border:2px solid var(--teal);
       border-radius:var(--radius); padding:calc(var(--spacing)*1.5);
       box-shadow:0 4px 16px rgba(0,0,0,0.1); text-align:center;
-    }
-    .section-title {
-      font-family:'Playfair Display',serif; font-size:1.8rem;
-      text-transform:uppercase; margin-bottom:var(--spacing);
     }
     .gallery { position:relative; overflow:hidden; padding:0 var(--spacing); }
     .slides { display:flex; transition:transform .5s ease; }
@@ -192,18 +181,18 @@
     .slide img { width:100%; border-radius:var(--radius); cursor:pointer; }
     .prev, .next {
       position:absolute; top:50%; transform:translateY(-50%);
-      background:var(--bg-alpha);border:none;width:36px;height:36px;
-      border-radius:50%;display:flex;align-items:center;justify-content:center;
+      background:var(--bg-alpha); border:none; width:36px; height:36px;
+      border-radius:50%; display:flex; align-items:center; justify-content:center;
       box-shadow:0 2px 8px rgba(0,0,0,0.2); cursor:pointer;
     }
     .prev { left:8px } .next { right:8px }
-    .prev svg, .next svg { width:18px;height:18px; fill:var(--dark-blue) }
-    .dot-container { display:flex;justify-content:center;gap:6px;margin-top:var(--spacing); }
+    .prev svg, .next svg { width:18px; height:18px; fill:var(--dark-blue) }
+    .dot-container { display:flex; justify-content:center; gap:6px; margin-top:var(--spacing); }
     .dot {
-      width:10px;height:10px;background:var(--teal);
-      border-radius:50%;opacity:.5;cursor:pointer;transition:opacity .3s;
+      width:10px; height:10px; background:var(--teal);
+      border-radius:50%; opacity:.5; cursor:pointer; transition:opacity .3s;
     }
-    .dot.active { opacity:1;background:var(--dark-blue); }
+    .dot.active { opacity:1; background:var(--dark-blue); }
     .gallery-tagline {
       opacity:0; transform:translateY(20px);
       transition:opacity 1s, transform 1s;
@@ -214,7 +203,10 @@
     }
 
     /* 6. Family & Hosts */
-    #familySection { opacity:0; transform:translateY(20px); transition:opacity 1s,transform 1s; padding:var(--spacing) 0; }
+    #familySection {
+      opacity:0; transform:translateY(20px);
+      transition:opacity 1s,transform 1s; padding:var(--spacing) 0;
+    }
     #familySection.visible { opacity:1; transform:translateY(0); }
     #familySection .inner-frame {
       border:1px solid var(--gold); border-radius:calc(var(--radius)/2);
@@ -243,8 +235,8 @@
     .invite-text { font-weight:500;font-size:1rem;text-align:center; }
 
     @media(min-width:480px) {
-      .countdown-main-title { font-size:2.6rem; }
-      .section-title, #familySection .section-title { font-size:2rem; }
+      .countdown-main-title { font-size:4rem; }
+      .section-main-title { font-size:2.8rem; }
       .play-btn { width:64px;height:64px; }
       .play-btn svg { width:30px;height:30px; }
     }
@@ -252,7 +244,6 @@
 </head>
 <body>
   <header><nav class="main-nav"></nav></header>
-
   <main>
     <!-- 1. Hero -->
     <section class="hero container">
@@ -261,20 +252,14 @@
 
     <!-- 2. Prompt & Audio -->
     <section class="prompt-container container">
-      <div id="indicator" class="scroll-indicator">
-        กรุณากดเล่นเพลงก่อน แล้วเลื่อนลงดูรายละเอียด
-      </div>
+      <div id="indicator" class="scroll-indicator">กรุณากดเล่นเพลงก่อน แล้วเลื่อนลงดูรายละเอียด</div>
       <div id="audioPlayer" class="audio-player">
         <audio id="audio" src="https://natiphol.github.io/mp3/No.mp3"></audio>
         <button id="playBtn" class="play-btn" aria-label="Play">
           <svg viewBox="0 0 64 64"><polygon points="16,8 56,32 16,56"/></svg>
         </button>
-        <div id="progressContainer" class="progress-container">
-          <div id="progress" class="progress"></div>
-        </div>
-        <div class="time">
-          <span id="currentTime">00:00</span> / <span id="duration">00:00</span>
-        </div>
+        <div id="progressContainer" class="progress-container"><div id="progress" class="progress"></div></div>
+        <div class="time"><span id="currentTime">00:00</span> / <span id="duration">00:00</span></div>
       </div>
     </section>
 
@@ -285,60 +270,42 @@
          Please join us as we celebrate the beginning of our forever.
       </p>
     </section>
-    
-<!-- 4. Countdown -->
-<section id="countdownSection" class="countdown-section container">
-  <!-- หัวข้อหลักใหญ่ -->
-  <h2 class="countdown-main-title">SUNDAY</h2>
 
-  <!-- ขีดยาวซ้าย–ขวา และวันที่ -->
-  <div class="countdown-header">
-    <div class="line"></div>
-    <span class="event-date">8 June 2025</span>
-    <div class="line"></div>
-  </div>
-
-  <!-- ข้อความเชิญ -->
-  <p class="countdown-invite">
-    Please join us in celebrating a beautiful journey of love as we count down to our wedding day.
-  </p>
-
-  <!-- ตัวนับถอยหลัง -->
-  <div class="countdown">
-    <div class="unit">
-      <div class="box"><span id="days" class="number">0</span></div>
-      <div class="label">วัน</div>
-    </div>
-    <div class="unit">
-      <div class="box"><span id="hours" class="number">00</span></div>
-      <div class="label">ชั่วโมง</div>
-    </div>
-    <div class="unit">
-      <div class="box"><span id="minutes" class="number">00</span></div>
-      <div class="label">นาที</div>
-    </div>
-    <div class="unit">
-      <div class="box"><span id="seconds" class="number">00</span></div>
-      <div class="label">วินาที</div>
-    </div>
-  </div>
-</section>
+    <!-- 4. Countdown -->
+    <section id="countdownSection" class="countdown-section container">
+      <h2 class="countdown-main-title">SUNDAY</h2>
+      <div class="countdown-header">
+        <div class="line"></div>
+        <span class="event-date">8 June 2025</span>
+        <div class="line"></div>
+      </div>
+      <p class="countdown-invite">
+        Please join us in celebrating a beautiful journey of love as we count down to our wedding day.
+      </p>
+      <div class="countdown">
+        <div class="unit"><div class="box"><span id="days" class="number">0</span></div><div class="label">วัน</div></div>
+        <div class="unit"><div class="box"><span id="hours" class="number">00</span></div><div class="label">ชั่วโมง</div></div>
+        <div class="unit"><div class="box"><span id="minutes" class="number">00</span></div><div class="label">นาที</div></div>
+        <div class="unit"><div class="box"><span id="seconds" class="number">00</span></div><div class="label">วินาที</div></div>
+      </div>
+    </section>
 
     <!-- 5. BEST MOMENT -->
     <section id="momentSection" class="gallery-section section-frame container">
-      <div class="section-title">BEST MOMENT</div>
+      <h2 class="section-main-title">BEST MOMENT</h2>
+      <div class="section-header">
+        <div class="line"></div>
+        <span class="section-label">TUCK & TAN</span>
+        <div class="line"></div>
+      </div>
       <div class="gallery">
-        <button class="prev" aria-label="Previous">
-          <svg viewBox="0 0 24 24"><polygon points="15,4 7,12 15,20"/></svg>
-        </button>
+        <button class="prev" aria-label="Previous"><svg viewBox="0 0 24 24"><polygon points="15,4 7,12 15,20"/></svg></button>
         <div class="slides">
           <div class="slide"><a href="https://i.postimg.cc/SsTCWWJw/DSC-7529-19944.jpg" class="glightbox"><img src="https://i.postimg.cc/SsTCWWJw/DSC-7529-19944.jpg" alt=""></a></div>
           <div class="slide"><a href="https://i.postimg.cc/02vVmwcN/DSC-0160.jpg" class="glightbox"><img src="https://i.postimg.cc/02vVmwcN/DSC-0160.jpg" alt=""></a></div>
           <div class="slide"><a href="https://i.postimg.cc/cCRT2x4Z/DSC-7266-19681.jpg" class="glightbox"><img src="https://i.postimg.cc/cCRT2x4Z/DSC-7266-19681.jpg" alt=""></a></div>
         </div>
-        <button class="next" aria-label="Next">
-          <svg viewBox="0 0 24 24"><polygon points="9,4 17,12 9,20"/></svg>
-        </button>
+        <button class="next" aria-label="Next"><svg viewBox="0 0 24 24"><polygon points="9,4 17,12 9,20"/></svg></button>
       </div>
       <div class="dot-container"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
       <p class="gallery-tagline">จากนี้และตลอดไป<br>“From this day forward, and forever.”</p>
