@@ -12,7 +12,11 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=IBM+Plex+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <!-- ฟอนต์ชื่อคู่: Monsieur La Doulaise -->
+<link href="https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
+<!-- ฟอนต์ & เชื่อม: Great Vibes -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
 
   <title>Wedding Invitation – Mobile UX</title>
   <style>
@@ -197,19 +201,20 @@
     }
 
 /* Section 6: คู่บ่าวสาว (อัพเดต) */
-.names {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
+/* ชื่อคู่บ่าวสาวใช้ Monsieur La Doulaise */
+.name-left, .name-right {
+  font-family: 'Monsieur La Doulaise', cursive;
+  font-size: 2.4rem;
+  color: var(--dark-blue);
+  margin: 0;
+  text-transform: uppercase;
 }
 
+/* ตัวเชื่อม & ยังคงใช้ Great Vibes */
 .connector {
   font-family: 'Great Vibes', cursive;
-  font-size: 2.8rem;
+  font-size: 3rem;
   color: var(--gold);
-  line-height: 1;
-  /* เลือกใส่อนิเมชั่นเล็กน้อย ให้ค่อยๆ ปรากฏ */
   opacity: 0;
   animation: fadeInConnector 1s ease-out forwards 0.5s;
 }
@@ -219,22 +224,19 @@
   to   { opacity: 1; transform: scale(1); }
 }
 
-/* ปรับชื่อซ้าย-ขวา ตามเดิม */
-.name-left, .name-right {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: var(--dark-blue);
-  margin: 0;
+/* จัดเลเอาต์ให้สวย */
+.names {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
 }
-.name-left { transform: translateX(-8px) rotate(-1deg); }
-.name-right { transform: translateX(8px) rotate(1deg); }
-
 @media (max-width: 480px) {
   .names { flex-direction: column; }
   .connector { margin: 0.5rem 0; }
-  .name-left, .name-right { transform: none; font-size: 2rem; }
+  .name-left, .name-right { font-size: 2rem; }
 }
+
   </style>
 </head>
 <body>
