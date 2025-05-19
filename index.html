@@ -14,8 +14,9 @@
   <title>Wedding Invitation – Mobile UX</title>
   <style>
     :root {
-      --blue:       #89CFF0;
-      --cream:      #FFF5E1;
+      --blue-light: #e0f7fa;
+      --blue-deep:  #89CFF0;
+      --white:      #ffffff;
       --teal:       #A1D6E2;
       --dark-blue:  #2A6F97;
       --gold:       #D4AF37;
@@ -23,37 +24,50 @@
       --radius:     12px;
       --spacing:    1rem;
     }
-    * { margin:0; padding:0; box-sizing:border-box; }
+    * { margin:0; padding:0; box-sizing:border-box }
     html, body {
       height:100%;
-      padding-top: env(safe-area-inset-top);
-      padding-bottom: env(safe-area-inset-bottom);
-      background: linear-gradient(135deg, var(--cream), var(--teal), var(--blue));
-      font-family: 'IBM Plex Sans Thai', sans-serif;
+      font-family:'IBM Plex Sans Thai',sans-serif;
       color: var(--dark-blue);
       line-height:1.5;
     }
-    a, button { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
-    header { position: sticky; top:0; width:100%; background: rgba(255,255,255,0.9); z-index:1000; }
-    main {
-      display:flex; flex-direction:column; align-items:center;
-      gap:calc(var(--spacing)*2); padding:calc(var(--spacing)*2) 0;
-    }
-    .container { width:90%; max-width:420px; }
-    img { display:block; width:100%; border-radius:var(--radius); }
+    a, button { touch-action: manipulation; -webkit-tap-highlight-color: transparent }
+    header { position: sticky; top:0; background:rgba(255,255,255,0.9); z-index:1000; }
 
-    /* Hero */
-    .hero { width:100%; margin-top:var(--spacing); overflow:hidden; }
+    main {
+      display:flex; flex-direction:column;
+      align-items:center; gap:calc(var(--spacing)*2);
+      padding:calc(var(--spacing)*2) 0;
+    }
+    .container { width:90%; max-width:420px }
+
+    /* SECTION BACKGROUNDS */
+    .section-hero      { background: linear-gradient(180deg, var(--blue-light), var(--white)); }
+    .section-prompt    { background: linear-gradient(180deg, var(--white), var(--blue-light)); }
+    .section-message   { background: linear-gradient(180deg, var(--blue-light), var(--white)); }
+    .section-countdown { background: linear-gradient(180deg, var(--white), var(--blue-light)); }
+    .gallery-section   { background: linear-gradient(180deg, var(--blue-light), var(--white)); }
+    #familySection     { background: linear-gradient(180deg, var(--white), var(--blue-light)); }
+
+    img { display:block; width:100%; border-radius:var(--radius) }
+
+    /* 1. Hero */
+    .hero {
+      overflow:hidden; margin:var(--spacing) 0;
+      padding:0;
+    }
     #animatedImage {
       opacity:0; transform:translateY(20px);
       transition:opacity 1.5s ease-out, transform 1.5s ease-out;
     }
-    #animatedImage.visible { opacity:1; transform:translateY(0); }
+    #animatedImage.visible {
+      opacity:1; transform:translateY(0);
+    }
 
-    /* Prompt & Audio – updated */
+    /* 2. Prompt & Audio */
     .prompt-container {
       position:relative; overflow:hidden;
-      padding-top:var(--spacing);
+      padding:var(--spacing) 0;
     }
     .audio-player {
       background:var(--bg-alpha); border-radius:var(--radius);
@@ -61,13 +75,16 @@
       box-shadow:0 4px 16px rgba(0,0,0,0.05);
       transform:translateX(100vw); opacity:0;
       transition:transform 1s ease-out 0.5s, opacity 1s ease-out 0.5s;
-      margin-bottom: var(--spacing);
+      margin-bottom:var(--spacing);
     }
-    .audio-player.visible { transform:translateX(0); opacity:1; }
-    .play-btn { width:56px; height:56px; border:none; border-radius:50%;
-      background:linear-gradient(135deg,var(--teal),var(--blue));
+    .audio-player.visible {
+      transform:translateX(0); opacity:1;
+    }
+    .play-btn {
+      width:56px; height:56px; border:none; border-radius:50%;
+      background:linear-gradient(135deg,var(--teal),var(--blue-deep));
       display:inline-flex; align-items:center; justify-content:center;
-      transition:transform .2s; cursor:pointer;
+      cursor:pointer; transition:transform .2s;
     }
     .play-btn:active { transform:scale(.95) }
     .play-btn svg { width:24px; height:24px; fill:#fff }
@@ -79,8 +96,7 @@
     .time { font-size:.9rem; color:var(--dark-blue); }
 
     .scroll-indicator {
-      display:inline-block; padding:0.4rem 0.8rem;
-      /* border removed */
+      display:inline-block; padding:.4rem .8rem;
       background:var(--bg-alpha); font-weight:500;
       color:var(--dark-blue);
       transform:translateX(-100vw); opacity:0;
@@ -90,72 +106,94 @@
       transform:translateX(0); opacity:1;
     }
 
-    /* Message & Tagline */
-    .message { opacity:0; transform:translateY(20px); transition:opacity 1s, transform 1s; }
-    .message.visible { opacity:1; transform:translateY(0); }
-    .message p, .message .tagline {
+    /* 3. Personal Message */
+    .message {
+      opacity:0; transform:translateY(20px);
+      transition:opacity 1s, transform 1s;
+      padding:var(--spacing) 0;
+    }
+    .message.visible {
+      opacity:1; transform:translateY(0);
+    }
+    .message p {
       opacity:0; transform:translateY(20px) scale(.9);
       transition:opacity .6s, transform .6s;
     }
-    .message.visible p:nth-child(1) { transition-delay:.2s; opacity:1; transform:translateY(0) scale(1); }
-    .message.visible p:nth-child(2) { transition-delay:.4s; opacity:1; transform:translateY(0) scale(1); }
+    .message.visible p:nth-child(1) {
+      transition-delay:.2s; opacity:1; transform:translateY(0) scale(1);
+    }
+    .message.visible p:nth-child(2) {
+      transition-delay:.4s; opacity:1; transform:translateY(0) scale(1);
+    }
 
-    /* Countdown */
+    /* 4. Countdown */
     @keyframes fadeInDown { from{opacity:0;transform:translateY(-10px)} to{opacity:1;transform:translateY(0)} }
     @keyframes pulse { 0%,100%{transform:scale(1)}50%{transform:scale(1.05)} }
     .countdown-section {
       opacity:0; transform:translateY(20px);
-      transition:transform 1s,opacity 1s;
+      transition:transform 1s, opacity 1s;
+      padding:var(--spacing) 0;
     }
-    .countdown-section.visible { opacity:1; transform:translateY(0); }
+    .countdown-section.visible {
+      opacity:1; transform:translateY(0);
+    }
     .countdown-title {
       font-family:'Playfair Display',serif; font-size:2rem;
       text-transform:uppercase; opacity:0;
+      margin-bottom:var(--spacing);
     }
     .countdown-section.visible .countdown-title {
-      animation:fadeInDown 1s ease-out both, pulse 2s ease-in-out 1s infinite;
+      animation:fadeInDown 1s ease-out both,
+                pulse 2s ease-in-out 1s infinite;
     }
-    .countdown { display:flex; justify-content:space-around; gap:var(--spacing); }
-    .unit { text-align:center; }
-    .box { background:var(--cream); border:1px solid var(--teal);
+    .countdown { display:flex; justify-content:space-around; gap:var(--spacing) }
+    .unit { text-align:center }
+    .box {
+      background:var(--white); border:1px solid var(--teal);
       padding:.75rem; min-width:70px; border-radius:var(--radius);
       box-shadow:0 4px 12px rgba(0,0,0,0.05);
     }
     @keyframes fadeInUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
-    .number { font-size:2rem;font-weight:700;color:var(--dark-blue);
+    .number {
+      font-size:2rem; font-weight:700; color:var(--dark-blue);
       animation:fadeInUp .8s both;
     }
-    .label { margin-top:.3rem;font-size:.85rem;font-weight:500;color:var(--dark-blue); }
+    .label { margin-top:.3rem; font-size:.85rem; font-weight:500; color:var(--dark-blue) }
 
-    /* MOMENTALWAY Gallery */
-    .gallery-section { width:100%; }
-    .section-frame {
-      background:#fff;border:2px solid var(--teal);
-      border-radius:var(--radius);padding:calc(var(--spacing)*1.5);
-      box-shadow:0 4px 16px rgba(0,0,0,0.1);
+    /* 5. MOMENTALWAY Gallery */
+    .gallery-section {
+      width:100%; margin:var(--spacing) 0;
     }
-    .section-title {
-      font-family:'Playfair Display',serif;font-size:1.8rem;
-      text-transform:uppercase;color:var(--dark-blue);
-      margin-bottom:var(--spacing);
+    .gallery-section .section-frame {
+      background:#fff; border:2px solid var(--teal);
+      border-radius:var(--radius); padding:calc(var(--spacing)*1.5);
+      box-shadow:0 4px 16px rgba(0,0,0,0.1); text-align:center;
+    }
+    .gallery-section .section-title {
+      font-family:'Playfair Display',serif; font-size:1.8rem;
+      text-transform:uppercase; margin-bottom:var(--spacing);
     }
     .gallery { position:relative; overflow:hidden; padding:0 var(--spacing); }
     .slides { display:flex; transition:transform .5s ease; }
-    .slide { min-width:100%; padding:0 var(--spacing); }
+    .slide { min-width:100%; padding:0 var(--spacing); box-sizing:border-box; }
     .slide img { width:100%; border-radius:var(--radius); cursor:pointer; }
     .prev, .next {
       position:absolute; top:50%; transform:translateY(-50%);
-      background:var(--bg-alpha);border:none;width:36px;height:36px;
-      border-radius:50%;display:flex;align-items:center;justify-content:center;
+      background:var(--bg-alpha); border:none; width:36px; height:36px;
+      border-radius:50%; display:flex; align-items:center; justify-content:center;
       box-shadow:0 2px 8px rgba(0,0,0,0.2); cursor:pointer;
     }
     .prev { left:8px } .next { right:8px }
-    .prev svg, .next svg { width:18px;height:18px; fill:var(--dark-blue); }
-    .dot-container { display:flex;justify-content:center;gap:6px;margin-top:var(--spacing); }
-    .dot { width:10px;height:10px;background:var(--teal);
-      border-radius:50%;opacity:.5;cursor:pointer;transition:opacity .3s;
+    .prev svg, .next svg { width:18px; height:18px; fill:var(--dark-blue) }
+    .dot-container {
+      display:flex; justify-content:center; gap:6px; margin-top:var(--spacing);
     }
-    .dot.active { opacity:1;background:var(--dark-blue); }
+    .dot {
+      width:10px; height:10px; background:var(--teal);
+      border-radius:50%; opacity:.5; cursor:pointer;
+      transition:opacity .3s;
+    }
+    .dot.active { opacity:1; background:var(--dark-blue) }
 
     .gallery-tagline {
       opacity:0; transform:translateY(20px);
@@ -166,10 +204,51 @@
       opacity:1; transform:translateY(0);
     }
 
-    /* Family & Hosts unchanged */
+    /* 6. Family & Hosts */
+    #familySection {
+      opacity:0; transform:translateY(20px);
+      transition:opacity 1s, transform 1s;
+      padding:var(--spacing) 0;
+    }
+    #familySection.visible {
+      opacity:1; transform:translateY(0);
+    }
+    #familySection .inner-frame {
+      border:1px solid var(--gold); border-radius:calc(var(--radius)/2);
+      padding:var(--spacing); background:var(--bg-alpha);
+    }
+    .family-grid {
+      display:grid; grid-template-columns: repeat(auto-fit,minmax(120px,1fr));
+      gap:var(--spacing);
+    }
+    .family-grid .block {
+      opacity:0; transform:translateY(20px);
+      transition:opacity .6s, transform .6s;
+    }
+    #familySection.visible .block:nth-child(1) { transition-delay:.2s; opacity:1; transform:translateY(0); }
+    #familySection.visible .block:nth-child(2) { transition-delay:.4s; opacity:1; transform:translateY(0); }
+    #familySection.visible .block:nth-child(3) { transition-delay:.6s; opacity:1; transform:translateY(0); }
+    #familySection.visible .block:nth-child(4) { transition-delay:.8s; opacity:1; transform:translateY(0); }
+    .family-grid .name {
+      font-family:'Playfair Display',serif; font-weight:700; font-size:1.1rem;
+      margin-bottom:.25rem;
+    }
+    .family-grid .role {
+      font-weight:300; font-size:.9rem; color:var(--dark-blue);
+    }
+    hr.gold {
+      border:none; border-top:1px solid var(--gold); margin:var(--spacing) 0;
+    }
+    .invite-text {
+      font-weight:500; font-size:1rem; text-align:center;
+    }
+
     @media(min-width:480px) {
-      .countdown-title { font-size:2.2rem; }
-      .section-title { font-size:2rem; }
+      .play-btn { width:64px; height:64px }
+      .play-btn svg { width:30px; height:30px }
+      .countdown-title { font-size:2.2rem }
+      .section-title { font-size:2rem }
+      #familySection .section-title { font-size:2rem }
     }
   </style>
 </head>
@@ -177,39 +256,32 @@
   <header><nav class="main-nav"></nav></header>
   <main>
     <!-- 1. Hero -->
-    <section class="hero">
+    <section class="hero section-hero container">
       <img id="animatedImage" src="https://i.postimg.cc/6QGx2SKg/DSC087422-1.jpg" alt="Wedding background" />
     </section>
 
-    <!-- 2. Prompt & Audio (updated order, no border on prompt) -->
-    <section class="prompt-container container">
+    <!-- 2. Prompt & Audio -->
+    <section class="prompt-container section-prompt container">
       <div id="audioPlayer" class="audio-player">
         <audio id="audio" src="https://natiphol.github.io/mp3/No.mp3"></audio>
         <button id="playBtn" class="play-btn" aria-label="Play">
           <svg viewBox="0 0 64 64"><polygon points="16,8 56,32 16,56"/></svg>
         </button>
-        <div id="progressContainer" class="progress-container">
-          <div id="progress" class="progress"></div>
-        </div>
-        <div class="time">
-          <span id="currentTime">00:00</span> /
-          <span id="duration">00:00</span>
-        </div>
+        <div id="progressContainer" class="progress-container"><div id="progress" class="progress"></div></div>
+        <div class="time"><span id="currentTime">00:00</span> / <span id="duration">00:00</span></div>
       </div>
-      <div id="indicator" class="scroll-indicator">
-        กรุณากดเล่นเพลงก่อน แล้วเลื่อนลงดูรายละเอียด
-      </div>
+      <div id="indicator" class="scroll-indicator">กรุณากดเล่นเพลงก่อน แล้วเลื่อนลงดูรายละเอียด</div>
     </section>
 
     <!-- 3. Personal Message -->
-    <section id="messageSection" class="message container">
+    <section id="messageSection" class="message section-message container">
       <p>เราสองคนกำลังจะเริ่มต้นบทใหม่ของชีวิตและอยากให้คุณเป็นส่วนหนึ่งในความทรงจำที่สวยงามครั้งนี้</p>
       <p>Our journey begins with love, and it becomes more meaningful with your support.<br>
       Please join us as we celebrate the beginning of our forever.</p>
     </section>
 
     <!-- 4. Countdown -->
-    <section id="countdownSection" class="countdown-section container">
+    <section id="countdownSection" class="countdown-section section-countdown container">
       <div class="countdown-title">COUNTDOWN TO WEDDING</div>
       <div class="countdown">
         <div class="unit"><div class="box"><span id="days" class="number">0</span></div><div class="label">วัน</div></div>
@@ -236,7 +308,7 @@
     </section>
 
     <!-- 6. Family & Hosts -->
-    <section id="familySection" class="family-section container section-frame">
+    <section id="familySection" class="family-section section-frame container">
       <div class="section-title">Family & Hosts</div>
       <div class="inner-frame">
         <div class="family-grid">
@@ -288,7 +360,7 @@
       }, { threshold: 0.2 });
       toReveal.forEach(el => io.observe(el));
 
-      // Audio
+      // Audio controls
       const audio = document.getElementById('audio');
       const playBtn = document.getElementById('playBtn');
       const progress = document.getElementById('progress');
