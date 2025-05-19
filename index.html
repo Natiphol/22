@@ -60,7 +60,7 @@
       transform: translateY(0);
     }
 
-    /* 2. Prompt (no border) */
+    /* 2. Prompt (with small framed border) */
     .prompt-container {
       position: relative;
       overflow: hidden;
@@ -68,10 +68,11 @@
     }
     .scroll-indicator {
       display:inline-block;
-      padding:0;           /* no box around text */
-      background:none;
-      border:none;
-      font-size:1.1rem;
+      padding:0.4rem 0.8rem;                 /* smaller padding */
+      border:1px solid var(--dark-blue);     /* framed border */
+      border-radius: calc(var(--radius)/2);
+      background: var(--bg-alpha);
+      font-size:1rem;
       font-weight:500;
       color: var(--dark-blue);
       transform: translateX(-100vw);
@@ -159,13 +160,13 @@
     .box {
       background: var(--cream);
       border: 1px solid var(--teal);
-      padding:0.75rem;          /* tighter */
-      min-width:70px;           /* smaller */
+      padding:0.75rem;
+      min-width:70px;
       border-radius: var(--radius);
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
     .number {
-      font-size:2rem;           /* smaller */
+      font-size:2rem;
       font-weight:700;
       color: var(--dark-blue);
       display:inline-block;
@@ -177,7 +178,7 @@
     }
     .label {
       margin-top:0.3rem;
-      font-size:0.85rem;        /* smaller */
+      font-size:0.85rem;
       font-weight:500;
       color: var(--dark-blue);
     }
