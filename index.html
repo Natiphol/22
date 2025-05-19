@@ -432,6 +432,49 @@
   font-size: 1.2rem;
   margin-right: 0.5rem;
 }
+    /* CSS สำหรับ Section 11: gallery2up */
+.gallery2up-section {
+  padding: var(--spacing) 0;
+}
+.gallery2up-section .section-main-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  text-transform: uppercase;
+  margin-bottom: calc(var(--spacing) * 0.5);
+}
+.gallery2up-section .section-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .75rem;
+  margin-bottom: var(--spacing);
+}
+.gallery2up-section .section-header .line {
+  flex-grow: 1;
+  height: 2px;
+  background: var(--dark-blue);
+}
+.gallery2up-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing);
+}
+.gallery2up-grid a {
+  display: block;
+  overflow: hidden;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+.gallery2up-grid img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: transform .3s ease;
+}
+.gallery2up-grid a:hover img {
+  transform: scale(1.05);
+}
     
 
  </style>
@@ -548,7 +591,32 @@
     </a>
   </p>
 </section>
-
+    
+<!-- 11. Gallery คู่ละสองภาพ -->
+<section id="gallery2up" class="gallery2up-section container">
+  <h2 class="section-main-title">OUR MOMENTS</h2>
+  <div class="section-header">
+    <div class="line"></div>
+    <span class="section-label">TUCK & TAN</span>
+    <div class="line"></div>
+  </div>
+  <div class="gallery2up-grid">
+    <!-- ใส่ได้สูงสุด 10 รูป -->
+    <a href="https://i.postimg.cc/2yR20bY2/DSC08741-1.jpg" class="glightbox" data-gallery="couple">
+      <img src="https://i.postimg.cc/2yR20bY2/DSC08741-1.jpg" alt="Couple 1"/>
+    </a>
+    <a href="https://i.postimg.cc/ZRywPPGW/DSC08770.jpg" class="glightbox" data-gallery="couple">
+      <img src="https://i.postimg.cc/ZRywPPGW/DSC08770.jpg" alt="Couple 2"/>
+    </a>
+    <a href="https://i.postimg.cc/wvTDyWTX/DSC-7222-19637.jpg" class="glightbox" data-gallery="couple">
+      <img src="https://i.postimg.cc/wvTDyWTX/DSC-7222-19637.jpg" alt="Couple 3"/>
+    </a>
+    <a href="https://i.postimg.cc/SRn8VJ9j/DSC-7681-20095.jpg" class="glightbox" data-gallery="couple">
+      <img src="https://i.postimg.cc/SRn8VJ9j/DSC-7681-20095.jpg" alt="Couple 4"/>
+    </a>
+    <!-- ... เพิ่มรูปได้ต่อไปจนถึง 10 รูป ... -->
+  </div>
+</section>
 
 
 
@@ -556,9 +624,18 @@
 
   </main>
 
-  <!-- GLightbox & Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-  <script>
+<!-- GLightbox JS -->
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+
+<!-- เรียกใช้งาน Lightbox สำหรับ gallery2up -->
+<script>
+  const lightbox2up = GLightbox({
+    selector: '.glightbox[data-gallery="couple"]',
+    loop: true,
+    touchNavigation: true,
+    autoplayVideos: false
+  });
+</script>
     document.addEventListener('DOMContentLoaded', () => {
       // Hero → Prompt & Audio reveal
       const heroImg = document.getElementById('animatedImage');
