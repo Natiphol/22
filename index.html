@@ -257,7 +257,95 @@
       kenburns 25s ease-out 0.5s infinite alternate;
   }
 }
+/* Section 7: Wedding Schedule */
+.schedule-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  text-align: center;
+  color: var(--gold);
+  animation: fadeInDown 1s ease-out both;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+.schedule-divider {
+  border: none;
+  height: 2px;
+  background: var(--gold);
+  margin: 0.5rem 0 1rem;
+  animation: fadeIn 1s ease-out both;
+}
+.schedule-date,
+.schedule-date-th {
+  text-align: center;
+  font-size: 1rem;
+  margin: 0.2rem 0;
+  animation: fadeIn 1s ease-out both;
+}
+.schedule-date-th {
+  color: #555;
+}
 
+/* Grid 2 คอลัมน์ */
+.schedule-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* ไอเท็มแต่ละรายการ */
+.schedule-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  background: var(--cream);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+.schedule-item .icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 0.75rem;
+}
+.schedule-item .info {
+  display: flex;
+  flex-direction: column;
+}
+.schedule-item .time {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--dark-blue);
+}
+.schedule-item .detail {
+  font-size: 0.9rem;
+  color: #444;
+}
+
+/* อนิเมชันเล็กๆ เลื่อนขึ้น + จางเข้า */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-up {
+  opacity: 0;
+  animation: slideUp 0.6s ease-out forwards;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .schedule-grid {
+    grid-template-columns: 1fr;
+  }
+}
 
 
   </style>
@@ -335,6 +423,54 @@
 <section id="coupleSection" class="couple-section">
   <img class="couple-full animate-fancy" src="https://i.postimg.cc/2yR20bY2/DSC08741-1.jpg" alt="PANNITA & NATIPHOL">
 </section>
+
+<!-- 7. Wedding Schedule -->
+<section id="scheduleSection" class="schedule-section container">
+  <!-- หัวข้อสองบรรทัด พร้อมอนิเมชัน -->
+  <h2 class="schedule-title">WEDDING<br>SCHEDULE</h2>
+  <hr class="schedule-divider">
+  <!-- วันที่ภาษาอังกฤษ / ไทย -->
+  <p class="schedule-date">SUNDAY &nbsp; 8 June 2025</p>
+  <p class="schedule-date-th">วันอาทิตย์ &nbsp; 8 มิถุนายน 2568</p>
+  <hr class="schedule-divider">
+
+  <!-- ตารางกำหนดการ 2 คอลัมน์ -->
+  <div class="schedule-grid">
+    <!-- รายการที่ 1 -->
+    <div class="schedule-item animate-up">
+      <img src="https://i.postimg.cc/4xPQmLYH/procession-icon.png" alt="พิธีแห่ขันหมาก" class="icon">
+      <div class="info">
+        <span class="time">15.30 น.</span>
+        <span class="detail">พิธีแห่ขันหมาก</span>
+      </div>
+    </div>
+    <!-- รายการที่ 2 -->
+    <div class="schedule-item animate-up" style="animation-delay: 0.1s;">
+      <img src="https://i.postimg.cc/t4MGVhYb/ring-icon.png" alt="พิธีสวมแหวน" class="icon">
+      <div class="info">
+        <span class="time">16.09 น.</span>
+        <span class="detail">พิธีสวมแหวน</span>
+      </div>
+    </div>
+    <!-- รายการที่ 3 -->
+    <div class="schedule-item animate-up" style="animation-delay: 0.2s;">
+      <img src="https://i.postimg.cc/Vk07R9mL/water-icon.png" alt="พิธีรดน้ำสังข์" class="icon">
+      <div class="info">
+        <span class="time">17.29 น.</span>
+        <span class="detail">พิธีรดน้ำสังข์</span>
+      </div>
+    </div>
+    <!-- รายการที่ 4 -->
+    <div class="schedule-item animate-up" style="animation-delay: 0.3s;">
+      <img src="https://i.postimg.cc/fRkKHcKs/party-icon.png" alt="งานเลี้ยงฉลองมงคลสมรส" class="icon">
+      <div class="info">
+        <span class="time">18.30 น.</span>
+        <span class="detail">งานเลี้ยงฉลองมงคลสมรส</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 
 
