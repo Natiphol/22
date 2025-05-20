@@ -993,26 +993,42 @@
       }, { threshold: 0.1 }).observe(heroImg);
 
       // Reveal other sections
-      const toReveal = [
-        document.getElementById('messageSection'),
-        document.getElementById('countdownSection'),
-        document.getElementById('momentSection'),
-        document.getElementById('coupleSection'),
-        document.getElementById('scheduleSection'),
-        document.getElementById('themeSection'),
-        document.getElementById('mapSection'),
-        document.querySelector('.location-info')
-      ];
-      const io = new IntersectionObserver((entries, obs) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add('visible');
-            obs.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.2 });
-      toReveal.forEach(el => io.observe(el));
+        const toReveal = [
+    document.getElementById('messageSection'),
+    document.getElementById('countdownSection'),
+    document.getElementById('momentSection'),
+    document.getElementById('coupleSection'),
+    document.getElementById('scheduleSection'),
+    document.getElementById('themeSection'),
+    document.getElementById('mapSection')
+  ];
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  toReveal.forEach(el => el && io.observe(el));
 
+  // 2. Observer แยก สำหรับ .location-info
+  const loc = document.querySelector('.location-info');
+  if (loc) {
+    const ioLoc = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0,                   // เจอแม้เพียงจุดเล็กๆ ก็ยิง
+      rootMargin: '0px 0px -20% 0px'   // เลื่อนขอบล่างขึ้น 20% ให้ยิงเร็วกว่าปกติ
+    });
+    ioLoc.observe(loc);
+  }
+});
 
       // Schedule items observer
       const scheduleItems = document.querySelectorAll('.schedule-item');
