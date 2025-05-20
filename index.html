@@ -867,6 +867,27 @@
 .btn-copy:active {
   transform: translateY(0);
 }
+.gift-qr {
+  text-align: center;
+  margin: var(--spacing) 0;
+}
+
+.gift-qr img {
+  max-width: 200px;
+  border-radius: var(--radius);
+  background: #fff;
+  
+  /* กรอบทอง */
+  border: 4px solid #D4AF37;
+  
+  /* เงาเบา ๆ ให้ลอยขึ้น */
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.2),
+    0 0 0 4px rgba(212, 175, 55, 0.3);
+  
+  /* padding ด้านในกรอบ */
+  padding: 8px;
+}
     }
   </style>
 </head>
@@ -1060,10 +1081,10 @@
   </p>
   <hr class="divider">
 
-  <div class="gift-qr">
-    <p>📷 สแกน QR Code เพื่อโอนเลย</p>
-    <img src="https://i.postimg.cc/x8QDYkRm/23420.jpg" alt="QR Code for Wedding Gift">
-  </div>
+<div class="gift-qr">
+  <p>📷 สแกน QR Code เพื่อโอนเลย</p>
+  <img src="https://i.postimg.cc/x8QDYkRm/23420.jpg" alt="QR Code for Wedding Gift">
+</div>
 
   <div class="bank-info">
     <p>💳 <strong>ธนาคารกสิกรไทย</strong><br>
